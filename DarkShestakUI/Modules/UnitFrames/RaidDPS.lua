@@ -191,7 +191,7 @@ local function Shared(self, unit)
 	end
 
 	if unit == "party" and (not (self:GetAttribute("unitsuffix") == "target")) and (not (self:GetAttribute("unitsuffix") == "pet")) then
-		self.Debuffs = CreateFrame("Frame", nil, self)
+		self.Debuffs = CreateFrame("Frame", self:GetName().."Debuffs", self)
 		self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -11)
 		self.Debuffs:SetHeight(18)
 		self.Debuffs:SetWidth(144)
@@ -216,31 +216,24 @@ local function Shared(self, unit)
 
 	-- Incoming heal text/bar
 	if C.raidframe.plugins_healcomm == true then
-		local mhpb = CreateFrame("StatusBar", nil, self.Health)
-		mhpb:SetPoint("TOPLEFT", self.Health:GetStatusBarTexture(), "TOPRIGHT", 0, 0)
-		mhpb:SetPoint("BOTTOMLEFT", self.Health:GetStatusBarTexture(), "BOTTOMRIGHT", 0, 0)
-		if unit == "party" then
-			mhpb:SetWidth(party_width)
-		elseif unit == "raid" then
-			mhpb:SetWidth(unit_width)
-		else
-			mhpb:SetWidth(partytarget_width)
-		end
-		mhpb:SetStatusBarTexture(C.media.texture)
-		mhpb:SetStatusBarColor(0, 1, 0.5, 0.2)
-		mhpb:SetFrameLevel(self.Health:GetFrameLevel())
+		local mhpb = self.Health:CreateTexture(nil, "ARTWORK")
+		mhpb:SetTexture(C.media.texture)
+		mhpb:SetVertexColor(0, 1, 0.5, 0.2)
 
-		local ohpb = CreateFrame("StatusBar", nil, self.Health)
-		ohpb:SetPoint("TOPLEFT", mhpb:GetStatusBarTexture(), "TOPRIGHT", 0, 0)
-		ohpb:SetPoint("BOTTOMLEFT", mhpb:GetStatusBarTexture(), "BOTTOMRIGHT", 0, 0)
-		ohpb:SetWidth(mhpb:GetWidth())
-		ohpb:SetStatusBarTexture(C.media.texture)
-		ohpb:SetStatusBarColor(0, 1, 0, 0.2)
-		ohpb:SetFrameLevel(self.Health:GetFrameLevel())
+		local ohpb = self.Health:CreateTexture(nil, "ARTWORK")
+		ohpb:SetTexture(C.media.texture)
+		ohpb:SetVertexColor(0, 1, 0, 0.2)
+
+		local ahpb = self.Health:CreateTexture(nil, "ARTWORK")
+		ahpb:SetTexture(C.media.texture)
+		ahpb:SetVertexColor(1, 1, 0, 0.2)
 
 		self.HealPrediction = {
 			myBar = mhpb,
 			otherBar = ohpb,
+			absorbBar = ahpb,
+			maxOverflow = 1,
+			frequentUpdates = true
 		}
 	end
 

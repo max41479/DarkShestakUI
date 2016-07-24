@@ -90,11 +90,11 @@ L_MISC_SCROLL = "Rolle"
 L_RAID_UTIL_DISBAND = "Gruppe auflösen"
 
 -- Zone name
-L_ZONE_WINTERGRASP = "Tausendwintersee"
 L_ZONE_TOLBARAD = "Tol Barad"
 L_ZONE_TOLBARADPEN = "Halbinsel von Tol Barad"
 L_ZONE_ARATHIBASIN = "Arathibecken"
 L_ZONE_GILNEAS = "Die Schlacht um Gilneas"
+L_ZONE_ANCIENTDALARAN = "Dalarankrater"
 
 -- WatchFrame Wowhead link
 L_WATCH_WOWHEAD_LINK = "Wowhead Link"
@@ -152,6 +152,8 @@ L_ERRORFRAME_L = "Klick um Fehler anzuzeigen."
 -- Bags
 L_BAG_SHOW_BAGS = "Zeige Taschen"
 L_BAG_RIGHT_CLICK_SEARCH = "Rechtsklick um zu suchen"
+L_BAG_STACK_MENU = "Stapeln"
+L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
 
 -- Grab mail
 L_MAIL_STOPPED = "Angehalten, Inventar ist voll."
@@ -177,6 +179,9 @@ L_PANELS_AFK_LCLICK = "Links-Klick um zurück zu gehen."
 
 -- Cooldowns
 L_COOLDOWNS = "Abklingzeit: "
+L_COOLDOWNS_COMBATRESS = "CombatRess" -- Needs review
+L_COOLDOWNS_COMBATRESS_REMAINDER = "Combat resurrect: " -- Needs review
+L_COOLDOWNS_NEXTTIME = "Next time: " -- Needs review
 
 -- Autoinvite
 L_INVITE_ENABLE = "Autoinvite AN: "
@@ -269,6 +274,7 @@ L_STATS_BANDWIDTH = "Bandbreite:"
 L_STATS_DOWNLOAD = "Download:"
 L_STATS_CLEARED_JUNK = "Junk-Ausnahmeliste gelöscht."
 L_STATS_CLEAR_EXCEPTIONS = "Ausnahmenliste löschen."
+L_STATS_CURRENCY_RAID = "Raid Seals" -- Needs review
 L_STATS_WORLD_MAP = "Klicken, zum Öffnen der World-Map."
 L_STATS_CURRENT_XP = "Aktuell/Max XP"
 L_STATS_MEMORY_USAGE = "Blizzard UI Speicher Auslastung:"
@@ -279,7 +285,6 @@ L_STATS_VIEW_NOTES = "Halte die Alt-Taste gedrückt, zum Anzeigen der Ränge, No
 L_STATS_HR = "std"
 L_STATS_INF = "unend"
 L_STATS_ALREADY_EXCEPTIONS = "ist bereits in der Ausnahmeliste."
-L_STATS_NOT_JUNK = "ist kein Junk."
 L_STATS_ITEMLINK = "itemlink"
 L_STATS_JUNK_EXCEPTIONS = "Junk-Ausnahmen"
 L_STATS_JUNK_LIST = "Junk-Liste"
@@ -323,6 +328,7 @@ L_STATS_WATCH_CURRENCY = "Bereits gesehene Gegenstände aus dem Abzeichen-Fenste
 L_STATS_WATCH_FACTIONS = "Überwache Fraktionen aus dem Ruffenster."
 L_STATS_TOOLTIP_TIME_PLAYED = "Wenn das max. Level erreicht ist, wird das Tooltip die gespielte Zeit für den Account anzeigen."
 L_STATS_TOOLTIP_EXPERIENCE = "Wenn unter dem max. Level, wird ein Tooltip mit weiteren Details angezeigt."
+L_STATS_SEALS = "Seals this week" -- Needs review
 
 -- Slash commands
 L_SLASHCMD_HELP = {
@@ -451,6 +457,6 @@ L_EXTRA_ZONEACHID = {
 	["Tal der Ewigen Blüten"]			= {X = 6979, A =    0, H =    0},
 	-- Boolean Explores
 	["Insel von Quel'Danas"]			= {X =  868, A =    0, H =    0},
-	["Ahn'Qiraj: Das Gefallene Königreich"] = {X =    0, A =    0, H =    0},
+	["Ahn'Qiraj: Das Gefallene Königreich"] = {X = 0, A =    0, H =    0},
 	["Tausendwintersee"]				= {X =    0, A =    0, H =    0},
 }

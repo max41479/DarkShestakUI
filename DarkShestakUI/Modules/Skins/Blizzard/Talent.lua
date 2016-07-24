@@ -6,20 +6,14 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
 	local buttons = {
-		"PlayerTalentFrameTalentsLearnButton",
-		"PlayerTalentFrameActivateButton",
 		"PlayerTalentFramePetSpecializationLearnButton",
 		"PlayerTalentFrameSpecializationLearnButton"
 	}
 
-	for i = 1, #buttons do
-		_G[buttons[i]]:SkinButton()
-		_G[buttons[i]].overlay:SetVertexColor(0.3, 0.3, 0.3, 0.3)
-		_G[buttons[i]]:SetScript("OnLeave", function(self)
-			_G[buttons[i]]:SetBackdropBorderColor(unpack(C.media.border_color))
-			_G[buttons[i]].overlay:SetVertexColor(0.3, 0.3, 0.3, 0.3)
-		end)
+	for _, button in pairs(buttons) do
+		_G[button]:SkinButton(true)
 	end
+	PlayerTalentFrameActivateButton:SkinButton()
 
 	PlayerTalentFrameTalentsTutorialButton.Ring:Hide()
 	PlayerTalentFrameTalentsTutorialButton:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
@@ -49,16 +43,16 @@ local function LoadSkin()
 		select(i, PlayerTalentFrameSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
 	end
 
-	PlayerTalentFrameTalentsClearInfoFrame:SetTemplate("Default")
+	--BETA PlayerTalentFrameTalentsClearInfoFrame:SetTemplate("Default")
 
-	PlayerTalentFrameTalentsClearInfoFrameIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	PlayerTalentFrameTalentsClearInfoFrameIcon:SetPoint("TOPLEFT", 2, -2)
-	PlayerTalentFrameTalentsClearInfoFrameIcon:SetPoint("BOTTOMRIGHT", -2, 2)
+	-- PlayerTalentFrameTalentsClearInfoFrameIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	-- PlayerTalentFrameTalentsClearInfoFrameIcon:SetPoint("TOPLEFT", 2, -2)
+	-- PlayerTalentFrameTalentsClearInfoFrameIcon:SetPoint("BOTTOMRIGHT", -2, 2)
 
-	PlayerTalentFrameTalentsClearInfoFrameCount:SetFont(C.media.normal_font, 11, "OUTLINE")
-	PlayerTalentFrameTalentsClearInfoFrameCount:SetPoint("BOTTOMRIGHT", 2, 0)
+	-- PlayerTalentFrameTalentsClearInfoFrameCount:SetFont(C.media.normal_font, 11, "OUTLINE")
+	-- PlayerTalentFrameTalentsClearInfoFrameCount:SetPoint("BOTTOMRIGHT", 2, 0)
 
-	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.Seperator:SetTexture(1, 1, 1)
+	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.Seperator:SetColorTexture(1, 1, 1)
 	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.Seperator:SetAlpha(0.2)
 
 	if T.class == "HUNTER" then
@@ -72,7 +66,7 @@ local function LoadSkin()
 			select(i, PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
 		end
 
-		PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.Seperator:SetTexture(1, 1, 1)
+		PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.Seperator:SetColorTexture(1, 1, 1)
 		PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.Seperator:SetAlpha(0.2)
 
 		for i = 1, GetNumSpecializations(false, true) do
@@ -175,7 +169,12 @@ local function LoadSkin()
 			_G["PlayerTalentFrameSpecializationSpecButton"..i.."Glow"]:Hide()
 			_G["PlayerTalentFrameSpecializationSpecButton"..i.."Glow"].Show = T.dummy
 
-			bu:SetHighlightTexture("")
+			local hover = bu:CreateTexture(nil, nil, self)
+			hover:SetColorTexture(1, 1, 1, 0.3)
+			bu:SetHighlightTexture(hover)
+			bu:GetHighlightTexture():SetPoint("TOPLEFT", 10, 0)
+			bu:GetHighlightTexture():SetPoint("BOTTOMRIGHT", 8, 0)
+
 			bu.bg:SetAlpha(0)
 			bu.learnedTex:SetAlpha(0)
 			bu.selectedTex:SetAlpha(0)
@@ -198,6 +197,7 @@ local function LoadSkin()
 
 		row.TopLine:SetAlpha(0)
 		row.BottomLine:SetAlpha(0)
+		row.GlowFrame:SetAlpha(0)
 
 		for j = 1, NUM_TALENT_COLUMNS do
 			local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
@@ -224,7 +224,8 @@ local function LoadSkin()
 		for i = 1, MAX_TALENT_TIERS do
 			for j = 1, NUM_TALENT_COLUMNS do
 				local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
-				if bu.knownSelection:IsShown() then
+				local selected = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j.."Selection"]
+				if selected:IsShown() then
 					bu.backdrop:SetBackdropBorderColor(unpack(C.skins.color_theme))
 					bu.bg.backdrop:SetBackdropBorderColor(unpack(C.skins.color_theme))
 					bu.bg.backdrop.overlay:SetVertexColor(C.skins.color_theme[1], C.skins.color_theme[2], C.skins.color_theme[3], 0.3)
@@ -232,11 +233,6 @@ local function LoadSkin()
 					bu.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
 					bu.bg.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
 					bu.bg.backdrop.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
-				end
-				if bu.learnSelection:IsShown() then
-					bu.backdrop:SetBackdropBorderColor(unpack(C.skins.color_theme))
-					bu.bg.backdrop:SetBackdropBorderColor(unpack(C.skins.color_theme))
-					bu.bg.backdrop.overlay:SetVertexColor(C.skins.color_theme[1], C.skins.color_theme[2], C.skins.color_theme[3], 0.3)
 				end
 			end
 		end
@@ -262,6 +258,12 @@ local function LoadSkin()
 		PlayerSpecTab1:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPRIGHT", 1, 0)
 		PlayerSpecTab2:SetPoint("TOP", PlayerSpecTab1, "BOTTOM")
 	end)
+
+	-- PVPTalents
+	PlayerTalentFramePVPTalents.XPBar.PrestigeReward.Accept:SkinButton()
+
+	PlayerTalentFramePVPTalentsBg:Hide()
+	PlayerTalentFramePVPTalents.Talents:DisableDrawLayer("BORDER")
 end
 
 T.SkinFuncs["Blizzard_TalentUI"] = LoadSkin

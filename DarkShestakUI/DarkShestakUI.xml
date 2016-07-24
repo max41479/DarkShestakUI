@@ -37,6 +37,7 @@
 	<Script file="Config\Filters\Cooldowns.lua"/>
 	<Script file="Config\Filters\Diminishing.lua"/>
 	<Script file="Config\Filters\Errors.lua"/>
+	<Script file="Config\Filters\FilgerSpells.lua"/>
 	<Script file="Config\Filters\Nameplates.lua"/>
 	<Script file="Config\Filters\NeedItems.lua"/>
 	<Script file="Config\Filters\OpenItems.lua"/>
@@ -64,12 +65,12 @@
 	<Script file="Modules\Misc\ArmoryLink.lua"/>
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
-	<Script file="Modules\Misc\GemCounter.lua"/>
+	<Script file="Modules\Misc\Filger.lua"/>
 	<Script file="Modules\Misc\GuildFinderSort.lua"/>
-	<Script file="Modules\Misc\HealerIconNameplate.lua"/>
 	<Script file="Modules\Misc\LFGQueueTimer.lua"/>
 	<Script file="Modules\Misc\MagePortals.lua"/>
 	<Script file="Modules\Misc\Merchant.lua"/>
+	<Script file="Modules\Misc\MerchantItemlevel.lua"/>
 	<Script file="Modules\Misc\Misc.lua"/>
 	<Script file="Modules\Misc\Mounts.lua"/>
 	<Script file="Modules\Misc\MouseoverMarking.lua"/>
@@ -80,7 +81,7 @@
 	<Script file="Modules\Misc\ProfessionTabs.lua"/>
 	<Script file="Modules\Misc\PvPQueueTimer.lua"/>
 	<Script file="Modules\Misc\RaidUtility.lua"/>
-	<Script file="Modules\Misc\SlotItemLevel.lua"/>
+	<!-- <Script file="Modules\Misc\SlotItemLevel.lua"/> -->
 	<Script file="Modules\Misc\SumAucBuyouts.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
 	<Script file="Modules\Misc\TrainAll.lua"/>
@@ -114,7 +115,7 @@
 	<Script file="Modules\Announcements\SayThanks.lua"/>
 	<Script file="Modules\Announcements\Spells.lua"/>
 
-	<Script file="Modules\Automation\AutoChefsHat.lua"/>
+	<!-- <Script file="Modules\Automation\AutoChefsHat.lua"/> -->
 	<Script file="Modules\Automation\AutoInvite.lua"/>
 	<Script file="Modules\Automation\AutoOpens.lua"/>
 	<Script file="Modules\Automation\AutoRelease.lua"/>
@@ -129,7 +130,7 @@
 	<Script file="Modules\Automation\SolveArtifact.lua"/>
 	<Script file="Modules\Automation\TabBinder.lua"/>
 
-	<Script file="Modules\Blizzard\Achievements.lua"/>
+	<!-- <Script file="Modules\Blizzard\AlertFrames.lua"/> -->
 	<Script file="Modules\Blizzard\AltPowerBar.lua"/>
 	<Script file="Modules\Blizzard\Bags.lua"/>
 	<Script file="Modules\Blizzard\CaptureBar.lua"/>
@@ -144,17 +145,17 @@
 	<Script file="Modules\Blizzard\Mail.lua"/>
 	<Script file="Modules\Blizzard\MirrorBars.lua"/>
 	<Script file="Modules\Blizzard\MoveBlizzFrames.lua"/>
-	<Script file="Modules\Blizzard\Nameplates.lua"/>
+	<!-- <Script file="Modules\Blizzard\Nameplates.lua"/> -->
 	<Script file="Modules\Blizzard\PetBattle.lua"/>
 	<Script file="Modules\Blizzard\ShiftMark.lua"/>
+	<Script file="Modules\Blizzard\TalkingHead.lua"/>
 	<Script file="Modules\Blizzard\TimerTracker.lua"/>
 	<Script file="Modules\Blizzard\Vehicle.lua"/>
 
 	<Script file="Modules\Buffs\AuraSource.lua"/>
 	<Script file="Modules\Buffs\BuffFrame.lua"/>
-	<Script file="Modules\Buffs\ConsolidatedBuffs.lua"/>
 	<Script file="Modules\Buffs\SelfBuffsReminder.lua"/>
-	<Script file="Modules\Buffs\RaidBuffsReminder.lua"/>
+	<!-- <Script file="Modules\Buffs\RaidBuffsReminder.lua"/> -->
 
 	<Script file="Modules\Chat\ChatFrames.lua"/>
 	<Script file="Modules\Chat\ChatTabs.lua"/>

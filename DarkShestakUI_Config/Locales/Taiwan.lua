@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "zhTW" then return end
+if GetLocale() ~= "zhTW" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for zhTW client
@@ -27,7 +27,6 @@ L_GUI_MISC_RAID_TOOLS = "團隊工具"
 L_GUI_MISC_PROFESSION_TABS = "專業/商業框架顯示專業技能按鈕"
 L_GUI_MISC_HIDE_BG_SPAM = "戰場内移除Boss表情信息"
 L_GUI_MISC_ITEM_LEVEL = "人物介面顯示裝備的物品等級"
-L_GUI_MISC_GEM_COUNTER = "人物介面顯示已鑲嵌的珠寶數量"
 L_GUI_MISC_ALREADY_KNOWN = "彩色顯示已學會的食譜/坐騎/寵物"
 L_GUI_MISC_DISENCHANTING = "快捷研磨/選礦/分解(Alt+左鍵)"
 L_GUI_MISC_SUM_BUYOUTS = "結算拍賣物品的總金額"
@@ -39,6 +38,8 @@ L_GUI_MISC_ENCHANTMENT_SCROLL = "附魔介面顯示附魔卷軸數量"
 L_GUI_MISC_ARCHAEOLOGY = "提示考古學文物辨識及冷卻"
 L_GUI_MISC_CHARS_CURRENCY = "追蹤所有角色金錢信息"
 L_GUI_MISC_ARMORY_LINK = "頭像菜單增加英雄榜鏈接"
+L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in merchant" -- Need review
+L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button" -- Need review
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "通告提醒"
@@ -60,7 +61,7 @@ L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "檢查'狩旅團之帽'使用情況"
 
 -- Automation options
 L_GUI_AUTOMATION = "自動設定"
-L_GUI_AUTOMATION_RESURRECTION = "戰場中自動釋放靈魂"
+L_GUI_AUTOMATION_RELEASE = "戰場中自動釋放靈魂" -- Need review
 L_GUI_AUTOMATION_SCREENSHOT = "獲得成就時自動截屏"
 L_GUI_AUTOMATION_SOLVE_ARTIFACT = "自動彈出幫助框架"
 L_GUI_AUTOMATION_CHEFS_HAT = "自動裝備'大廚的帽子'"
@@ -68,6 +69,7 @@ L_GUI_AUTOMATION_ACCEPT_INVITE = "自動接受組隊邀請"
 L_GUI_AUTOMATION_DECLINE_DUEL = "自動取消决鬥"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "自動接受任務"
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "副本中自動關閉任務追蹤框架"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Auto collapse ObjectiveTrackerFrame after reload" -- Need review
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "自動跳過過場動畫"
 L_GUI_AUTOMATION_AUTO_ROLE = "自動設定角色類型"
 L_GUI_AUTOMATION_CANCEL_BAD_BUFFS = "自動取消非增益性質的Buff"
@@ -76,6 +78,7 @@ L_GUI_AUTOMATION_LOGGING_COMBAT = "團隊副本時自動開啟戰鬥記錄"
 L_GUI_AUTOMATION_CURRENCY_CAP = "自動彈出貨幣提示框"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "使用滑鼠滾輪施放Buff"
 L_GUI_AUTOMATION_OPEN_ITEMS = "自動打開背包中的封裝物品"
+L_GUI_AUTOMATION_BANNER_HIDE = "Auto hiding Boss Banner Loot Frame" -- Need review
 
 -- Skins options
 L_GUI_SKINS = "介面樣式增強"
@@ -141,6 +144,7 @@ L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
 L_GUI_COMBATTEXT_DIRECTION = "滾動方向('top'(向上) or 'bottom'(向下))"
+L_GUI_COMBATTEXT_SHORT_NUMBERS = "Use short numbers ('25.3k' instead of '25342')" -- Need review
 
 -- Buffs reminder options
 L_GUI_REMINDER = "Buff提示"
@@ -159,7 +163,7 @@ L_GUI_COOLDOWN_RAID_HEIGHT = "團隊技能冷卻框架高度"
 L_GUI_COOLDOWN_RAID_WIDTH = "團隊技能冷卻框架寬度"
 L_GUI_COOLDOWN_RAID_SORT = "團隊技能冷卻向上延伸"
 L_GUI_COOLDOWN_RAID_EXPIRATION = "按冷卻時間排序"
-L_GUI_COOLDOWN_RAID_SHOW_MY = "自身團隊技能"
+L_GUI_COOLDOWN_RAID_SHOW_SELF = "自身團隊技能"
 L_GUI_COOLDOWN_RAID_ICONS = "團隊技能冷卻圖示"
 L_GUI_COOLDOWN_RAID_IN_RAID = "團隊中顯示團隊技能冷卻"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "隊伍中顯示團隊技能冷卻"
@@ -203,7 +207,8 @@ L_GUI_TOOLTIP_HIDE_COMBAT = "戰鬥中隱藏提示資訊"
 L_GUI_TOOLTIP_TALENTS = "天賦"
 L_GUI_TOOLTIP_ACHIEVEMENTS = "成就比較"
 L_GUI_TOOLTIP_TARGET = "目標的目標"
-L_GUI_TOOLTIP_TITLE = "目標頭銜"
+L_GUI_TOOLTIP_TITLE = "Player title in tooltip" -- Need review
+L_GUI_TOOLTIP_REALM = "Player realm name in tooltip" -- Need review
 L_GUI_TOOLTIP_RANK = "公會階級"
 L_GUI_TOOLTIP_ARENA_EXPERIENCE = "競技場等級"
 L_GUI_TOOLTIP_SPELL_ID = "法術ID"
@@ -237,6 +242,7 @@ L_GUI_CHAT_TOOL_BAR_MOUSEOVER =  "Lite Button Bar on mouseover" -- Needs review
 -- Bag options
 L_GUI_BAGS = "背包"
 L_GUI_BAGS_ENABLE = "開啟背包增強"
+L_GUI_BAGS_ILVL = "Show item level for weapons and armor" -- Need review
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子間隔"
 L_GUI_BAGS_BANK = "銀行每行格數"
@@ -245,6 +251,7 @@ L_GUI_BAGS_BAG = "背包每行格數"
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "開啟迷你地圖增強"
 L_GUI_MINIMAP_ICON = "追蹤菜單"
+L_GUI_GARRISON_ICON = "Garrison icon" -- Need review
 L_GUI_MINIMAP_SIZE = "迷你地圖大小"
 L_GUI_MINIMAP_HIDE_COMBAT = "戰鬥中隱藏迷你地圖"
 L_GUI_MINIMAP_TOGGLE_MENU = "小地圖頂部快捷菜單"
@@ -321,12 +328,24 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "目標只顯示自身施放的DeBuff"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "DeBuff按法術類型著色"
 L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 
+-- Filger
+L_GUI_FILGER = "Filger"
+L_GUI_FILGER_ENABLE = "Enable Filger" -- Need review
+L_GUI_FILGER_TEST_MODE = "Test icon mode" -- Need review
+L_GUI_FILGER_MAX_TEST_ICON = "The number of icons to the test" -- Need review
+L_GUI_FILGER_SHOW_TOOLTIP = "Show tooltip" -- Need review
+L_GUI_FILGER_DISABLE_CD = "Disable cooldowns" -- Need review
+L_GUI_FILGER_BUFFS_SIZE = "Buffs size" -- Need review
+L_GUI_FILGER_COOLDOWN_SIZE = "Cooldowns size" -- Need review
+L_GUI_FILGER_PVP_SIZE = "PvP debuffs size" -- Need review
+
 -- Unit Frames options
 L_GUI_UF_ENABLE = "開啟單位框架增強"
 L_GUI_UF_UF_COLOR = "生命條顏色(如果啟用‘自定義顏色’)"
 L_GUI_UF_TOTAL_VALUE = "玩家/目標框架顯示詳細的文字變化"
 L_GUI_UF_COLOR_VALUE = "生命值/魔法值按職業著色"
 L_GUI_UF_BAR_COLOR_VALUE = "生命值按剩餘血量著色"
+L_GUI_UF_LINES = "Show Player and Target lines" -- Need review
 L_GUI_UF_UNIT_CASTBAR = "施法條"
 L_GUI_UF_CASTBAR_ICON = "施法條圖示"
 L_GUI_UF_CASTBAR_LATENCY = "施法延遲"
@@ -338,6 +357,8 @@ L_GUI_UF_SHOW_BOSS = "Boss框架"
 L_GUI_UF_BOSS_RIGHT = "右側顯示Boss框架"
 L_GUI_UF_SHOW_ARENA = "競技場框架"
 L_GUI_UF_ARENA_RIGHT = "右側顯示競技場框架"
+L_GUI_UF_BOSS_DEBUFFS = "Number of debuffs on the boss frames" -- Need review
+L_GUI_UF_BOSS_BUFFS = "Number of buffs on the boss frames" -- Need review
 L_GUI_UF_ICONS_PVP = "滑鼠懸停玩家/目標時,顯示PvP狀態"
 L_GUI_UF_ICONS_COMBAT = "戰鬥標記"
 L_GUI_UF_ICONS_RESTING = "休息標記"
@@ -348,7 +369,7 @@ L_GUI_UF_PLUGINS_REPUTATION_BAR = "聲望條"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "經驗條"
 L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "友誼條"
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "平滑條"
-L_GUI_UF_PLUGINS_TALENTS = "敵對玩家天賦"
+L_GUI_UF_PLUGINS_ENEMY_SPEC = "敵對玩家天賦"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "玩家/目標框架顯示戰鬥文字"
 L_GUI_UF_PLUGINS_FADER = "自動隱藏玩家框架"
 L_GUI_UF_PLUGINS_DIMINISHING = "競技場框架顯示技能遞減"
@@ -356,10 +377,11 @@ L_GUI_UF_PLUGINS_DIMINISHING = "競技場框架顯示技能遞減"
 -- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "職業欄"
 L_GUI_UF_PLUGINS_COMBO_BAR = "連擊點"
-L_GUI_UF_PLUGINS_SHADOW_BAR = "暗影寶珠"
+L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS = "Always show Combo bar for Druid" -- Need review
+L_GUI_UF_PLUGINS_COMBO_BAR_OLD = "Show combo point on the target" -- Need review
+L_GUI_UF_PLUGINS_ARCANE_BAR = "Enable Arcane Charge bar" -- Need review
 L_GUI_UF_PLUGINS_CHI_BAR = "真氣"
-L_GUI_UF_PLUGINS_VENGEANCE_BAR = "復仇"
-L_GUI_UF_PLUGINS_ECLIPSE_BAR = "日蝕/月蝕"
+L_GUI_UF_PLUGINS_STAGGER_BAR = "Enable Stagger bar (for Monk Tanks)" -- Need review
 L_GUI_UF_PLUGINS_HOLY_BAR = "聖光能量"
 L_GUI_UF_PLUGINS_SHARD_BAR = "靈魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
@@ -389,6 +411,7 @@ L_GUI_UF_ICONS_READY_CHECK = "就緒確認標記"
 L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "高亮DeBuff圖示"
 L_GUI_UF_PLUGINS_AURA_WATCH = "團隊法術監視"
 L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "團隊減益時間"
+L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Show also PvP debuff icons (from the list)" -- Need review
 L_GUI_UF_PLUGINS_HEALCOMM = "即將受到的治療"
 L_GUI_UF_PLUGINS_AUTO_RESURRECTION = "滑鼠中鍵點擊已死亡的角色時,自動施放復活技能(Clique啟用時無效)"
 
@@ -409,6 +432,12 @@ L_GUI_STATS_FPS = "幀數"
 L_GUI_STATS_EXPERIENCE = "經驗"
 L_GUI_STATS_COORDS = "座標"
 L_GUI_STATS_LOCATION = "位置"
+L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Show Archaeology Fragments under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_COOKING = "Show Cooking Awards under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_PROFESSIONS = "Show Profession Tokens under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_RAID = "Show Raid Seals under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_PVP = "Show PvP Currency under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Show Miscellaneous Currency under currency tab" -- Needs review
 
 -- Error options
 L_GUI_ERROR = "錯誤收集"

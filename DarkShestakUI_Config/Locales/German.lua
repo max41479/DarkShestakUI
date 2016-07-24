@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "deDE" then return end
+if GetLocale() ~= "deDE" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for deDE client
@@ -27,7 +27,6 @@ L_GUI_MISC_RAID_TOOLS = "Raid Hilfsmittel"
 L_GUI_MISC_PROFESSION_TABS = "Berufereiter an Handelsfähigkeiten und Handelsfenstern anzeigen"
 L_GUI_MISC_HIDE_BG_SPAM = "In Schlachtfeldern Bossemotes im Chat unterbinden"
 L_GUI_MISC_ITEM_LEVEL = "Item level im Karakterfenster auf Items anzeigen"
-L_GUI_MISC_GEM_COUNTER = "Anzeigen wieviele rote/blaue/gelbe Edelsteine man hat"
 L_GUI_MISC_ALREADY_KNOWN = "Bekannte Rezepte/Reittiere/Begleiter farblich hervorheben"
 L_GUI_MISC_DISENCHANTING = "Sondieren, Mahlen and Entzaubern mit einem Klick"
 L_GUI_MISC_SUM_BUYOUTS = "Alle Auktionen aufsummieren"
@@ -38,7 +37,9 @@ L_GUI_MISC_COLOR_PICKER = "Verbesserte Farbauswahl"
 L_GUI_MISC_ENCHANTMENT_SCROLL = "Verzauberung auf Rolle im Beruffenster"
 L_GUI_MISC_ARCHAEOLOGY = "Archäologie Artifakte und Abklingzeit"
 L_GUI_MISC_CHARS_CURRENCY = "Zeige deine Währungstoken über diverse Karaktere"
-L_GUI_MISC_ARMORY_LINK = "Add Armory link in UnitPopupMenus (It breaks UnitPopupMenus)" -- Needs review
+L_GUI_MISC_ARMORY_LINK = "Add Armory link in UnitPopupMenus (It breaks set focus)" -- Needs review
+L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in merchant" -- Need review
+L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button" -- Need review
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "Benachrichtigeungen"
@@ -60,7 +61,7 @@ L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "Check Safari Hat" -- Needs review
 
 -- Automation options
 L_GUI_AUTOMATION = "Automatisierung"
-L_GUI_AUTOMATION_RESURRECTION = "Automatisch im Schlachtfeld wiederbeleben"
+L_GUI_AUTOMATION_RELEASE = "Automatisch im Schlachtfeld wiederbeleben" -- Need review
 L_GUI_AUTOMATION_SCREENSHOT = "Speicher einen Screenshot wenn ein Achivment errungen wird"
 L_GUI_AUTOMATION_SOLVE_ARTIFACT = "Auto Popup für gelöste Artefakte"
 L_GUI_AUTOMATION_CHEFS_HAT = "Automatisch Kochmütze anlegen"
@@ -68,6 +69,7 @@ L_GUI_AUTOMATION_ACCEPT_INVITE = "Einladungen automatisch annehmen"
 L_GUI_AUTOMATION_DECLINE_DUEL = "Duell automatisch ablehnen"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "Quests automatisch annehmen"
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "WatchFrame Automatisch in Instanzen reduzuieren"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Auto collapse ObjectiveTrackerFrame after reload" -- Need review
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "Auto Cinematics/Filme überspringen"
 L_GUI_AUTOMATION_AUTO_ROLE = "Automatisch die eigene Rolle wählen"
 L_GUI_AUTOMATION_CANCEL_BAD_BUFFS = "Automatisch einige Buffs abbrechen"
@@ -76,6 +78,7 @@ L_GUI_AUTOMATION_LOGGING_COMBAT = "Automatisch Kampflog in Raids als Textdatei m
 L_GUI_AUTOMATION_CURRENCY_CAP = "Auto Popup beim Marken Limit"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "Wirke Stärkungszauber mit Mausrad"
 L_GUI_AUTOMATION_OPEN_ITEMS = "Auto opening of items in bag" -- Needs review
+L_GUI_AUTOMATION_BANNER_HIDE = "Auto hiding Boss Banner Loot Frame" -- Need review
 
 -- Skins options
 L_GUI_SKINS = "Stilisierung"
@@ -141,6 +144,7 @@ L_GUI_COMBATTEXT_MERGE_MELEE = "Merges multiple auto attack damage spam" -- Need
 L_GUI_COMBATTEXT_DISPEL = "Informiert dich über deine Bannungen"
 L_GUI_COMBATTEXT_INTERRUPT = "Informiert dich über deine Unterbrechungen"
 L_GUI_COMBATTEXT_DIRECTION = "Bildlaufrichtung('top'(geht hoch) or 'bottom'(goes runter))"
+L_GUI_COMBATTEXT_SHORT_NUMBERS = "Use short numbers ('25.3k' instead of '25342')" -- Need review
 
 -- Buffs reminder options
 L_GUI_REMINDER = "Erinnerungen für Buffs"
@@ -159,7 +163,7 @@ L_GUI_COOLDOWN_RAID_HEIGHT = "Leistenhöhe für Raidabklingzeiten"
 L_GUI_COOLDOWN_RAID_WIDTH = "Leistenbreite der Raidabklingzeiten(Wenn das Symbol aktiviert ist, Breite+28)"
 L_GUI_COOLDOWN_RAID_SORT = "Leisten für Raidabklingzeiten wachsen nach oben"
 L_GUI_COOLDOWN_RAID_EXPIRATION = "Sort by expiration time" -- Needs review
-L_GUI_COOLDOWN_RAID_SHOW_MY = "Show my cooldowns" -- Needs review
+L_GUI_COOLDOWN_RAID_SHOW_SELF = "Show self cooldowns" -- Needs review
 L_GUI_COOLDOWN_RAID_ICONS = "Symbole für Raidabklingzeiten"
 L_GUI_COOLDOWN_RAID_IN_RAID = "Zeige Raidabklingzeiten in Raidgebieten"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "Zeige Raidabklingzeiten in Gruppengebieten"
@@ -203,7 +207,8 @@ L_GUI_TOOLTIP_HIDE_COMBAT = "Verstecke Tooltip im Kampf"
 L_GUI_TOOLTIP_TALENTS = "Zeige die Talente im Tooltip an"
 L_GUI_TOOLTIP_ACHIEVEMENTS = "Verlgeichen von Erfolgen in Tooltips"
 L_GUI_TOOLTIP_TARGET = "Ziel des Spielers im Tooltip anzeigen"
-L_GUI_TOOLTIP_TITLE = "Zeige Titel im Tooltip an"
+L_GUI_TOOLTIP_TITLE = "Player title in tooltip" -- Need review
+L_GUI_TOOLTIP_REALM = "Player realm name in tooltip" -- Need review
 L_GUI_TOOLTIP_RANK = "Gildenrank im Tooltip anzeigen"
 L_GUI_TOOLTIP_ARENA_EXPERIENCE = "PvP-Erfahrung des Spielers im Tooltip anzeigen (Arena)"
 L_GUI_TOOLTIP_SPELL_ID = "Zauber ID"
@@ -237,6 +242,7 @@ L_GUI_CHAT_TOOL_BAR_MOUSEOVER =  "Lite Button Bar on mouseover" -- Needs review
 -- Bag options
 L_GUI_BAGS = "Taschen"
 L_GUI_BAGS_ENABLE = "Taschen aktivieren"
+L_GUI_BAGS_ILVL = "Show item level for weapons and armor" -- Need review
 L_GUI_BAGS_BUTTON_SIZE = "Buttongröße"
 L_GUI_BAGS_BUTTON_SPACE = "Buttonabstand"
 L_GUI_BAGS_BANK = "Anzahl der Spalten in der Bank"
@@ -245,6 +251,7 @@ L_GUI_BAGS_BAG = "Anzahl der Spalten in der Tasche"
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Minimap aktivieren"
 L_GUI_MINIMAP_ICON = "Aufspüren-Symbol"
+L_GUI_GARRISON_ICON = "Garrison icon" -- Need review
 L_GUI_MINIMAP_SIZE = "Kartengröße"
 L_GUI_MINIMAP_HIDE_COMBAT = "Minimap im Kampf verstecken"
 L_GUI_MINIMAP_TOGGLE_MENU = "Zeige Toggle Menü"
@@ -321,12 +328,24 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "Nur eigenen Debuffs bei dem Zielfenster anzeigen"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "Debuffs nach Art einfärben"
 L_GUI_AURA_CAST_BY = "Zeige im Tooltip an von wem ein Stärkungs- bzw. Schwächngszauber gewirkt wurde"
 
+-- Filger
+L_GUI_FILGER = "Filger"
+L_GUI_FILGER_ENABLE = "Enable Filger" -- Need review
+L_GUI_FILGER_TEST_MODE = "Test icon mode" -- Need review
+L_GUI_FILGER_MAX_TEST_ICON = "The number of icons to the test" -- Need review
+L_GUI_FILGER_SHOW_TOOLTIP = "Show tooltip" -- Need review
+L_GUI_FILGER_DISABLE_CD = "Disable cooldowns" -- Need review
+L_GUI_FILGER_BUFFS_SIZE = "Buffs size" -- Need review
+L_GUI_FILGER_COOLDOWN_SIZE = "Cooldowns size" -- Need review
+L_GUI_FILGER_PVP_SIZE = "PvP debuffs size" -- Need review
+
 -- Unit Frames options
 L_GUI_UF_ENABLE = "Unitframes aktivieren"
 L_GUI_UF_UF_COLOR = "Farbe der Gesundheitsleiste (falls eigene Farbe verwender wird)" -- Need review
 L_GUI_UF_TOTAL_VALUE = "Zeige Infotext auf Spieler und Ziel mit XXX/Gesamt"
 L_GUI_UF_COLOR_VALUE = "Lebens/Mana Werte einfärben"
 L_GUI_UF_BAR_COLOR_VALUE = "Lebensbalken nach vorhandenem Leben einfärben"
+L_GUI_UF_LINES = "Show Player and Target lines" -- Need review
 L_GUI_UF_UNIT_CASTBAR = "Zeige Zauberleisten"
 L_GUI_UF_CASTBAR_ICON = "Zeige Symbole der Zauberleisten an"
 L_GUI_UF_CASTBAR_LATENCY = "Latenz in Zauberleiste anzeigen"
@@ -338,6 +357,8 @@ L_GUI_UF_SHOW_BOSS = "Zeige eigenes Fenster für Bosse an"
 L_GUI_UF_BOSS_RIGHT = "Bossfenster rechts"
 L_GUI_UF_SHOW_ARENA = "Zeige Einheitenfenster in der Arena"
 L_GUI_UF_ARENA_RIGHT = "Arenafenster auf der rechten Seite"
+L_GUI_UF_BOSS_DEBUFFS = "Number of debuffs on the boss frames" -- Need review
+L_GUI_UF_BOSS_BUFFS = "Number of buffs on the boss frames" -- Need review
 L_GUI_UF_ICONS_PVP = "Zeige PvP Text (keine Symbole) bei Mouseover (Spieler+Ziel)"
 L_GUI_UF_ICONS_COMBAT = "Kampfsymbol"
 L_GUI_UF_ICONS_RESTING = "Ausruhensymbol für low-lvl Chars"
@@ -348,7 +369,7 @@ L_GUI_UF_PLUGINS_REPUTATION_BAR = "Rufleiste"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Erfahrungsleiste"
 L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "Freundschaftsleiste"
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Weichgezeichnete Leisten"
-L_GUI_UF_PLUGINS_TALENTS = "Zeige gegnerische Talente"
+L_GUI_UF_PLUGINS_ENEMY_SPEC = "Zeige gegnerische Talente"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "Kampftexts auf Spieler/Zielfenster"
 L_GUI_UF_PLUGINS_FADER = "Blende Einheitenfenster aus"
 L_GUI_UF_PLUGINS_DIMINISHING = "Diminishing Returns Symbole auf Arena Fenstern"
@@ -356,10 +377,11 @@ L_GUI_UF_PLUGINS_DIMINISHING = "Diminishing Returns Symbole auf Arena Fenstern"
 -- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "Unit Frames Klassenleisten"
 L_GUI_UF_PLUGINS_COMBO_BAR = "Symbole für Schurke/Druide Kombopunkte"
-L_GUI_UF_PLUGINS_SHADOW_BAR = "Aktiviere Schattenkugel Leiste"
+L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS = "Always show Combo bar for Druid" -- Need review
+L_GUI_UF_PLUGINS_COMBO_BAR_OLD = "Show combo point on the target" -- Need review
+L_GUI_UF_PLUGINS_ARCANE_BAR = "Enable Arcane Charge bar" -- Need review
 L_GUI_UF_PLUGINS_CHI_BAR = "Ativiere Chi Leiste"
-L_GUI_UF_PLUGINS_VENGEANCE_BAR = "Zeige Rachebar an"
-L_GUI_UF_PLUGINS_ECLIPSE_BAR = "Aktiviere Eclipseleiste"
+L_GUI_UF_PLUGINS_STAGGER_BAR = "Enable Stagger bar (for Monk Tanks)" -- Need review
 L_GUI_UF_PLUGINS_HOLY_BAR = "Aktivere Heilige Kraft Leiste"
 L_GUI_UF_PLUGINS_SHARD_BAR = "Aktiviere Splitter Leiste"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Runenleiste"
@@ -389,6 +411,7 @@ L_GUI_UF_ICONS_READY_CHECK = "Bereitschaftschecksymbole"
 L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "Debufftextur und Symbol hervorheben"
 L_GUI_UF_PLUGINS_AURA_WATCH = "'RAID' Buffüberwachung"
 L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "Timer auf Schlachtzugsdebuff Icons"
+L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Show also PvP debuff icons (from the list)" -- Need review
 L_GUI_UF_PLUGINS_HEALCOMM = "Leiste für Eingehende Heilung"
 L_GUI_UF_PLUGINS_AUTO_RESURRECTION = "Mittel-Klick um automatisch Auferstehung zu zauber wenn das Ziel tot ist (funktioniert nicht wenn Clique installiert ist)"
 
@@ -409,6 +432,12 @@ L_GUI_STATS_FPS = "BPS"
 L_GUI_STATS_EXPERIENCE = "Erfahrung"
 L_GUI_STATS_COORDS = "Koordinaten"
 L_GUI_STATS_LOCATION = "Ort"
+L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Show Archaeology Fragments under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_COOKING = "Show Cooking Awards under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_PROFESSIONS = "Show Profession Tokens under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_RAID = "Show Raid Seals under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_PVP = "Show PvP Currency under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Show Miscellaneous Currency under currency tab" -- Needs review
 
 -- Error options
 L_GUI_ERROR = "Fehler"

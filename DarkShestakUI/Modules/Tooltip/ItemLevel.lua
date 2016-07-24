@@ -1,12 +1,67 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.tooltip.enable ~= true or C.tooltip.average_lvl ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	Equipped average item level(EquippedItemLevel by Villiv)
+--	Equipped average item level(Cloudy Unit Info by Cloudyfa)
 ----------------------------------------------------------------------------------------
--- Additional strings
-local WAITING = CONTINUED
-local PENDING = CONTINUED..CONTINUED
+--- Variables
+local currentUNIT, currentGUID
+local GearDB = {}
+
+local nextInspectRequest = 0
+local lastInspectRequest = 0
+
+local prefixColor = "|cffF9D700"
+local detailColor = "|cffffffff"
+
+local gearPrefix = STAT_AVERAGE_ITEM_LEVEL..": "
+
+--- Create Frame
+local f = CreateFrame("Frame", "CloudyUnitInfo")
+f:RegisterEvent("UNIT_INVENTORY_CHANGED")
+f:RegisterEvent("INSPECT_READY")
+
+--- Set Unit Info
+local function SetUnitInfo(gear)
+	if not gear then return end
+
+	local _, unit = GameTooltip:GetUnit()
+	if (not unit) or (UnitGUID(unit) ~= currentGUID) then return end
+
+	local gearLine
+	for i = 2, GameTooltip:NumLines() do
+		local line = _G["GameTooltipTextLeft" .. i]
+		local text = line:GetText()
+
+		if text and strfind(text, gearPrefix) then
+			gearLine = line
+		end
+	end
+
+	if gear then
+		gear = prefixColor..gearPrefix..detailColor..gear
+
+		if gearLine then
+			gearLine:SetText(gear)
+		else
+			GameTooltip:AddLine(gear)
+		end
+	end
+
+	GameTooltip:Show()
+end
+
+--- PVP Item Detect
+local function IsPVPItem(link)
+	local itemStats = GetItemStats(link)
+	for stat in pairs(itemStats) do
+		if stat == "ITEM_MOD_RESILIENCE_RATING_SHORT" or stat == "ITEM_MOD_PVP_POWER_SHORT" then
+			return true
+		end
+	end
+
+	return false
+end
 
 local upgrades = {
 	["1"] = 8, ["373"] = 4, ["374"] = 8, ["375"] = 4, ["376"] = 4, ["377"] = 4,
@@ -15,280 +70,230 @@ local upgrades = {
 	["466"] = 4, ["467"] = 8, ["469"] = 4, ["470"] = 8, ["471"] = 12, ["472"] = 16,
 	["477"] = 4, ["478"] = 8, ["480"] = 8, ["492"] = 4, ["493"] = 8, ["495"] = 4,
 	["496"] = 8, ["497"] = 12, ["498"] = 16, ["504"] = 12, ["505"] = 16, ["506"] = 20,
-	["507"] = 24
+	["507"] = 24, ["530"] = 5, ["531"] = 10
 }
--- Output prefix
-local PREFIX = STAT_FORMAT:format(STAT_AVERAGE_ITEM_LEVEL).."|Heqppditmlvl|h |h"..HIGHLIGHT_FONT_COLOR_CODE
 
-local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(self, event, ...) return self[event](self, event, ...)end)
-f:Hide()
-
-local playerGUID, inCombat, updateTimer
-local currentUnit, currentGUID
-local isDelayed, isForced, isNotified, isReady
-
-local function GetTipUnit()
-	local _, unit = GameTooltip:GetUnit()
-	if not unit then
-		local mouseFocus = GetMouseFocus()
-		unit = mouseFocus and (mouseFocus.unit or mouseFocus:GetAttribute("unit"))
-	end
-
-	return unit and UnitIsPlayer(unit) and unit
-end
-
-local SetTipText
-do
-	local function search(line, numLines)
-		if line > numLines then return end
-
-		local fontString = _G["GameTooltipTextLeft"..line]
-		local stringText = fontString and fontString:GetText()
-		if stringText and stringText:match(PREFIX) then
-			return fontString
-		end
-
-		return search(line + 1, numLines)
-	end
-
-	function SetTipText(text)
-		if not text then return end
-
-		local fontString = search(1, GameTooltip:NumLines())
-		if fontString then
-			fontString:SetText(PREFIX..text)
+local function BOALevel(level, id)
+	if level > 97 then
+		if id == 133585 or id == 133595 or id == 133596 or id == 133597 or id == 133598 then
+			level = 715
 		else
-			GameTooltip:AddLine(PREFIX..text)
+			level = 605 - (100 - level) * 5
 		end
-
-		return GameTooltip:Show()
+	elseif level > 90 then
+		level = 590 - (97 - level) * 10
+	elseif level > 85 then
+		level = 463 - (90 - level) * 19.75
+	elseif level > 80 then
+		level = 333 - (85 - level) * 13.5
+	elseif level > 67 then
+		level = 187 - (80 - level) * 4
+	elseif level > 57 then
+		level = 105 - (67 - level) * 2.9
+	elseif level > 5 then
+		level = level + 5
+	else
+		level = 10
 	end
+
+	return level
 end
 
-local CanSafeInspect
-do
-	local limit, period = 6, 11
-	local count, startTime = 0, 0
+local timewarped = {
+	[615] = 660, -- Dungeon drops
+	[692] = 675, -- Timewarped badge vendors
+}
 
-	hooksecurefunc("NotifyInspect", function()
-		local currentTime = GetTime()
-		if currentTime - startTime > period then
-			count, startTime = 1, currentTime
-			return
-		end
+local timewarped_warforged = {
+	[656] = 675, -- Dungeon drops
+}
 
-		count = count + 1
-	end)
+--- Unit Gear Info
+local function UnitGear(unit)
+	if (not unit) or (UnitGUID(unit) ~= currentGUID) then return end
 
-	function CanSafeInspect(unit)
-		if not CanInspect(unit) or InspectFrame and InspectFrame:IsShown() or Examiner and Examiner:IsShown() then return end
+	local ulvl = UnitLevel(unit)
+	local class = select(2, UnitClass(unit))
 
-		local pending = count > limit and period - (GetTime() - startTime)
-		return true, pending and pending > 0 and pending
-	end
-end
+	local ilvl, boa, pvp = 0, 0, 0
+	local total, count, delay = 0, 16, nil
+	local mainhand, offhand, twohand = 1, 1, 0
 
-local UnitItemLevel
-do
-	local formatString = "%.0f"
+	for i = 1, 17 do
+		if i ~= 4 then
+			local itemTexture = GetInventoryItemTexture(unit, i)
 
-	local function scan(unit, slot, total, count, twoHanded, incomplete)
-		if slot > INVSLOT_LAST_EQUIPPED then
-			if count == 0 then return end
-			return formatString:format(total / (twoHanded and count - 1 or count)), incomplete
-		end
+			if itemTexture then
+				local itemLink = GetInventoryItemLink(unit, i)
 
-		if slot == INVSLOT_BODY or slot == INVSLOT_RANGED or slot == INVSLOT_TABARD then
-			return scan(unit, slot + 1, total, count, twoHanded, incomplete)
-		end
+				if not itemLink then
+					delay = true
+				else
+					local _, _, quality, level, _, _, _, _, slot = GetItemInfo(itemLink)
 
-		local hasItem = GetInventoryItemTexture(unit, slot) and true
-		local _, level, equipLoc
+					if (not quality) or (not level) then
+						delay = true
+					else
+						if quality == 7 then
+							boa = boa + 1
+							local id = tonumber(strmatch(itemLink, "item:(%d+)"))
+							total = total + BOALevel(ulvl, id)
+						else
+							if IsPVPItem(itemLink) then
+								pvp = pvp + 1
+							end
 
-		local link = hasItem and GetInventoryItemLink(unit, slot)
-		if link then
-			repeat
-				_, _, _, level, _, _, _, _, equipLoc = GetItemInfo(link)
-				if level and level >= 458 then
-					local upgrade = link:match("item:%d+:%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:(%d+)")
-					if (upgrade and upgrades[upgrade]) then
-						level = level + upgrades[upgrade]
+							local warped = select(15, strsplit(":", itemLink))
+							local warforged = select(16, strsplit(":", itemLink))
+							level = timewarped[tonumber(warped)] or level
+							level = timewarped_warforged[tonumber(warforged)] or level
+
+							--BETA local upgrade = itemLink:match(":(%d+)\124h%[")
+							local upgrade = 0
+							if upgrades[upgrade] == nil then upgrades[upgrade] = 0 end
+
+							total = total + (level + upgrades[upgrade])
+						end
+
+						if i >= 16 then
+							if (slot == "INVTYPE_2HWEAPON") or (slot == "INVTYPE_RANGED") or ((slot == "INVTYPE_RANGEDRIGHT") and (class == "HUNTER")) then
+								twohand = twohand + 1
+							end
+						end
 					end
 				end
-			until level and equipLoc
-
-			total = total + level
+			else
+				if i == 16 then
+					mainhand = 0
+				elseif i == 17 then
+					offhand = 0
+				end
+			end
 		end
-
-		-- Two-handed weapon and Titan's Grip
-		if slot == INVSLOT_MAINHAND then
-			twoHanded = equipLoc == "INVTYPE_2HWEAPON" and 1 or equipLoc == "INVTYPE_RANGED" and 1 or equipLoc == "INVTYPE_RANGEDRIGHT" and 1 or not hasItem and 0
-		elseif slot == INVSLOT_OFFHAND then
-			twoHanded = twoHanded == 1 and not hasItem or twoHanded == 0 and equipLoc == "INVTYPE_2HWEAPON"
-		end
-
-		local failed = hasItem and not link
-		return scan(unit, slot + 1, total, failed and count or count + 1, twoHanded, incomplete or failed)
 	end
 
-	function UnitItemLevel(unit)
-		if unit == "player" or UnitIsUnit(unit, "player") then
-			local _, level = GetAverageItemLevel()
-			return formatString:format(level)
+	if (mainhand == 0) and (offhand == 0) or (twohand == 1) then
+		count = count - 1
+	end
+
+	if not delay then
+		if unit == "player" and GetAverageItemLevel() > 0 then
+			_, ilvl = GetAverageItemLevel()
+		else
+			ilvl = total / count
 		end
 
-		return scan(unit, INVSLOT_FIRST_EQUIPPED, 0, 0)
+		if ilvl > 0 then ilvl = string.format("%.1f", ilvl) end
+		if boa > 0 then ilvl = ilvl.."  |cffe6cc80"..boa.." "..HEIRLOOMS end
+		if pvp > 0 then ilvl = ilvl.."  |cffa335ee"..pvp.." "..PVP end
+	else
+		ilvl = nil
+	end
+
+	return ilvl
+end
+
+--- Scan Current Unit
+local function ScanUnit(unit, forced)
+	local cachedGear
+
+	if UnitIsUnit(unit, "player") then
+		cachedGear = UnitGear("player")
+
+		SetUnitInfo(cachedGear or CONTINUED)
+	else
+		if (not unit) or (UnitGUID(unit) ~= currentGUID) then return end
+
+		cachedGear = GearDB[currentGUID]
+
+		-- cachedGear? ok...skip get gear
+		if cachedGear and not forced then
+			SetUnitInfo(cachedGear)
+		end
+
+		if not (IsShiftKeyDown() or forced) then
+			if UnitAffectingCombat("player") then return end
+		end
+
+		if not UnitIsVisible(unit) then return end
+		if UnitIsDeadOrGhost("player") or UnitOnTaxi("player") then return end
+		if InspectFrame and InspectFrame:IsShown() then return end
+
+		-- Press SHIFT to refresh
+		if IsShiftKeyDown() then
+			SetUnitInfo(CONTINUED, CONTINUED)
+		else
+			SetUnitInfo(cachedGear or CONTINUED)
+		end
+
+		local timeSinceLastInspect = GetTime() - lastInspectRequest
+		if timeSinceLastInspect >= 1.5 then
+			nextInspectRequest = 0
+		else
+			nextInspectRequest = 1.5 - timeSinceLastInspect
+		end
+		f:Show()
 	end
 end
 
-local UpdateItemLevel
-do
-	local cache = {}
-	local cachedLevel
+--- Character Info Sheet
+hooksecurefunc("PaperDollFrame_SetItemLevel", function(self, unit)
+	if unit ~= "player" then return end
 
-	local function update(unit, guid)
-		local level, incomplete = UnitItemLevel(unit)
-		if not level then return end
-		local myLevel = level - UnitItemLevel("player")
+	local total, equip = GetAverageItemLevel()
+	if total > 0 then total = string.format("%.1f", total) end
+	if equip > 0 then equip = string.format("%.1f", equip) end
 
-		if incomplete then
-			updateTimer = TOOLTIP_UPDATE_TIME
-			f:Show()
-			level = cachedLevel or level
-			return SetTipText(WAITING and level..WAITING or level)
-		end
-
-		if isReady then
-			cache[guid] = level
-			return SetTipText(level.." ("..((myLevel > 0) and "|cff00ff00+" or "|cffff0000")..myLevel.."|r|cffffffff)|r")
-		end
-
-		level = cachedLevel or level
-		return SetTipText(WAITING and level..WAITING or level)
+	local ilvl = equip
+	if equip ~= total then
+		ilvl = equip.." / "..total
 	end
 
-	function UpdateItemLevel()
-		cachedLevel = cache[currentGUID]
+	CharacterStatsPane.ItemLevelFrame.Value:SetText(ilvl)
 
-		if inCombat then
-			return SetTipText(cachedLevel)
-		end
-
-		if isReady then
-			return update(currentUnit, currentGUID)
-		end
-
-		if not isForced and cachedLevel then
-			return SetTipText(cachedLevel)
-		end
-
-		if currentGUID == playerGUID then
-			local level = UnitItemLevel("player")
-			cache[playerGUID] = level
-			return SetTipText(level)
-		end
-
-		local canInspect, pending = CanSafeInspect(currentUnit)
-		if not canInspect then
-			return SetTipText(cachedLevel)
-		end
-
-		if pending then
-			updateTimer = pending
-			f:Show()
-			return SetTipText(cachedLevel and cachedLevel..PENDING or PENDING)
-		end
-
-		if not isDelayed then
-			isDelayed = true
-			updateTimer = TOOLTIP_UPDATE_TIME
-			f:Show()
-			return SetTipText(cachedLevel and (WAITING and cachedLevel..WAITING or cachedLevel) or PENDING)
-		end
-
-		if not isNotified then
-			isNotified = true
-			NotifyInspect(currentUnit)
-		end
-
-		return update(currentUnit, currentGUID)
-	end
-end
-
-local function OnTooltipSetUnit()
-	currentUnit, currentGUID, isDelayed, isForced, isNotified, isReady = GetTipUnit(), nil, nil, nil, nil, nil
-	if not currentUnit then return end
-
-	currentGUID, isForced = UnitGUID(currentUnit), UnitIsUnit(currentUnit, "target")
-
-	return UpdateItemLevel()
-end
-GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
-
-f:SetScript("OnUpdate", function(self, elapsed)
-	updateTimer = updateTimer - elapsed
-	if updateTimer > 0 then return end
-	self:Hide()
-
-	if not currentGUID then return end
-
-	local tipUnit = GetTipUnit()
-	if not tipUnit or UnitGUID(tipUnit) ~= currentGUID then return end
-
-	return UpdateItemLevel()
+	self.tooltip = detailColor..STAT_AVERAGE_ITEM_LEVEL.." "..ilvl
 end)
 
-function f:INSPECT_READY(_, guid)
-	if not currentGUID or guid ~= currentGUID then return end
+--- Handle Events
+f:SetScript("OnEvent", function(self, event, ...)
+	if event == "UNIT_INVENTORY_CHANGED" then
+		local unit = ...
+		if UnitGUID(unit) == currentGUID then
+			ScanUnit(unit, true)
+		end
+	elseif event == "INSPECT_READY" then
+		local guid = ...
+		if guid ~= currentGUID then return end
 
-	local tipUnit = GetTipUnit()
-	if not tipUnit or UnitGUID(tipUnit) ~= currentGUID then return end
+		local gear = UnitGear(currentUNIT)
+		GearDB[currentGUID] = gear
 
-	isReady = true
+		if not gear then
+			ScanUnit(currentUNIT, true)
+		else
+			SetUnitInfo(gear)
+		end
+	end
+end)
 
-	return UpdateItemLevel()
-end
-f:RegisterEvent("INSPECT_READY")
+f:SetScript("OnUpdate", function(self, elapsed)
+	nextInspectRequest = nextInspectRequest - elapsed
+	if nextInspectRequest > 0 then return end
 
-function f:UNIT_INVENTORY_CHANGED(_, unit)
-	if not currentGUID or UnitGUID(unit) ~= currentGUID then return end
+	self:Hide()
 
-	local tipUnit = GetTipUnit()
-	if not tipUnit or UnitGUID(tipUnit) ~= currentGUID then return end
+	if currentUNIT and (UnitGUID(currentUNIT) == currentGUID) then
+		lastInspectRequest = GetTime()
+		NotifyInspect(currentUNIT)
+	end
+end)
 
-	isForced, isNotified, isReady = true, nil, nil
+GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+	local _, unit = self:GetUnit()
 
-	return UpdateItemLevel()
-end
-f:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	if (not unit) or (not CanInspect(unit)) then return end
+	if (UnitLevel(unit) > 0) and (UnitLevel(unit) < 10) then return end
 
-function f:PLAYER_TARGET_CHANGED()
-	return self:UNIT_INVENTORY_CHANGED(nil, "target")
-end
-f:RegisterEvent("PLAYER_TARGET_CHANGED")
-
-function f:PLAYER_REGEN_DISABLED()
-	inCombat = true
-end
-f:RegisterEvent("PLAYER_REGEN_DISABLED")
-
-function f:PLAYER_REGEN_ENABLED()
-	inCombat = nil
-end
-f:RegisterEvent("PLAYER_REGEN_ENABLED")
-
-function f:PLAYER_LOGIN()
-	self:UnregisterEvent("PLAYER_LOGIN")
-	self.PLAYER_LOGIN = nil
-
-	playerGUID = UnitGUID("player")
-end
-
-if IsLoggedIn() then
-	f:PLAYER_LOGIN()
-	inCombat = InCombatLockdown()
-	return OnTooltipSetUnit()
-end
-
-return f:RegisterEvent("PLAYER_LOGIN")
+	currentUNIT, currentGUID = unit, UnitGUID(unit)
+	ScanUnit(unit)
+end)

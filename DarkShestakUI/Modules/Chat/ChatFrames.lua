@@ -53,6 +53,8 @@ local function SetChatStyle(frame)
 	local id = frame:GetID()
 	local chat = frame:GetName()
 
+	_G[chat]:SetFrameLevel(5)
+
 	-- Removes crap from the bottom of the chatbox so it can go to the bottom of the screen
 	_G[chat]:SetClampedToScreen(false)
 
@@ -96,9 +98,9 @@ local function SetChatStyle(frame)
 	_G[format("ChatFrame%sButtonFrame", id)]:Kill()
 
 	-- Kills off the retarded new circle around the editbox
-	_G[format("ChatFrame%sEditBoxFocusLeft", id)]:Kill()
-	_G[format("ChatFrame%sEditBoxFocusMid", id)]:Kill()
-	_G[format("ChatFrame%sEditBoxFocusRight", id)]:Kill()
+	_G[format("ChatFrame%sEditBoxLeft", id)]:Kill()
+	_G[format("ChatFrame%sEditBoxMid", id)]:Kill()
+	_G[format("ChatFrame%sEditBoxRight", id)]:Kill()
 
 	_G[format("ChatFrame%sTabGlow", id)]:Kill()
 
@@ -243,7 +245,8 @@ local function SetupChatPosAndFont(self)
 				ChatFrame2Tab:EnableMouse(false)
 				ChatFrame2Tab:SetText("")
 				ChatFrame2Tab.SetText = T.dummy
-				ChatFrame2Tab:SetScale(0.001)
+				ChatFrame2Tab:SetWidth(0.001)
+				ChatFrame2Tab.SetWidth = T.dummy
 			end
 		elseif i == 3 then
 			FCF_UnDockFrame(chat)

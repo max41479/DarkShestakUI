@@ -56,7 +56,7 @@ local function LoadSkin()
 		button:SetPoint("RIGHT", frame, "RIGHT", -10, 3)
 		button.SetPoint = T.dummy
 
-		T.SkinNextPrevButton(button, true)
+		T.SkinNextPrevButton(button)
 
 		frame:CreateBackdrop("Default")
 		frame.backdrop:SetPoint("TOPLEFT", 20, 2)
@@ -106,7 +106,7 @@ local function LoadSkin()
 	T.SkinDropDownBox(CalendarCreateEventHourDropDown, 68)
 	T.SkinDropDownBox(CalendarCreateEventMinuteDropDown, 68)
 	T.SkinDropDownBox(CalendarCreateEventAMPMDropDown, 68)
-	T.SkinDropDownBox(CalendarCreateEventRepeatOptionDropDown, 120)
+	T.SkinDropDownBox(CalendarCreateEventDifficultyOptionDropDown)
 	CalendarCreateEventIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	CalendarCreateEventIcon.SetTexCoord = T.dummy
 

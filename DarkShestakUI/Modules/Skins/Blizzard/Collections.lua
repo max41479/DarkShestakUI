@@ -11,18 +11,19 @@ LoadTootlipSkin:SetScript("OnEvent", function(self, event, addon)
 		return
 	end
 	if addon == "Blizzard_Collections" then
-		PetJournalPrimaryAbilityTooltip.Background:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.Delimiter1:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.Delimiter2:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderTop:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderTopLeft:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderTopRight:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderLeft:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderRight:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderBottom:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderBottomRight:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip.BorderBottomLeft:SetTexture(nil)
-		PetJournalPrimaryAbilityTooltip:SetTemplate("Transparent")
+		local tt = PetJournalPrimaryAbilityTooltip
+		tt.Background:SetTexture(nil)
+		tt.Delimiter1:SetTexture(nil)
+		tt.Delimiter2:SetTexture(nil)
+		tt.BorderTop:SetTexture(nil)
+		tt.BorderTopLeft:SetTexture(nil)
+		tt.BorderTopRight:SetTexture(nil)
+		tt.BorderLeft:SetTexture(nil)
+		tt.BorderRight:SetTexture(nil)
+		tt.BorderBottom:SetTexture(nil)
+		tt.BorderBottomRight:SetTexture(nil)
+		tt.BorderBottomLeft:SetTexture(nil)
+		tt:SetTemplate("Transparent")
 	end
 end)
 
@@ -33,7 +34,7 @@ local function LoadSkin()
 	CollectionsJournal:Hide()
 	CollectionsJournalPortrait:SetAlpha(0)
 
-	for i = 1, 4 do
+	for i = 1, 5 do
 		T.SkinTab(_G["CollectionsJournalTab"..i])
 	end
 
@@ -91,7 +92,7 @@ local function LoadSkin()
 			button.DragButton.backdrop:SetPoint("TOPLEFT", -1, 1)
 			button.DragButton.backdrop:SetPoint("BOTTOMRIGHT", 1, -1)
 			button.DragButton:StyleButton(nil, 1)
-			button.DragButton.ActiveTexture:SetTexture(0, 1, 0, 0.3)
+			button.DragButton.ActiveTexture:SetColorTexture(0, 1, 0, 0.3)
 			button.DragButton.ActiveTexture:SetPoint("TOPLEFT", 1, -1)
 			button.DragButton.ActiveTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 
@@ -147,6 +148,12 @@ local function LoadSkin()
 	end
 
 	-- PetJournal
+	PetJournal.LeftInset:StripTextures()
+	PetJournal.RightInset:StripTextures()
+	PetJournal.PetCardInset:StripTextures()
+	PetJournal.loadoutBorder:StripTextures()
+	PetJournalPetCardBG:Hide()
+
 	PetJournalTutorialButton.Ring:Hide()
 	PetJournalTutorialButton:SetPoint("TOPLEFT", PetJournal, "TOPLEFT", -5, 10)
 
@@ -177,7 +184,7 @@ local function LoadSkin()
 			button.dragButton.backdrop:SetPoint("TOPLEFT", -1, 1)
 			button.dragButton.backdrop:SetPoint("BOTTOMRIGHT", 1, -1)
 			button.dragButton:StyleButton(nil, 1)
-			button.dragButton.ActiveTexture:SetTexture(0, 1, 0, 0.3)
+			button.dragButton.ActiveTexture:SetColorTexture(0, 1, 0, 0.3)
 			button.dragButton.ActiveTexture:SetPoint("TOPLEFT", 1, -1)
 			button.dragButton.ActiveTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 			button.dragButton.favorite:SetParent(button.dragButton.backdrop)
@@ -280,6 +287,9 @@ local function LoadSkin()
 			button:StyleButton()
 			button:SetTemplate("Default")
 
+			button.BlackCover:SetPoint("TOPLEFT", 2, -2)
+			button.BlackCover:SetPoint("BOTTOMRIGHT", -2, 2)
+
 			button.FlyoutArrow:SetTexture("Interface\\Buttons\\ActionBarFlyoutButton")
 
 			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -311,6 +321,9 @@ local function LoadSkin()
 		_G["PetJournalLoadoutPet"..i.."XPBar"]:SetFrameLevel(_G["PetJournalLoadoutPet"..i.."XPBar"]:GetFrameLevel() + 2)
 	end
 
+	PetJournal.SpellSelect.BgEnd:Hide()
+	PetJournal.SpellSelect.BgTiled:Hide()
+
 	for i = 1, 2 do
 		local button = _G["PetJournalSpellSelectSpell"..i]
 		local icon = _G["PetJournalSpellSelectSpell"..i.."Icon"]
@@ -338,6 +351,10 @@ local function LoadSkin()
 		button.icon:SetPoint("TOPLEFT", 2, -2)
 		button.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 	end
+
+	PetJournalPetCard.AbilitiesBG1:SetAlpha(0)
+	PetJournalPetCard.AbilitiesBG2:SetAlpha(0)
+	PetJournalPetCard.AbilitiesBG3:SetAlpha(0)
 
 	PetJournalPetCard:CreateBackdrop("Overlay")
 	PetJournalPetCard.backdrop:SetPoint("TOPLEFT", 0, -2)
@@ -368,14 +385,13 @@ local function LoadSkin()
 	-- ToyBox
 	ToyBox.iconsFrame:StripTextures()
 	T.SkinEditBox(ToyBox.searchBox, nil, 18)
+	T.SkinNextPrevButton(ToyBox.navigationFrame.prevPageButton, true)
 	T.SkinNextPrevButton(ToyBox.navigationFrame.nextPageButton)
-	T.SkinNextPrevButton(ToyBox.navigationFrame.prevPageButton)
 	ToyBoxFilterButton:SetPoint("TOPLEFT", ToyBox.searchBox, "TOPRIGHT", 5, 2)
 	ToyBox.progressBar:StripTextures()
 	ToyBox.progressBar:CreateBackdrop("Overlay")
 	ToyBox.progressBar:SetStatusBarTexture(C.media.texture)
 	ToyBox.progressBar:SetFrameLevel(ToyBox.progressBar:GetFrameLevel() + 2)
-
 
 	for i = 1, 18 do
 		ToyBox.iconsFrame["spellButton"..i].slotFrameCollected:SetTexture("")
@@ -386,6 +402,7 @@ local function LoadSkin()
 
 		button:StyleButton(nil, 0)
 		button:CreateBackdrop("Default")
+		button.cooldown:SetAllPoints(icon)
 
 		icon:SetPoint("TOPLEFT")
 		icon:SetPoint("BOTTOMRIGHT")
@@ -411,8 +428,8 @@ local function LoadSkin()
 	-- Heirlooms
 	HeirloomsJournal.iconsFrame:StripTextures()
 	T.SkinEditBox(HeirloomsJournal.SearchBox, nil, 18)
+	T.SkinNextPrevButton(HeirloomsJournal.navigationFrame.prevPageButton, true)
 	T.SkinNextPrevButton(HeirloomsJournal.navigationFrame.nextPageButton)
-	T.SkinNextPrevButton(HeirloomsJournal.navigationFrame.prevPageButton)
 	HeirloomsJournalFilterButton:SetPoint("TOPLEFT", HeirloomsJournal.SearchBox, "TOPRIGHT", 5, 2)
 	HeirloomsJournal.progressBar:StripTextures()
 	HeirloomsJournal.progressBar:CreateBackdrop("Overlay")
@@ -429,12 +446,16 @@ local function LoadSkin()
 		for i = 1, #HeirloomsJournal.heirloomEntryFrames do
 			local button = HeirloomsJournal.heirloomEntryFrames[i]
 			if not button.skinned then
-				button.skinned = true
 				button:StyleButton(nil, 0)
 				button:CreateBackdrop("Default")
+				button.levelBackground:SetAlpha(0)
+				button.level:SetFontObject("SystemFont_Outline_Small")
+				button.level.SetFontObject = T.dummy
+				button.level:SetTextColor(1, 1, 1)
 				button.iconTextureUncollected:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 				button.iconTextureUncollected:SetTexture(button.iconTexture:GetTexture())
 				HeirloomsJournal:UpdateButton(button)
+				button.skinned = true
 			end
 
 			if C_Heirloom.PlayerHasHeirloom(button.itemID) then
@@ -462,6 +483,53 @@ local function LoadSkin()
 			button.name:SetTextColor(0.6, 0.6, 0.6)
 		end
 	end)
+
+	-- Wardrobe
+	WardrobeFrame:StripTextures()
+	WardrobeFrame:SetTemplate("Transparent")
+	T.SkinCloseButton(WardrobeFrameCloseButton)
+	T.SkinDropDownBox(WardrobeOutfitDropDown)
+	WardrobeOutfitDropDown:SetSize(221, 34)
+	WardrobeOutfitDropDown.SaveButton:SkinButton()
+	WardrobeOutfitDropDown.SaveButton:SetPoint("TOPLEFT", WardrobeOutfitDropDown, "TOPRIGHT", -2, -2)
+	WardrobeTransmogFrame:StripTextures()
+	WardrobeTransmogFrame.Inset:StripTextures()
+	WardrobeTransmogFrame.SpecButton:SkinButton()
+	WardrobeTransmogFrame.ApplyButton:SkinButton()
+	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -2, 0)
+	WardrobeTransmogFrame.Model.ClearAllPendingButton:SkinButton()
+
+	for i = 1, #WardrobeTransmogFrame.Model.SlotButtons do
+		local slot = WardrobeTransmogFrame.Model.SlotButtons[i]
+		local icon = slot.Icon
+		local border = slot.Border
+
+		if slot then
+			border:Kill()
+
+			slot:StyleButton()
+			slot:SetFrameLevel(slot:GetFrameLevel() + 2)
+			slot:CreateBackdrop("Default")
+			slot.backdrop:SetAllPoints()
+
+			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			icon:ClearAllPoints()
+			icon:SetPoint("TOPLEFT", 2, -2)
+			icon:SetPoint("BOTTOMRIGHT", -2, 2)
+		end
+	end
+
+	WardrobeCollectionFrame.ModelsFrame:StripTextures()
+	WardrobeCollectionFrame.progressBar:StripTextures()
+	WardrobeCollectionFrame.progressBar:CreateBackdrop("Overlay")
+	WardrobeCollectionFrame.progressBar:SetStatusBarTexture(C.media.texture)
+	WardrobeCollectionFrame.progressBar:SetFrameLevel(WardrobeCollectionFrame.progressBar:GetFrameLevel() + 2)
+	T.SkinEditBox(WardrobeCollectionFrameSearchBox, nil, 18)
+	WardrobeCollectionFrame.FilterButton:SkinButton()
+	WardrobeCollectionFrame.FilterButton:SetPoint("TOPLEFT", WardrobeCollectionFrameSearchBox, "TOPRIGHT", 5, 2)
+	T.SkinDropDownBox(WardrobeCollectionFrameWeaponDropDown)
+	T.SkinNextPrevButton(WardrobeCollectionFrame.NavigationFrame.PrevPageButton, true)
+	T.SkinNextPrevButton(WardrobeCollectionFrame.NavigationFrame.NextPageButton)
 end
 
 T.SkinFuncs["Blizzard_Collections"] = LoadSkin

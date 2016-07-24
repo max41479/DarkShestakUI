@@ -100,7 +100,7 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 		end
 	end)
 
-	flash:SetTexture(0.8, 0.8, 0.8, 0.5)
+	flash:SetColorTexture(0.8, 0.8, 0.8, 0.5)
 	flash:SetPoint("TOPLEFT", button, 2, -2)
 	flash:SetPoint("BOTTOMRIGHT", button, -2, 2)
 
@@ -240,8 +240,9 @@ local function StyleFlyoutButton(self)
 		local x = GetFlyoutID(i)
 		local _, _, numSlots, isKnown = GetFlyoutInfo(x)
 		if isKnown then
+			if numSlots > buttons then
 			buttons = numSlots
-			break
+			end
 		end
 	end
 end

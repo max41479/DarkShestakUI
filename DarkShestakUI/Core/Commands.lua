@@ -153,10 +153,11 @@ SLASH_INSTTELEPORT2 = "/еудузщке"
 ----------------------------------------------------------------------------------------
 --	Spec switching(by Monolit)
 ----------------------------------------------------------------------------------------
-SlashCmdList.SPEC = function()
+SlashCmdList.SPEC = function(spec)
 	if T.level >= SHOW_TALENT_LEVEL then
-		local spec = GetActiveSpecGroup()
-		if spec == 1 then SetActiveSpecGroup(2) elseif spec == 2 then SetActiveSpecGroup(1) end
+		if GetSpecialization() ~= tonumber(spec) then
+			SetSpecialization(spec)
+		end
 	else
 		print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL).."|r")
 	end
@@ -212,42 +213,75 @@ SlashCmdList.FRAME = function(arg)
 	if arg ~= nil then FRAME = arg end
 	if arg ~= nil and arg:GetName() ~= nil then
 		local point, relativeTo, relativePoint, xOfs, yOfs = arg:GetPoint()
-		ChatFrame1:AddMessage("|cffCC0000~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-		ChatFrame1:AddMessage("Name: |cffFFD100"..arg:GetName())
+		print("|cffCC0000--------------------------------------------------------------------|r")
+		print("Name: |cffFFD100"..arg:GetName().."|r")
 		if arg:GetParent() and arg:GetParent():GetName() then
-			ChatFrame1:AddMessage("Parent: |cffFFD100"..arg:GetParent():GetName())
+			print("Parent: |cffFFD100"..arg:GetParent():GetName().."|r")
 		end
 
-		ChatFrame1:AddMessage("Width: |cffFFD100"..format("%.2f", arg:GetWidth()))
-		ChatFrame1:AddMessage("Height: |cffFFD100"..format("%.2f", arg:GetHeight()))
-		ChatFrame1:AddMessage("Strata: |cffFFD100"..arg:GetFrameStrata())
-		ChatFrame1:AddMessage("Level: |cffFFD100"..arg:GetFrameLevel())
+		print("Width: |cffFFD100"..format("%.2f", arg:GetWidth()).."|r")
+		print("Height: |cffFFD100"..format("%.2f", arg:GetHeight()).."|r")
+		print("Strata: |cffFFD100"..arg:GetFrameStrata().."|r")
+		print("Level: |cffFFD100"..arg:GetFrameLevel().."|r")
 
 		if relativeTo and relativeTo:GetName() then
-			ChatFrame1:AddMessage("Point: |cffFFD100"..point.."|r anchored to "..relativeTo:GetName().."'s |cffFFD100"..relativePoint)
+			print('Point: |cffFFD100 "'..point..'", '..relativeTo:GetName()..', "'..relativePoint..'"'.."|r")
 		end
 		if xOfs then
-			ChatFrame1:AddMessage("X: |cffFFD100"..format("%.2f", xOfs))
+			print("X: |cffFFD100"..format("%.2f", xOfs).."|r")
 		end
 		if yOfs then
-			ChatFrame1:AddMessage("Y: |cffFFD100"..format("%.2f", yOfs))
+			print("Y: |cffFFD100"..format("%.2f", yOfs).."|r")
 		end
-		ChatFrame1:AddMessage("|cffCC0000~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+		print("|cffCC0000--------------------------------------------------------------------|r")
 	elseif arg == nil then
-		ChatFrame1:AddMessage("Invalid frame name")
+		print("Invalid frame name")
 	else
-		ChatFrame1:AddMessage("Could not find frame info")
+		print("Could not find frame info")
 	end
 end
 SLASH_FRAME1 = "/frame"
 SLASH_FRAME2 = "/акфьу"
 
 ----------------------------------------------------------------------------------------
+--	Print /framestack info in chat
+----------------------------------------------------------------------------------------
+SlashCmdList["FRAMELIST"] = function(msg)
+	if not FrameStackTooltip then
+		UIParentLoadAddOn("Blizzard_DebugTools")
+	end
+
+	local isPreviouslyShown = FrameStackTooltip:IsShown()
+	if not isPreviouslyShown then
+		if msg == tostring(true) then
+			FrameStackTooltip_Toggle(true)
+		else
+			FrameStackTooltip_Toggle()
+		end
+	end
+
+	print("|cffCC0000--------------------------------------------------------------------|r")
+	for i = 2, FrameStackTooltip:NumLines() do
+		local text = _G["FrameStackTooltipTextLeft"..i]:GetText()
+		if text and text ~= "" then
+			print("|cffFFD100"..text)
+		end
+	end
+	print("|cffCC0000--------------------------------------------------------------------|r")
+
+	FrameStackTooltip_Toggle()
+	SlashCmdList.COPY_CHAT()
+end
+SLASH_FRAMELIST1 = "/framelist"
+SLASH_FRAMELIST2 = "/акфьудшые"
+SLASH_FRAMELIST3 = "/fl"
+SLASH_FRAMELIST4 = "/ад"
+
 ----------------------------------------------------------------------------------------
 --	Frame Stack on Cyrillic
 ----------------------------------------------------------------------------------------
 SlashCmdList.FSTACK = function()
-	SlashCmdList.FRAMESTACK()
+	SlashCmdList.FRAMESTACK(0)
 end
 SLASH_FSTACK1 = "/аыефсл"
 SLASH_FSTACK2 = "/fs"
@@ -277,21 +311,21 @@ SlashCmdList.TEST_ACHIEVEMENT = function()
 	GuildChallengeAlertFrame_ShowAlert(3, 2, 5)
 	CriteriaAlertFrame_ShowAlert(6301, 29918)
 	MoneyWonAlertFrame_ShowAlert(9999999)
-	LootWonAlertFrame_ShowAlert(select(2, GetItemInfo(6948)) or GetInventoryItemLink("player", 5), -1, 1, 100)
+	LootWonAlertFrame_ShowAlert(select(2, GetItemInfo(6948)) or GetInventoryItemLink("player", 5), -1, 1, 100, 70)
 	ChallengeModeAlertFrame_ShowAlert()
 	AlertFrame_AnimateIn(ScenarioAlertFrame1)
-	--GarrisonMissionAlertFrame_ShowAlert(missionID)
+	AlertFrame_AnimateIn(GarrisonMissionAlertFrame)
 	StorePurchaseAlertFrame_ShowAlert(select(3, GetSpellInfo(2060)), GetSpellInfo(2060), 2060)
 	LootUpgradeFrame_ShowAlert(select(2, GetItemInfo(6948)) or GetInventoryItemLink("player", 5), 1, 1, 1)
 	GarrisonBuildingAlertFrame_ShowAlert(T.name)
-	--GarrisonFollowerAlertFrame_ShowAlert(followerID, name, displayID, level, quality, isUpgraded)
+	-- AlertFrame_AnimateIn(GarrisonFollowerAlertFrame)
 	AlertFrame_FixAnchors()
 end
 SLASH_TEST_ACHIEVEMENT1 = "/tach"
 SLASH_TEST_ACHIEVEMENT2 = "/ефср"
 
 ----------------------------------------------------------------------------------------
---	Test and move Blizzard Extra Action Button
+--	Test Blizzard Extra Action Button
 ----------------------------------------------------------------------------------------
 SlashCmdList.TEST_EXTRABUTTON = function()
 	if ExtraActionBarFrame:IsShown() then
@@ -301,7 +335,7 @@ SlashCmdList.TEST_EXTRABUTTON = function()
 		ExtraActionBarFrame:SetAlpha(1)
 		ExtraActionButton1:Show()
 		ExtraActionButton1:SetAlpha(1)
-		ExtraActionButton1.icon:SetTexture("Interface\\Icons\\INV_Pet_DiseasedSquirrel")
+		ExtraActionButton1.icon:SetTexture("Interface\\Icons\\spell_deathknight_breathofsindragosa")
 		ExtraActionButton1.icon:Show()
 		ExtraActionButton1.icon:SetAlpha(1)
 	end
@@ -325,9 +359,9 @@ SlashCmdList.GRIDONSCREEN = function()
 		for i = 0, 128 do
 			local texture = grid:CreateTexture(nil, "BACKGROUND")
 			if i == 64 then
-				texture:SetTexture(1, 0, 0, 0.8)
+				texture:SetColorTexture(1, 0, 0, 0.8)
 			else
-				texture:SetTexture(0, 0, 0, 0.8)
+				texture:SetColorTexture(0, 0, 0, 0.8)
 			end
 			texture:SetPoint("TOPLEFT", grid, "TOPLEFT", i * width - 1, 0)
 			texture:SetPoint("BOTTOMRIGHT", grid, "BOTTOMLEFT", i * width, 0)
@@ -335,9 +369,9 @@ SlashCmdList.GRIDONSCREEN = function()
 		for i = 0, 72 do
 			local texture = grid:CreateTexture(nil, "BACKGROUND")
 			if i == 36 then
-				texture:SetTexture(1, 0, 0, 0.8)
+				texture:SetColorTexture(1, 0, 0, 0.8)
 			else
-				texture:SetTexture(0, 0, 0, 0.8)
+				texture:SetColorTexture(0, 0, 0, 0.8)
 			end
 			texture:SetPoint("TOPLEFT", grid, "TOPLEFT", 0, -i * height)
 			texture:SetPoint("BOTTOMRIGHT", grid, "TOPRIGHT", 0, -i * height - 1)

@@ -12,16 +12,16 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		end
 	end
 
-	if C.unitframe.enable and (T.CheckLayout() == "DPS" or T.CheckLayout() == "HEAL") then
-		InterfaceOptionsFrameCategoriesButton11:SetScale(0.00001)
-		InterfaceOptionsFrameCategoriesButton11:SetAlpha(0)
+	if C.unitframe.enable and (SavedOptions and (SavedOptions.RaidLayout == "HEAL" or SavedOptions.RaidLayout == "DPS")) then
+		InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
+		InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
 		if not InCombatLockdown() then
 			CompactRaidFrameManager:Kill()
 			CompactRaidFrameContainer:Kill()
 		end
 		ShowPartyFrame = T.dummy
 		HidePartyFrame = T.dummy
-		CompactUnitFrame_UpdateAll = T.dummy
+		--BETA CompactUnitFrame_UpdateAll = T.dummy -- Conflict with nameplates
 		CompactUnitFrameProfiles_ApplyProfile = T.dummy
 		CompactRaidFrameManager_UpdateShown = T.dummy
 		CompactRaidFrameManager_UpdateOptionsFlowContainer = T.dummy
@@ -35,6 +35,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	CollectionsMicroButtonAlert:Kill()
 	ReagentBankHelpBox:Kill()
 	BagHelpBox:Kill()
+	EJMicroButtonAlert:Kill()
 	PremadeGroupsPvETutorialAlert:Kill()
 	SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_WORLD_MAP_FRAME, true)
 	SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_PET_JOURNAL, true)
@@ -45,24 +46,13 @@ frame:SetScript("OnEvent", function(self, event, addon)
 
 	if C.chat.enable then
 		SetCVar("chatStyle", "im")
-		InterfaceOptionsSocialPanelChatStyle:Kill()
-		InterfaceOptionsSocialPanelWholeChatWindowClickable:Kill()
 	end
 
 	if C.unitframe.enable then
 		if T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune ~= true then
 			RuneFrame:Kill()
 		end
-		InterfaceOptionsFrameCategoriesButton9:SetScale(0.00001)
-		InterfaceOptionsFrameCategoriesButton9:SetAlpha(0)
-		InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
-		InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
-		InterfaceOptionsBuffsPanelCastableBuffs:Kill()
-		InterfaceOptionsBuffsPanelDispellableDebuffs:Kill()
-		InterfaceOptionsBuffsPanelShowAllEnemyDebuffs:Kill()
 		InterfaceOptionsCombatPanelTargetOfTarget:Kill()
-		InterfaceOptionsCombatPanelEnemyCastBars:Kill()
-		InterfaceOptionsCombatPanelEnemyCastBarsOnPortrait:Kill()
 		SetCVar("showPartyBackground", 0)
 	end
 
@@ -75,27 +65,25 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	end
 
 	if C.nameplate.enable then
-		InterfaceOptionsCombatPanelEnemyCastBarsOnNameplates:Kill()
-		InterfaceOptionsNamesPanelUnitNameplatesNameplateClassColors:Kill()
+		SetCVar("ShowClassColorInNameplate", 1)
 	end
 
 	if C.minimap.enable then
 		InterfaceOptionsDisplayPanelRotateMinimap:Kill()
 	end
 
+	if C.bag.enable then
+		SetSortBagsRightToLeft(true)
+		SetInsertItemsLeftToRight(false)
+	end
+
 	if C.combattext.enable then
-		InterfaceOptionsCombatTextPanelFCTDropDown:Kill()
 		if C.combattext.blizz_head_numbers ~= true then
-			SetCVar("CombatDamage", 0)
-			SetCVar("PetMeleeDamage", 0)
-			SetCVar("CombatHealing", 0)
-			SetCVar("CombatLogPeriodicSpells", 0)
-			SetCVar("CombatHealingAbsorbTarget", 0)
-			InterfaceOptionsCombatTextPanelTargetDamage:Kill()
-			InterfaceOptionsCombatTextPanelPeriodicDamage:Kill()
-			InterfaceOptionsCombatTextPanelPetDamage:Kill()
-			InterfaceOptionsCombatTextPanelHealing:Kill()
-			InterfaceOptionsCombatTextPanelHealingAbsorbTarget:Kill()
+			--BETA SetCVar("CombatDamage", 0)
+			-- SetCVar("PetMeleeDamage", 0)
+			-- SetCVar("CombatHealing", 0)
+			-- SetCVar("CombatLogPeriodicSpells", 0)
+			-- SetCVar("CombatHealingAbsorbTarget", 0)
 		end
 	end
 end)

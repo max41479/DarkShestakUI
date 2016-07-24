@@ -11,17 +11,17 @@ T.MoverFrames = {
 	VehicleButtonAnchor,
 	MicroAnchor,
 	VehicleAnchor,
-	WatchFrameAnchor,
 	AchievementAnchor,
 	MinimapAnchor,
 	TopPanelAnchor,
 	BuffsAnchor,
 	RaidCDAnchor,
 	EnemyCDAnchor,
+	ObjectiveTrackerAnchor,
 	ThreatMeterAnchor,
 	LootRollAnchor,
 	RaidBuffsAnchor,
-	DCPAnchor,
+	PulseCDAnchor,
 	AutoButtonAnchor,
 	TooltipAnchor,
 	ChatBar,
@@ -29,6 +29,16 @@ T.MoverFrames = {
 	oUF_Target_Castbar,
 	oUF_Player_Portrait,
 	oUF_Target_Portrait,
+	ExtraButtonAnchor,
+	P_BUFF_ICON_Anchor,
+	P_PROC_ICON_Anchor,
+	SPECIAL_P_BUFF_ICON_Anchor,
+	T_DEBUFF_ICON_Anchor,
+	T_BUFF_Anchor,
+	PVE_PVP_DEBUFF_Anchor,
+	PVE_PVP_CC_Anchor,
+	COOLDOWN_Anchor,
+	T_DE_BUFF_BAR_Anchor
 }
 
 local moving = false
@@ -40,7 +50,6 @@ local placed = {
 	"stArchaeologyFrame",
 	"StuffingFrameBags",
 	"StuffingFrameBank",
-	"ExtraActionBarFrame",
 	"alDamageMeterFrame"
 }
 

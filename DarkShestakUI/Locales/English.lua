@@ -1,4 +1,4 @@
-﻿----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --	Localization for enUS and enGB client
 ----------------------------------------------------------------------------------------
 -- Installation
@@ -86,11 +86,11 @@ L_MISC_SCROLL = "Scroll"
 L_RAID_UTIL_DISBAND = "Disband Group"
 
 -- Zone name
-L_ZONE_WINTERGRASP = "Wintergrasp"
 L_ZONE_TOLBARAD = "Tol Barad"
 L_ZONE_TOLBARADPEN = "Tol Barad Peninsula"
 L_ZONE_ARATHIBASIN = "Arathi Basin"
 L_ZONE_GILNEAS = "The Battle for Gilneas"
+L_ZONE_ANCIENTDALARAN = "Dalaran Crater"
 
 -- WatchFrame Wowhead link
 L_WATCH_WOWHEAD_LINK = "Wowhead link"
@@ -148,6 +148,8 @@ L_ERRORFRAME_L = "Click to view errors."
 -- Bags
 L_BAG_SHOW_BAGS = "Show Bags"
 L_BAG_RIGHT_CLICK_SEARCH = "Right-click to search"
+L_BAG_STACK_MENU = "Stack"
+L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu"
 
 -- Grab mail
 L_MAIL_STOPPED = "Stopped, inventory is full."
@@ -173,6 +175,9 @@ L_PANELS_AFK_LCLICK = "Left-Click to go back."
 
 -- Cooldowns
 L_COOLDOWNS = "CD: "
+L_COOLDOWNS_COMBATRESS = "BattleRes"
+L_COOLDOWNS_COMBATRESS_REMAINDER = "Battle Resurrection: "
+L_COOLDOWNS_NEXTTIME = "Next time: "
 
 -- Autoinvite
 L_INVITE_ENABLE = "Autoinvite ON: "
@@ -265,6 +270,7 @@ L_STATS_BANDWIDTH = "Bandwidth:"
 L_STATS_DOWNLOAD = "Download:"
 L_STATS_CLEARED_JUNK = "Cleared junk exceptions list."
 L_STATS_CLEAR_EXCEPTIONS = "Clear exceptions list."
+L_STATS_CURRENCY_RAID = "Raid Seals"
 L_STATS_WORLD_MAP = "Clicking opens world map."
 L_STATS_CURRENT_XP = "Current/Max XP"
 L_STATS_MEMORY_USAGE = "Blizzard UI Memory Usage:"
@@ -275,7 +281,6 @@ L_STATS_VIEW_NOTES = "Hold alt key to view ranks, notes and officer notes."
 L_STATS_HR = "hr"
 L_STATS_INF = "inf"
 L_STATS_ALREADY_EXCEPTIONS = "is already in exceptions list."
-L_STATS_NOT_JUNK = "is not junk."
 L_STATS_ITEMLINK = "itemlink"
 L_STATS_JUNK_EXCEPTIONS = "Junk exceptions"
 L_STATS_JUNK_LIST = "Junk List"
@@ -314,11 +319,12 @@ L_STATS_EQUIPMENT_CHANGER = "Shift-Click or Middle-Click for equipment set chang
 L_STATS_SORTING_BY = "Sorting by"
 L_STATS_TIPS = "tips:"
 L_STATS_TOTAL_MEMORY_USAGE = "Total Memory Usage:"
-L_STATS_NOT_TO_SELL = "Use /junk to configure which items not to sell."
+L_STATS_NOT_TO_SELL = "Use /junk to configure which items need to sell."
 L_STATS_WATCH_CURRENCY = "Watched currency tab items will reflect onto the tooltip."
 L_STATS_WATCH_FACTIONS = "Watch factions from the character faction UI."
 L_STATS_TOOLTIP_TIME_PLAYED = "When at max level, the tooltip will show time played details for the account."
 L_STATS_TOOLTIP_EXPERIENCE = "When below max level, a tooltip will be displayed with experience details."
+L_STATS_SEALS = "Seals this week"
 
 -- Slash commands
 L_SLASHCMD_HELP = {

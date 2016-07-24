@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 
 ----------------------------------------------------------------------------------------
 --	ShestakUI main configuration file
@@ -51,8 +51,7 @@ C["misc"] = {
 	["profession_tabs"] = true,					-- Professions tabs on TradeSkill frames
 	["hide_bg_spam"] = false,					-- Remove Boss Emote spam during BG("Arathi Basin" and "The Battle for Gilneas")
 	["item_level"] = true,						-- Item level on character slot buttons
-	["gem_counter"] = false,					-- Displays how many red/blue/yellow gems you have
-	["already_known"] = true,					-- Colorizes recipes/mounts/pets that is already known
+	["already_known"] = true,					-- Colorizes recipes/mounts/pets/toys that is already known
 	["disenchanting"] = false,					-- Milling, Prospecting and Disenchanting by Alt + click
 	["sum_buyouts"] = false,					-- Sum up all current auctions
 	["click_cast"] = false,						-- Simple click2cast spell binder
@@ -62,7 +61,9 @@ C["misc"] = {
 	["enchantment_scroll"] = false,				-- Enchantment scroll on TradeSkill frame
 	["archaeology"] = false,					-- Archaeology artifacts and cooldown
 	["chars_currency"] = false,					-- Tracks your currency tokens across multiple characters
-	["armory_link"] = false,					-- Add Armory link in UnitPopupMenus (It breaks UnitPopupMenus)
+	["armory_link"] = false,					-- Add Armory link in UnitPopupMenus (It breaks set focus)
+	["merchant_itemlevel"] = false,				-- Show item level for weapons and armor in merchant
+	["minimize_mouseover"] = false,				-- Mouseover for quest minimize button
 }
 
 ----------------------------------------------------------------------------------------
@@ -74,7 +75,7 @@ C["announcements"] = {
 	["spells"] = false,							-- Announce when you cast some spell
 	["spells_from_all"] = false,				-- Check spells cast from all members
 	["lightwell"] = false,						-- Announce your Lightwell
-	["toys"] = false,							-- Announce some toys
+	["toys"] = false,							-- Announce some annoying toys
 	["says_thanks"] = false,					-- Says thanks for some spells
 	["pull_countdown"] = true,					-- Pull countdown announce(/pc #)
 	["flask_food"] = false,						-- Announce the usage of flasks and food
@@ -90,22 +91,24 @@ C["announcements"] = {
 --	Automation options
 ----------------------------------------------------------------------------------------
 C["automation"] = {
-	["resurrection"] = true,					-- Auto resurrection in battlegrounds
+	["release"] = true,							-- Auto release the spirit in battlegrounds
 	["screenshot"] = false,						-- Take screenshot when player get achievement
 	["solve_artifact"] = true,					-- Auto popup for solve artifact
 	["chefs_hat"] = true,						-- Auto equip Chef's Hat
 	["accept_invite"] = false,					-- Auto accept invite
-	["decline_duel"] = true,					-- Auto decline duel
-	["accept_quest"] = false,					-- Auto accept quests (disabled if hold Shift or Alt)
-	["auto_collapse"] = false,					-- Auto collapse WatchFrame in instance
+	["decline_duel"] = true,					-- Auto decline duel (/disduel to temporarily disable)
+	["accept_quest"] = false,					-- Auto accept quests (disabled if hold Shift)
+	["auto_collapse"] = false,					-- Auto collapse ObjectiveTrackerFrame in instance
+	["auto_collapse_reload"] = false,			-- Auto collapse ObjectiveTrackerFrame after reload
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies (disabled if hold Ctrl)
 	["auto_role"] = false,						-- Auto set your role
 	["cancel_bad_buffs"] = false,				-- Auto cancel various buffs
 	["tab_binder"] = false,						-- Auto change Tab key to only target enemy players
 	["logging_combat"] = false,					-- Auto enables combat log text file in raid instances
 	["currency_cap"] = false,					-- Auto popup for currency cap
-	["buff_on_scroll"] = false,					-- Cast buff on mouse scroll
+	["buff_on_scroll"] = false,					-- Cast buff on mouse scroll (from the list)
 	["open_items"] = false,						-- Auto opening of items in bag
+	["banner_hide"] = true,						-- Auto hiding Boss Banner Loot Frame
 }
 
 ----------------------------------------------------------------------------------------
@@ -177,6 +180,7 @@ C["combattext"] = {
 	["dispel"] = true,							-- Tells you about your dispels(works only with ["damage"] = true)
 	["interrupt"] = true,						-- Tells you about your interrupts(works only with ["damage"] = true)
 	["direction"] = "bottom",					-- Scrolling Direction("top"(goes down) or "bottom"(goes up))
+	["short_numbers"] = true,					-- Use short numbers ("25.3k" instead of "25342")
 }
 
 ----------------------------------------------------------------------------------------
@@ -203,7 +207,7 @@ C["raidcooldown"] = {
 	["width"] = 186,							-- Bars width(if show_icon = false, bar width+28)
 	["upwards"] = false,						-- Sort upwards bars
 	["expiration"] = false,						-- Sort by expiration time
-	["show_my"] = true,							-- Show my cooldowns
+	["show_self"] = true,						-- Show self cooldowns
 	["show_icon"] = true,						-- Show icons
 	["show_inraid"] = true,						-- Show in raid zone
 	["show_inparty"] = true,					-- Show in party zone
@@ -260,10 +264,11 @@ C["tooltip"] = {
 	["talents"] = false,						-- Show tooltip talents
 	["achievements"] = true,					-- Comparing achievements in tooltip
 	["target"] = true,							-- Target player in tooltip
-	["title"] = false,							-- Player title and realm name in tooltip
+	["title"] = false,							-- Player title in tooltip
+	["realm"] = true,							-- Player realm name in tooltip
 	["rank"] = true,							-- Player guild-rank in tooltip
 	["arena_experience"] = false,				-- Player PvP experience in arena
-	["spell_id"] = false,						-- Id number spells
+	["spell_id"] = false,						-- Id number spells (/si to print buff info in chat)
 	["average_lvl"] = false,					-- Average items level
 	["raid_icon"] = false,						-- Raid icon
 	["who_targetting"] = false,					-- Show who is targetting the unit(in raid or party)
@@ -302,6 +307,7 @@ C["chat"] = {
 ----------------------------------------------------------------------------------------
 C["bag"] = {
 	["enable"] = true,							-- Enable bags
+	["ilvl"] = false,							-- Show item level for weapons and armor
 	["button_size"] = 27,						-- Buttons size
 	["button_space"] = 3,						-- Buttons space
 	["bank_columns"] = 17,						-- Horizontal number of columns in bank
@@ -314,6 +320,7 @@ C["bag"] = {
 C["minimap"] = {
 	["enable"] = true,							-- Enable minimap
 	["tracking_icon"] = false,					-- Tracking icon
+	["garrison_icon"] = false,					-- Garrison icon
 	["size"] = 130,								-- Minimap size
 	["hide_combat"] = false,					-- Hide minimap in combat
 	["toggle_menu"] = true,						-- Show toggle menu
@@ -337,7 +344,7 @@ C["loot"] = {
 	["rolllootframe"] = true,					-- Enable group roll frame
 	["icon_size"] = 22,							-- Icon size
 	["width"] = 221,							-- Loot window width
-	["auto_greed"] = true,						-- Push "greed" or "disenchant" button when an item roll at max level
+	["auto_greed"] = true,						-- Push "greed" or "disenchant" button when green item roll at max level
 	["auto_confirm_de"] = true,					-- Auto confirm disenchant
 }
 
@@ -418,6 +425,20 @@ C["aura"] = {
 }
 
 ----------------------------------------------------------------------------------------
+--	Filger options
+----------------------------------------------------------------------------------------
+C["filger"] = {
+	["enable"] = true,							-- Enable Filger
+	["test_mode"] = false,						-- Test icon mode
+	["max_test_icon"] = 5,						-- The number of icons to the test
+	["show_tooltip"] = false,					-- Show tooltip
+	["disable_cd"] = false,						-- Disable cooldowns
+	["buffs_size"] = 37,						-- Buffs size
+	["cooldown_size"] = 30,						-- Cooldowns size
+	["pvp_size"] = 60,							-- PvP debuffs size
+}
+
+----------------------------------------------------------------------------------------
 --	Unit Frames options
 ----------------------------------------------------------------------------------------
 C["unitframe"] = {
@@ -427,6 +448,7 @@ C["unitframe"] = {
 	["show_total_value"] = false,				-- Display of info text on player and target with XXXX/Total
 	["color_value"] = false,					-- Health/mana value is colored
 	["bar_color_value"] = false,				-- Health bar color by current health remaining
+	["lines"] = true,							-- Show Player and Target lines
 	-- Cast bars
 	["unit_castbar"] = true,					-- Show castbars
 	["castbar_icon"] = true,					-- Show castbar icons
@@ -440,6 +462,8 @@ C["unitframe"] = {
 	["boss_on_right"] = true,					-- Boss frames on the right
 	["show_arena"] = true,						-- Show arena frames
 	["arena_on_right"] = true,					-- Arena frames on the right
+	["boss_debuffs"] = 0,						-- Number of debuffs on the boss frames
+	["boss_buffs"] = 3,							-- Number of buffs on the boss frames
 	-- Icons
 	["icons_pvp"] = false,						-- Mouseover PvP text(not icons) on player and target frames
 	["icons_combat"] = true,					-- Combat icon
@@ -464,10 +488,11 @@ C["unitframe"] = {
 ----------------------------------------------------------------------------------------
 C["unitframe_class_bar"] = {
 	["combo"] = true,							-- Rogue/Druid Combo bar
-	["shadow"] = true,							-- Shadow Orbs bar
+	["combo_always"] = false,					-- Always show Combo bar for Druid
+	["combo_old"] = false,						-- Show combo point on the target
+	["arcane"] = true,							-- Arcane Charge bar
 	["chi"] = true,								-- Chi bar
-	["vengeance"] = true,						-- Vengeance bar (for Tanks)
-	["eclipse"] = true,							-- Eclipse bar
+	["stagger"] = true,							-- Stagger bar (for Monk Tanks)
 	["holy"] = true,							-- Holy Power bar
 	["shard"] = true,							-- Shard/Burning bar
 	["rune"] = true,							-- Rune bar
@@ -505,6 +530,7 @@ C["raidframe"] = {
 	["plugins_debuffhighlight_icon"] = false,	-- Debuff highlight texture + icon
 	["plugins_aura_watch"] = true,				-- Raid debuff icons
 	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_pvp_debuffs"] = false,			-- Show also PvP debuff icons (from the list)
 	["plugins_healcomm"] = true,				-- Incoming heal bar on raid frame
 	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
 }
@@ -534,6 +560,12 @@ C["stats"] = {
 	["experience"] = true,						-- Experience
 	["coords"] = true,							-- Coords
 	["location"] = true,						-- Location
+	["currency_archaeology"] = false,			-- Show Archaeology Fragments under currency tab
+	["currency_cooking"] = true,				-- Show Cooking Awards under currency tab
+	["currency_professions"] = true,			-- Show Profession Tokens under currency tab
+	["currency_raid"] = true,					-- Show Seals under currency tab
+	["currency_pvp"] = true,					-- Show PvP Currency under currency tab
+	["currency_misc"] = true,					-- Show Miscellaneous Currency under currency tab
 }
 
 ----------------------------------------------------------------------------------------

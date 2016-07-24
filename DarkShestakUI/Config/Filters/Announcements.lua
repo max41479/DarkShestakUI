@@ -7,13 +7,14 @@
 ----------------------------------------------------------------------------------------
 if C.announcements.spells == true then
 	T.AnnounceSpells = {
-		34477,	-- Misdirection
-		19801,	-- Tranquilizing Shot
-		57934,	-- Tricks of the Trade
-		633,	-- Lay on Hands
-		20484,	-- Rebirth
 		61999,	-- Raise Ally
+		20484,	-- Rebirth
 		20707,	-- Soulstone
+		31821,	-- Aura Mastery
+		633,	-- Lay on Hands
+		34477,	-- Misdirection
+		57934,	-- Tricks of the Trade
+		19801,	-- Tranquilizing Shot
 		2908,	-- Soothe
 	}
 end
@@ -85,8 +86,8 @@ if C.announcements.bad_gear == true then
 		},
 		-- Back
 		[15] = {
-			65360,	-- Cloak of Coordination
-			65274,	-- Cloak of Coordination
+			65360,	-- Cloak of Coordination (Alliance)
+			65274,	-- Cloak of Coordination (Horde)
 		},
 		-- Main-Hand
 		[16] = {
@@ -95,8 +96,10 @@ if C.announcements.bad_gear == true then
 			84660,	-- Pandaren Fishing Pole
 			84661,	-- Dragon Fishing Pole
 			45992,	-- Jeweled Fishing Pole
-			86559,	-- Frying Pan
 			45991,	-- Bone Fishing Pole
+			116826,	-- Draenic Fishing Pole
+			116825,	-- Savage Fishing Pole
+			86559,	-- Frying Pan
 		},
 		-- Off-hand
 		[17] = {

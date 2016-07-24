@@ -105,7 +105,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y, s)
 
 	f:SetWidth(w)
 	f:SetHeight(h)
-	f:SetFrameLevel(1)
+	f:SetFrameLevel(3)
 	f:SetFrameStrata("BACKGROUND")
 	f:SetPoint(a1, p, a2, x, y)
 	f:SetBackdrop({
@@ -193,7 +193,7 @@ local function StyleButton(button, t, size)
 
 	if not t and button.SetPushedTexture and not button.pushed then
 		local pushed = button:CreateTexture(nil, nil, self)
-		pushed:SetTexture(0.9, 0.8, 0.1, 0.3)
+		pushed:SetColorTexture(0.9, 0.8, 0.1, 0.3)
 		pushed:SetPoint("TOPLEFT", button, size, -size)
 		pushed:SetPoint("BOTTOMRIGHT", button, -size, size)
 		button.pushed = pushed
@@ -202,7 +202,7 @@ local function StyleButton(button, t, size)
 
 	if button.SetCheckedTexture and not button.checked then
 		local checked = button:CreateTexture(nil, nil, self)
-		checked:SetTexture(0, 1, 0, 0.3)
+		checked:SetColorTexture(0, 1, 0, 0.3)
 		checked:SetPoint("TOPLEFT", button, size, -size)
 		checked:SetPoint("BOTTOMRIGHT", button, -size, size)
 		button.checked = checked

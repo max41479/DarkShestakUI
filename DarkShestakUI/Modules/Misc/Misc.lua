@@ -15,6 +15,7 @@ hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 ----------------------------------------------------------------------------------------
 local ForceWarning = CreateFrame("Frame")
 ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
+ForceWarning:RegisterEvent("BATTLEFIELD_MGR_ENTRY_INVITE")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
 ForceWarning:RegisterEvent("RESURRECT_REQUEST")
@@ -28,6 +29,8 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 			end
 			i = i + 1
 		end
+	elseif event == "BATTLEFIELD_MGR_ENTRY_INVITE" then
+		PlaySound("PVPTHROUGHQUEUE", "Master")
 	elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
 		PlaySound("PVPTHROUGHQUEUE", "Master")
 	elseif event == "LFG_PROPOSAL_SHOW" then
@@ -94,9 +97,6 @@ end
 --	Custom Lag Tolerance(by Elv22)
 ----------------------------------------------------------------------------------------
 if C.general.custom_lagtolerance == true then
-	InterfaceOptionsCombatPanelMaxSpellStartRecoveryOffset:Hide()
-	InterfaceOptionsCombatPanelReducedLagTolerance:Hide()
-
 	local customlag = CreateFrame("Frame")
 	local int = 5
 	local _, _, _, lag = GetNetStats()
@@ -241,3 +241,15 @@ filter:SetScript("OnEvent", function(self, event, addon, ...)
 		end
 	end
 end)
+
+----------------------------------------------------------------------------------------
+--	Boss Banner Hider
+----------------------------------------------------------------------------------------
+if C.automation.banner_hide == true then
+	BossBanner.PlayBanner = function() end
+end
+
+----------------------------------------------------------------------------------------
+--	Change UIErrorsFrame strata
+----------------------------------------------------------------------------------------
+UIErrorsFrame:SetFrameLevel(0)

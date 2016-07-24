@@ -89,7 +89,7 @@ function DisplayDrActives(self, test)
 		else
 			aura:SetBackdropBorderColor(1, 0, 0, 1)
 		end
-		CooldownFrame_SetTimer(aura.cooldown, value.start, 18, 1)
+		CooldownFrame_Set(aura.cooldown, value.start, 18, 1)
 		aura.start = value.start
 		aura.cat = cat
 		aura:SetScript("OnUpdate", UpdateDRTracker)
@@ -203,6 +203,13 @@ for frame, target in pairs(framelist) do
 	DrTracker.nextx = target[9]
 	DrTracker.nexty = target[10]
 	self.DrTracker = DrTracker
+end
+
+for spell in pairs(T.DiminishingSpells) do
+	local name = GetSpellInfo(spell)
+	if not name then
+		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
+	end
 end
 
 local function tdr()

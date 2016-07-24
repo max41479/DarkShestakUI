@@ -90,11 +90,11 @@ L_MISC_SCROLL = "附魔卷轴"
 L_RAID_UTIL_DISBAND = "解散团队"
 
 -- Zone name
-L_ZONE_WINTERGRASP = "冬拥湖"
 L_ZONE_TOLBARAD = "托尔巴拉德"
 L_ZONE_TOLBARADPEN = "托尔巴拉德半岛"
 L_ZONE_ARATHIBASIN = "阿拉希盆地"
 L_ZONE_GILNEAS = "吉尔尼斯之战"
+L_ZONE_ANCIENTDALARAN = "达拉然巨坑"
 
 -- WatchFrame Wowhead link
 L_WATCH_WOWHEAD_LINK = "Wowhead链接"
@@ -152,6 +152,8 @@ L_ERRORFRAME_L = "点击查看错误"
 -- Bags
 L_BAG_SHOW_BAGS = "显示背包"
 L_BAG_RIGHT_CLICK_SEARCH = "右键点击搜寻物品"
+L_BAG_STACK_MENU = "堆叠"
+L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
 
 -- Grab mail
 L_MAIL_STOPPED = "无法拾取,背包已满."
@@ -177,6 +179,9 @@ L_PANELS_AFK_LCLICK = "左键点击返回."
 
 -- Cooldowns
 L_COOLDOWNS = "CD: "
+L_COOLDOWNS_COMBATRESS = "战复"
+L_COOLDOWNS_COMBATRESS_REMAINDER = "战复剩余: "
+L_COOLDOWNS_NEXTTIME = "下次: "
 
 -- Autoinvite
 L_INVITE_ENABLE = "自动邀请功能启用: "
@@ -269,6 +274,7 @@ L_STATS_BANDWIDTH = "宽带占用:"
 L_STATS_DOWNLOAD = "下载:"
 L_STATS_CLEARED_JUNK = "清除自动出售例外名单列表"
 L_STATS_CLEAR_EXCEPTIONS = "清除例外名单列表"
+L_STATS_CURRENCY_RAID = "副本徽记"
 L_STATS_WORLD_MAP = "点击开启世界地图"
 L_STATS_CURRENT_XP = "当前/升级所需经验值"
 L_STATS_MEMORY_USAGE = "插件内存占用:"
@@ -279,7 +285,6 @@ L_STATS_VIEW_NOTES = "按住Alt键检视公会成员会阶/注记/干部注记"
 L_STATS_HR = "小时"
 L_STATS_INF = "无限"
 L_STATS_ALREADY_EXCEPTIONS = "物品已在例外名单列表"
-L_STATS_NOT_JUNK = "非自动出售物品"
 L_STATS_ITEMLINK = "物品链接"
 L_STATS_JUNK_EXCEPTIONS = "自动出售例外名单"
 L_STATS_JUNK_LIST = "自动出售列表"
@@ -323,6 +328,7 @@ L_STATS_WATCH_CURRENCY = "在货币面板选定的项目将在鼠标提示中显
 L_STATS_WATCH_FACTIONS = "从角色面板查看"
 L_STATS_TOOLTIP_TIME_PLAYED = "达到最高等级后,提示将显示角色上线时间纪录"
 L_STATS_TOOLTIP_EXPERIENCE = "未达最高等级时,提示将显示经验值信息"
+L_STATS_SEALS = "本周已领徽记"
 
 -- Slash commands
 L_SLASHCMD_HELP = {

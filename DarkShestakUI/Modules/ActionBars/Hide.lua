@@ -1,9 +1,9 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.actionbar.enable ~= true then return end
 
----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --	Hide Blizzard ActionBars stuff(by Tukz)
----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 do
 	MainMenuBar:SetScale(0.00001)
 	MainMenuBar:EnableMouse(false)
@@ -142,9 +142,8 @@ end
 
 -- Fix cooldown spiral alpha (WoD bug)
 function T.HideSpiral(f, alpha)
-	f:SetSwipeTexture(1, 1, 1)
 	f:SetSwipeColor(0, 0, 0, alpha * 0.8)
-	f:SetBlingTexture('', 0, 0, 0, 0)
+	f:SetDrawBling(alpha == 1)
 end
 
 local EventSpiral = CreateFrame("Frame")
@@ -154,7 +153,7 @@ EventSpiral:SetScript("OnEvent", function()
 		RightBarMouseOver(0)
 	end
 
-	if C.actionbar.petbar_mouseover == true and C.actionbar.petbar_horizontal == true then
+	if C.actionbar.petbar_mouseover == true and C.actionbar.petbar_horizontal == true and C.actionbar.petbar_hide ~= true then
 		PetBarMouseOver(0)
 	end
 
@@ -162,6 +161,18 @@ EventSpiral:SetScript("OnEvent", function()
 		StanceBarMouseOver(0)
 	end
 end)
+
+if (C.actionbar.rightbars_mouseover == true and C.actionbar.petbar_horizontal == false and C.actionbar.petbar_hide == false) or (C.actionbar.petbar_mouseover == true and C.actionbar.petbar_horizontal == true and C.actionbar.petbar_hide == false) then
+	local EventPetSpiral = CreateFrame("Frame")
+	EventPetSpiral:RegisterEvent("PET_BAR_UPDATE_COOLDOWN")
+	EventPetSpiral:SetScript("OnEvent", function()
+		for i = 1, NUM_PET_ACTION_SLOTS do
+			local f = _G["PetActionButton"..i.."Cooldown"]
+			T.HideSpiral(f, 0)
+		end
+		EventPetSpiral:UnregisterEvent("PET_BAR_UPDATE_COOLDOWN")
+	end)
+end
 
 do
 	if C.actionbar.rightbars_mouseover == true then

@@ -14,6 +14,9 @@
 --		C["position"].tooltip = {"BOTTOMRIGHT", Minimap, "TOPRIGHT", 2, 5}
 --		C["position"].bottom_bars = {"BOTTOM", UIParent, "BOTTOM", 2, 8}
 --		C["position"].unitframes.tank = {"BOTTOMLEFT", UIParent, "BOTTOM", 176, 68}
+--		T.CustomFilgerSpell = {
+--			{"T_DEBUFF_ICON", {spellID = 115767, unitID = "target", caster = "player", filter = "DEBUFF"}},
+--		}
 -- end
 ----------------------------------------------------------------------------------------
 
@@ -68,12 +71,10 @@ if T.name == "Oz" and T.realm == "Pozzo dell'Eternità" then
 	C["general"].welcome_message = false
 	C["misc"].invite_keyword = "inv"
 	C["misc"].item_level = true
-	C["misc"].gem_counter = true
-	C["misc"].already_known = true
 	C["misc"].move_blizzard = true
 	C["announcements"].flask_food = true
 	C["announcements"].pull_countdown = false
-	C["automation"].resurrection = false
+	C["automation"].release = false
 	C["automation"].decline_duel = false
 	C["automation"].solve_artifact = false
 	C["skins"].blizzard_frames = true
@@ -84,7 +85,7 @@ if T.name == "Oz" and T.realm == "Pozzo dell'Eternità" then
 	C["skins"].my_role_play = true
 	C["combattext"].icons = false
 	C["combattext"].scrollable = true
-	C["combattext"].dk_runes= false
+	C["combattext"].dk_runes = false
 	C["combattext"].killingblow = true
 	C["reminder"].raid_buffs_size = 16.8
 	C["threat"].width = 125
@@ -119,6 +120,7 @@ if T.name == "Oz" and T.realm == "Pozzo dell'Eternità" then
 	C["aura"].pet_debuffs = true
 	C["aura"].tot_debuffs = true
 	C["aura"].cast_by = true
+	C["filger"].show_tooltip = true
 	C["unitframe"].own_color = true
 	C["unitframe"].uf_color = {0.15, 0.15, 0.15}
 	C["unitframe"].enemy_health_color = false
@@ -131,7 +133,7 @@ if T.name == "Oz" and T.realm == "Pozzo dell'Eternità" then
 	C["unitframe"].plugins_experience_bar = true
 	C["unitframe"].plugins_friendship_bar = true
 	C["unitframe"].plugins_smooth_bar = true
-	C["unitframe"].plugins_talents = true
+	C["unitframe"].plugins_enemy_spec = true
 	C["unitframe"].plugins_fader = true
 	C["unitframe"].plugins_diminishing = true
 	C["raidframe"].raid_tanks_tt = true

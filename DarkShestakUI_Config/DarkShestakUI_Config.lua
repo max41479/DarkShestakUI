@@ -1,4 +1,4 @@
-﻿----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --	GUI for ShestakUI(by Fernir, Tukz and Tohveli)
 ----------------------------------------------------------------------------------------
 local realm = GetRealmName()
@@ -25,12 +25,13 @@ local ALLOWED_GROUPS = {
 	["nameplate"] = 18,
 	["actionbar"] = 19,
 	["aura"] = 20,
-	["unitframe"] = 21,
-	["unitframe_class_bar"] = 22,
-	["raidframe"] = 23,
-	["toppanel"] = 24,
-	["error"] = 25,
-	["stats"] = 26,
+	["filger"] = 21,
+	["unitframe"] = 22,
+	["unitframe_class_bar"] = 23,
+	["raidframe"] = 24,
+	["toppanel"] = 25,
+	["error"] = 26,
+	["stats"] = 27,
 }
 
 local function Local(o)
@@ -53,7 +54,6 @@ local function Local(o)
 	if o == "UIConfigmiscprofession_tabs" then o = L_GUI_MISC_PROFESSION_TABS end
 	if o == "UIConfigmischide_bg_spam" then o = L_GUI_MISC_HIDE_BG_SPAM end
 	if o == "UIConfigmiscitem_level" then o = L_GUI_MISC_ITEM_LEVEL end
-	if o == "UIConfigmiscgem_counter" then o = L_GUI_MISC_GEM_COUNTER end
 	if o == "UIConfigmiscalready_known" then o = L_GUI_MISC_ALREADY_KNOWN end
 	if o == "UIConfigmiscdisenchanting" then o = L_GUI_MISC_DISENCHANTING end
 	if o == "UIConfigmiscsum_buyouts" then o = L_GUI_MISC_SUM_BUYOUTS end
@@ -65,7 +65,8 @@ local function Local(o)
 	if o == "UIConfigmiscarchaeology" then o = L_GUI_MISC_ARCHAEOLOGY end
 	if o == "UIConfigmiscchars_currency" then o = L_GUI_MISC_CHARS_CURRENCY end
 	if o == "UIConfigmiscarmory_link" then o = L_GUI_MISC_ARMORY_LINK end
-	if o == "UIConfigmiscbad_gear" then o = L_GUI_MISC_BAD_GEAR end
+	if o == "UIConfigmiscmerchant_itemlevel" then o = L_GUI_MISC_MERCHANT_ITEMLEVEL end
+	if o == "UIConfigmiscminimize_mouseover" then o = L_GUI_MISC_MINIMIZE_MOUSEOVER end
 
 	-- Announcements options
 	if o == "UIConfigannouncements" then o = L_GUI_ANNOUNCEMENTS end
@@ -87,7 +88,7 @@ local function Local(o)
 
 	-- Automation options
 	if o == "UIConfigautomation" then o = L_GUI_AUTOMATION end
-	if o == "UIConfigautomationresurrection" then o = L_GUI_AUTOMATION_RESURRECTION end
+	if o == "UIConfigautomationrelease" then o = L_GUI_AUTOMATION_RELEASE end
 	if o == "UIConfigautomationscreenshot" then o = L_GUI_AUTOMATION_SCREENSHOT end
 	if o == "UIConfigautomationsolve_artifact" then o = L_GUI_AUTOMATION_SOLVE_ARTIFACT end
 	if o == "UIConfigautomationchefs_hat" then o = L_GUI_AUTOMATION_CHEFS_HAT end
@@ -95,6 +96,7 @@ local function Local(o)
 	if o == "UIConfigautomationdecline_duel" then o = L_GUI_AUTOMATION_DECLINE_DUEL end
 	if o == "UIConfigautomationaccept_quest" then o = L_GUI_AUTOMATION_ACCEPT_QUEST end
 	if o == "UIConfigautomationauto_collapse" then o = L_GUI_AUTOMATION_AUTO_COLLAPSE end
+	if o == "UIConfigautomationauto_collapse_reload" then o = L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD end
 	if o == "UIConfigautomationskip_cinematic" then o = L_GUI_AUTOMATION_SKIP_CINEMATIC end
 	if o == "UIConfigautomationauto_role" then o = L_GUI_AUTOMATION_AUTO_ROLE end
 	if o == "UIConfigautomationcancel_bad_buffs" then o = L_GUI_AUTOMATION_CANCEL_BAD_BUFFS end
@@ -103,6 +105,7 @@ local function Local(o)
 	if o == "UIConfigautomationcurrency_cap" then o = L_GUI_AUTOMATION_CURRENCY_CAP end
 	if o == "UIConfigautomationbuff_on_scroll" then o = L_GUI_AUTOMATION_BUFF_ON_SCROLL end
 	if o == "UIConfigautomationopen_items" then o = L_GUI_AUTOMATION_OPEN_ITEMS end
+	if o == "UIConfigautomationbanner_hide" then o = L_GUI_AUTOMATION_BANNER_HIDE end
 
 	-- Skins options
 	if o == "UIConfigskins" then o = L_GUI_SKINS end
@@ -168,6 +171,7 @@ local function Local(o)
 	if o == "UIConfigcombattextdispel" then o = L_GUI_COMBATTEXT_DISPEL end
 	if o == "UIConfigcombattextinterrupt" then o = L_GUI_COMBATTEXT_INTERRUPT end
 	if o == "UIConfigcombattextdirection" then o = L_GUI_COMBATTEXT_DIRECTION end
+	if o == "UIConfigcombattextshort_numbers" then o = L_GUI_COMBATTEXT_SHORT_NUMBERS end
 
 	-- Buffs reminder options
 	if o == "UIConfigreminder" then o = L_GUI_REMINDER end
@@ -186,7 +190,7 @@ local function Local(o)
 	if o == "UIConfigraidcooldownwidth" then o = L_GUI_COOLDOWN_RAID_WIDTH end
 	if o == "UIConfigraidcooldownupwards" then o = L_GUI_COOLDOWN_RAID_SORT end
 	if o == "UIConfigraidcooldownexpiration" then o = L_GUI_COOLDOWN_RAID_EXPIRATION end
-	if o == "UIConfigraidcooldownshow_my" then o = L_GUI_COOLDOWN_RAID_SHOW_MY end
+	if o == "UIConfigraidcooldownshow_self" then o = L_GUI_COOLDOWN_RAID_SHOW_SELF end
 	if o == "UIConfigraidcooldownshow_icon" then o = L_GUI_COOLDOWN_RAID_ICONS end
 	if o == "UIConfigraidcooldownshow_inraid" then o = L_GUI_COOLDOWN_RAID_IN_RAID end
 	if o == "UIConfigraidcooldownshow_inparty" then o = L_GUI_COOLDOWN_RAID_IN_PARTY end
@@ -231,6 +235,7 @@ local function Local(o)
 	if o == "UIConfigtooltipachievements" then o = L_GUI_TOOLTIP_ACHIEVEMENTS end
 	if o == "UIConfigtooltiptarget" then o = L_GUI_TOOLTIP_TARGET end
 	if o == "UIConfigtooltiptitle" then o = L_GUI_TOOLTIP_TITLE end
+	if o == "UIConfigtooltiprealm" then o = L_GUI_TOOLTIP_REALM end
 	if o == "UIConfigtooltiprank" then o = L_GUI_TOOLTIP_RANK end
 	if o == "UIConfigtooltiparena_experience" then o = L_GUI_TOOLTIP_ARENA_EXPERIENCE end
 	if o == "UIConfigtooltipspell_id" then o = L_GUI_TOOLTIP_SPELL_ID end
@@ -266,6 +271,7 @@ local function Local(o)
 	-- Bag options
 	if o == "UIConfigbag" then o = L_GUI_BAGS end
 	if o == "UIConfigbagenable" then o = L_GUI_BAGS_ENABLE end
+	if o == "UIConfigbagilvl" then o = L_GUI_BAGS_ILVL end
 	if o == "UIConfigbagbutton_size" then o = L_GUI_BAGS_BUTTON_SIZE end
 	if o == "UIConfigbagbutton_space" then o = L_GUI_BAGS_BUTTON_SPACE end
 	if o == "UIConfigbagbank_columns" then o = L_GUI_BAGS_BANK end
@@ -275,6 +281,7 @@ local function Local(o)
 	if o == "UIConfigminimap" then o = MINIMAP_LABEL end
 	if o == "UIConfigminimapenable" then o = L_GUI_MINIMAP_ENABLE end
 	if o == "UIConfigminimaptracking_icon" then o = L_GUI_MINIMAP_ICON end
+	if o == "UIConfigminimapgarrison_icon" then o = L_GUI_GARRISON_ICON end
 	if o == "UIConfigminimapsize" then o = L_GUI_MINIMAP_SIZE end
 	if o == "UIConfigminimaphide_combat" then o = L_GUI_MINIMAP_HIDE_COMBAT end
 	if o == "UIConfigminimaptoggle_menu" then o = L_GUI_MINIMAP_TOGGLE_MENU end
@@ -356,6 +363,17 @@ local function Local(o)
 	if o == "UIConfigauradebuff_color_type" then o = L_GUI_AURA_DEBUFF_COLOR_TYPE end
 	if o == "UIConfigauracast_by" then o = L_GUI_AURA_CAST_BY end
 
+	-- Filger
+	if o == "UIConfigfilger" then o = L_GUI_FILGER end
+	if o == "UIConfigfilgerenable" then o = L_GUI_FILGER_ENABLE end
+	if o == "UIConfigfilgertest_mode" then o = L_GUI_FILGER_TEST_MODE end
+	if o == "UIConfigfilgermax_test_icon" then o = L_GUI_FILGER_MAX_TEST_ICON end
+	if o == "UIConfigfilgershow_tooltip" then o = L_GUI_FILGER_SHOW_TOOLTIP end
+	if o == "UIConfigfilgerdisable_cd" then o = L_GUI_FILGER_DISABLE_CD end
+	if o == "UIConfigfilgerbuffs_size" then o = L_GUI_FILGER_BUFFS_SIZE end
+	if o == "UIConfigfilgercooldown_size" then o = L_GUI_FILGER_COOLDOWN_SIZE end
+	if o == "UIConfigfilgerpvp_size" then o = L_GUI_FILGER_PVP_SIZE end
+
 	-- Unit Frames options
 	if o == "UIConfigunitframe" then o = UNITFRAME_LABEL end
 	if o == "UIConfigunitframeenable" then o = L_GUI_UF_ENABLE end
@@ -363,6 +381,7 @@ local function Local(o)
 	if o == "UIConfigunitframeshow_total_value" then o = L_GUI_UF_TOTAL_VALUE end
 	if o == "UIConfigunitframecolor_value" then o = L_GUI_UF_COLOR_VALUE end
 	if o == "UIConfigunitframebar_color_value" then o = L_GUI_UF_BAR_COLOR_VALUE end
+	if o == "UIConfigunitframelines" then o = L_GUI_UF_LINES end
 	if o == "UIConfigunitframeunit_castbar" then o = L_GUI_UF_UNIT_CASTBAR end
 	if o == "UIConfigunitframecastbar_icon" then o = L_GUI_UF_CASTBAR_ICON end
 	if o == "UIConfigunitframecastbar_latency" then o = L_GUI_UF_CASTBAR_LATENCY end
@@ -374,6 +393,8 @@ local function Local(o)
 	if o == "UIConfigunitframeboss_on_right" then o = L_GUI_UF_BOSS_RIGHT end
 	if o == "UIConfigunitframeshow_arena" then o = L_GUI_UF_SHOW_ARENA end
 	if o == "UIConfigunitframearena_on_right" then o = L_GUI_UF_ARENA_RIGHT end
+	if o == "UIConfigunitframeboss_debuffs" then o = L_GUI_UF_BOSS_DEBUFFS end
+	if o == "UIConfigunitframeboss_buffs" then o = L_GUI_UF_BOSS_BUFFS end
 	if o == "UIConfigunitframeicons_pvp" then o = L_GUI_UF_ICONS_PVP end
 	if o == "UIConfigunitframeicons_combat" then o = L_GUI_UF_ICONS_COMBAT end
 	if o == "UIConfigunitframeicons_resting" then o = L_GUI_UF_ICONS_RESTING end
@@ -384,7 +405,7 @@ local function Local(o)
 	if o == "UIConfigunitframeplugins_experience_bar" then o = L_GUI_UF_PLUGINS_EXPERIENCE_BAR end
 	if o == "UIConfigunitframeplugins_friendship_bar" then o = L_GUI_UF_PLUGINS_FRIENDSHIP_BAR end
 	if o == "UIConfigunitframeplugins_smooth_bar" then o = L_GUI_UF_PLUGINS_SMOOTH_BAR end
-	if o == "UIConfigunitframeplugins_talents" then o = L_GUI_UF_PLUGINS_TALENTS end
+	if o == "UIConfigunitframeplugins_enemy_spec" then o = L_GUI_UF_PLUGINS_ENEMY_SPEC end
 	if o == "UIConfigunitframeplugins_combat_feedback" then o = L_GUI_UF_PLUGINS_COMBAT_FEEDBACK end
 	if o == "UIConfigunitframeplugins_fader" then o = L_GUI_UF_PLUGINS_FADER end
 	if o == "UIConfigunitframeplugins_diminishing" then o = L_GUI_UF_PLUGINS_DIMINISHING end
@@ -392,10 +413,11 @@ local function Local(o)
 	-- Unit Frames Class bar options
 	if o == "UIConfigunitframe_class_bar" then o = L_GUI_UF_PLUGINS_CLASS_BAR end
 	if o == "UIConfigunitframe_class_barcombo" then o = L_GUI_UF_PLUGINS_COMBO_BAR end
-	if o == "UIConfigunitframe_class_barshadow" then o = L_GUI_UF_PLUGINS_SHADOW_BAR end
+	if o == "UIConfigunitframe_class_barcombo_always" then o = L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS end
+	if o == "UIConfigunitframe_class_barcombo_old" then o = L_GUI_UF_PLUGINS_COMBO_BAR_OLD end
+	if o == "UIConfigunitframe_class_bararcane" then o = L_GUI_UF_PLUGINS_ARCANE_BAR end
 	if o == "UIConfigunitframe_class_barchi" then o = L_GUI_UF_PLUGINS_CHI_BAR end
-	if o == "UIConfigunitframe_class_barvengeance" then o = L_GUI_UF_PLUGINS_VENGEANCE_BAR end
-	if o == "UIConfigunitframe_class_bareclipse" then o = L_GUI_UF_PLUGINS_ECLIPSE_BAR end
+	if o == "UIConfigunitframe_class_barstagger" then o = L_GUI_UF_PLUGINS_STAGGER_BAR end
 	if o == "UIConfigunitframe_class_barholy" then o = L_GUI_UF_PLUGINS_HOLY_BAR end
 	if o == "UIConfigunitframe_class_barshard" then o = L_GUI_UF_PLUGINS_SHARD_BAR end
 	if o == "UIConfigunitframe_class_barrune" then o = L_GUI_UF_PLUGINS_RUNE_BAR end
@@ -426,6 +448,7 @@ local function Local(o)
 	if o == "UIConfigraidframeplugins_debuffhighlight_icon" then o = L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON end
 	if o == "UIConfigraidframeplugins_aura_watch" then o = L_GUI_UF_PLUGINS_AURA_WATCH end
 	if o == "UIConfigraidframeplugins_aura_watch_timer" then o = L_GUI_UF_PLUGINS_AURA_WATCH_TIMER end
+	if o == "UIConfigraidframeplugins_pvp_debuffs" then o = L_GUI_UF_PLUGINS_PVP_DEBUFFS end
 	if o == "UIConfigraidframeplugins_healcomm" then o = L_GUI_UF_PLUGINS_HEALCOMM end
 	if o == "UIConfigraidframeplugins_auto_resurrection" then o = L_GUI_UF_PLUGINS_AUTO_RESURRECTION end
 
@@ -449,6 +472,12 @@ local function Local(o)
 	if o == "UIConfigstatsexperience" then o = L_GUI_STATS_EXPERIENCE end
 	if o == "UIConfigstatscoords" then o = L_GUI_STATS_COORDS end
 	if o == "UIConfigstatslocation" then o = L_GUI_STATS_LOCATION end
+	if o == "UIConfigstatscurrency_archaeology" then o = L_GUI_STATS_CURRENCY_ARCHAEOLOGY end
+	if o == "UIConfigstatscurrency_cooking" then o = L_GUI_STATS_CURRENCY_COOKING end
+	if o == "UIConfigstatscurrency_professions" then o = L_GUI_STATS_CURRENCY_PROFESSIONS end
+	if o == "UIConfigstatscurrency_raid" then o = L_GUI_STATS_CURRENCY_RAID end
+	if o == "UIConfigstatscurrency_pvp" then o = L_GUI_STATS_CURRENCY_PVP end
+	if o == "UIConfigstatscurrency_misc" then o = L_GUI_STATS_CURRENCY_MISCELLANEOUS end
 
 	-- Error options
 	if o == "UIConfigerror" then o = L_GUI_ERROR end
@@ -664,7 +693,7 @@ function CreateUIConfig()
 	-- Version Title
 	local TitleBoxVer = CreateFrame("Frame", "TitleBoxVer", UIConfigMain)
 	TitleBoxVer:SetWidth(180)
-	TitleBoxVer:SetHeight(24)
+	TitleBoxVer:SetHeight(26)
 	TitleBoxVer:SetPoint("TOPLEFT", UIConfigMain, "TOPLEFT", 23, -15)
 
 	local TitleBoxVerText = TitleBoxVer:CreateFontString("UIConfigTitleVer", "OVERLAY", "GameFontNormal")
@@ -674,7 +703,7 @@ function CreateUIConfig()
 	-- Main Frame Title
 	local TitleBox = CreateFrame("Frame", "TitleBox", UIConfigMain)
 	TitleBox:SetWidth(540)
-	TitleBox:SetHeight(24)
+	TitleBox:SetHeight(26)
 	TitleBox:SetPoint("TOPLEFT", TitleBoxVer, "TOPRIGHT", 15, 0)
 
 	local TitleBoxText = TitleBox:CreateFontString("UIConfigTitle", "OVERLAY", "GameFontNormal")
@@ -718,6 +747,14 @@ function CreateUIConfig()
 	slider:SetValueStep(20)
 	slider:SetScript("OnValueChanged", function(self, value) groups:SetVerticalScroll(value) end)
 
+	if not slider.bg then
+		slider.bg = CreateFrame("Frame", nil, slider)
+		slider.bg:SetPoint("TOPLEFT", slider:GetThumbTexture(), "TOPLEFT", 10, -7)
+		slider.bg:SetPoint("BOTTOMRIGHT", slider:GetThumbTexture(), "BOTTOMRIGHT", -7, 7)
+		slider.bg:SetTemplate("Overlay")
+		slider:GetThumbTexture():SetAlpha(0)
+	end
+
 	local function sortMyTable(a, b)
 		return ALLOWED_GROUPS[a] < ALLOWED_GROUPS[b]
 	end
@@ -734,6 +771,35 @@ function CreateUIConfig()
 		end
 		return iter
 	end
+
+	local GetOrderedIndex = function(t)
+		local OrderedIndex = {}
+
+		for key in pairs(t) do table.insert(OrderedIndex, key) end
+		table.sort(OrderedIndex)
+		return OrderedIndex
+	end
+
+	local OrderedNext = function(t, state)
+		local Key
+
+		if (state == nil) then
+			t.OrderedIndex = GetOrderedIndex(t)
+			Key = t.OrderedIndex[1]
+			return Key, t[Key]
+		end
+
+		Key = nil
+		for i = 1, #t.OrderedIndex do
+			if (t.OrderedIndex[i] == state) then Key = t.OrderedIndex[i + 1] end
+		end
+
+		if Key then return Key, t[Key] end
+		t.OrderedIndex = nil
+		return
+	end
+
+	local PairsByKeys = function(t) return OrderedNext, t, nil end
 
 	local child = CreateFrame("Frame", nil, groups)
 	child:SetPoint("TOPLEFT")
@@ -783,6 +849,14 @@ function CreateUIConfig()
 	slider:SetValueStep(20)
 	slider:SetScript("OnValueChanged", function(self, value) group:SetVerticalScroll(value) end)
 
+	if not slider.bg then
+		slider.bg = CreateFrame("Frame", nil, slider)
+		slider.bg:SetPoint("TOPLEFT", slider:GetThumbTexture(), "TOPLEFT", 10, -7)
+		slider.bg:SetPoint("BOTTOMRIGHT", slider:GetThumbTexture(), "BOTTOMRIGHT", -7, 7)
+		slider.bg:SetTemplate("Overlay")
+		slider:GetThumbTexture():SetAlpha(0)
+	end
+
 	for i in pairs(ALLOWED_GROUPS) do
 		local frame = CreateFrame("Frame", "UIConfig"..i, UIConfigGroup)
 		frame:SetPoint("TOPLEFT")
@@ -791,7 +865,7 @@ function CreateUIConfig()
 		local offset = 5
 
 		if type(C[i]) ~= "table" then error(i.." GroupName not found in config table.") return end
-		for j, value in pairs(C[i]) do
+		for j, value in PairsByKeys(C[i]) do
 			if type(value) == "boolean" then
 				local button = CreateFrame("CheckButton", "UIConfig"..i..j, frame, "InterfaceOptionsCheckButtonTemplate")
 				if IsAddOnLoaded("Aurora") then
@@ -1060,7 +1134,7 @@ do
 		subtitle2:SetWidth(580)
 		subtitle2:SetPoint("TOPLEFT", title2, "BOTTOMLEFT", 0, -8)
 		subtitle2:SetJustifyH("LEFT")
-		subtitle2:SetText("AcidWeb, Aezay, Affli, Ailae, Allez, ALZA, Ammo, Astromech, Beoko, Bitbyte, Blamdarot, Bozo, Caellian, Califpornia, Camealion, Chiril, CrusaderHeimdall, Cybey, Dawn, Don Kaban, Dridzt, Duffed, Durcyn, Eclipse, Egingell, Elv22, Evilpaul, Evl, Favorit, Fernir, Foof, Freebaser, g0st, gi2k15, Gorlasch, Gsuz, Haleth, Haste, Hoochie, Hungtar, HyPeRnIcS, Hydra, Ildyria, iSpawnAtHome, Jaslm, Karl_w_w, Karudon, Katae, Kellett, Kemayo, Killakhan, Kraftman, Kunda, Leatrix, m2jest1c, Magdain, Meurtcriss, Monolit, MrRuben5, Myrilandell of Lothar, Nathanyel, Nefarion, Nightcracker, Nils Ruesch, p3lim, Partha, Phanx, Rahanprout, Renstrom, RustamIrzaev, Safturento, Sara.Festung, SDPhantom, Sildor, Silverwind, SinaC, Slakah, Soeters, Starlon, Suicidal Katt, Syzgyn, Tekkub, Telroth, Thalyra, Thizzelle, Tia Lynn, Tohveli, Tukz, Tuller, Veev, Villiv, Wetxius, Woffle of Dark Iron, Wrug, Xuerian, Yleaf, Zork.")
+		subtitle2:SetText("AcidWeb, Aezay, Affli, Ailae, Allez, ALZA, Ammo, Astromech, Beoko, Bitbyte, Blamdarot, Bozo, Caellian, Califpornia, Camealion, Cloudyfa, Chiril, CrusaderHeimdall, Cybey, Dawn, Don Kaban, Dridzt, Duffed, Durcyn, Eclipse, Egingell, Elv22, Evilpaul, Evl, Favorit, Fernir, Foof, Freebaser, g0st, gi2k15, Gorlasch, Gsuz, Haleth, Haste, Hoochie, Hungtar, HyPeRnIcS, Hydra, Ildyria, iSpawnAtHome, Jaslm, Karl_w_w, Karudon, Katae, Kellett, Kemayo, Killakhan, Kraftman, Leatrix, m2jest1c, Magdain, Meurtcriss, Monolit, MrRuben5, Myrilandell of Lothar, Nathanyel, Nefarion, Nightcracker, Nils Ruesch, p3lim, Partha, Phanx, Rahanprout, Renstrom, RustamIrzaev, Safturento, Sara.Festung, SDPhantom, Sildor, Silverwind, SinaC, Slakah, Soeters, Starlon, Suicidal Katt, Syzgyn, Tekkub, Telroth, Thalyra, Thizzelle, Tia Lynn, Tohveli, Tukz, Tuller, Veev, Villiv, Wetxius, Woffle of Dark Iron, Wrug, Xuerian, Yleaf, Zork.")
 
 		local title3 = self:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 		title3:SetPoint("TOPLEFT", subtitle2, "BOTTOMLEFT", 0, -16)
@@ -1070,7 +1144,7 @@ do
 		subtitle3:SetWidth(580)
 		subtitle3:SetPoint("TOPLEFT", title3, "BOTTOMLEFT", 0, -8)
 		subtitle3:SetJustifyH("LEFT")
-		subtitle3:SetText("Aelb, Alwa, Baine, Chubidu, Cranan, eXecrate, F5Hellbound, Ianchan, Leg883, Mania, Nanjiqq, Oz, Puree, Seal, Sinaris, Spacedragon, Tat2dawn, Tibles, Vienchen, Wetxius.")
+		subtitle3:SetText("Aelb, Alwa, Baine, Chubidu, Cranan, eXecrate, F5Hellbound, Ianchan, Leg883, Mania, Nanjiqq, Oz, Puree, Sakaras, Seal, Sinaris, Spacedragon, Tat2dawn, Tibles, Vienchen, Wetxius.")
 
 		local title4 = self:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 		title4:SetPoint("TOPLEFT", subtitle3, "BOTTOMLEFT", 0, -16)
@@ -1080,7 +1154,7 @@ do
 		subtitle4:SetWidth(580)
 		subtitle4:SetPoint("TOPLEFT", title4, "BOTTOMLEFT", 0, -8)
 		subtitle4:SetJustifyH("LEFT")
-		subtitle4:SetText("Michael aka Shestak, Wetxius - for their work, Yakodzuna - for idea, Forgotten Brothershood guild from Ashenvale EU - for company and raiding.")
+		subtitle4:SetText("Akimba, Antthemage, Crunching, Dandruff, DesFolk, Elfrey, Ente, Erratic, Falchior, Gromcha, Halogen, Homicidal Retribution, ILF7, Illusion, Ipton, k07n, Kazarl, Lanseb, Leots, m2jest1c, MoLLIa, Nefrit, Noobolov, Obakol, Oz, PterOs, Sart, Scorpions, Sitatunga, Sw2rT1, Tryllemann, Wetxius, Yakodzuna, UI Users and Russian Community.")
 
 		local version = self:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 		version:SetPoint("BOTTOMRIGHT", -16, 16)
@@ -1091,7 +1165,6 @@ do
 
 	InterfaceOptions_AddCategory(frame)
 end
-
 
 ----------------------------------------------------------------------------------------
 --	Button in GameMenuButton frame

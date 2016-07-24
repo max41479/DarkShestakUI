@@ -33,6 +33,10 @@ MinimapBorderTop:Hide()
 MinimapZoomIn:Hide()
 MinimapZoomOut:Hide()
 
+-- Hide Blob Ring
+Minimap:SetArchBlobRingScalar(0)
+Minimap:SetQuestBlobRingScalar(0)
+
 -- Hide Voice Chat Frame
 MiniMapVoiceChatFrame:Kill()
 VoiceChatTalkers:Kill()
@@ -65,9 +69,15 @@ QueueStatusMinimapButtonBorder:Hide()
 -- Hide world map button
 MiniMapWorldMapButton:Hide()
 
--- Hide Garrison icon
-GarrisonLandingPageMinimapButton:SetScale(0.0001)
-GarrisonLandingPageMinimapButton:SetAlpha(0)
+-- Garrison icon
+if C.minimap.garrison_icon == true then
+	GarrisonLandingPageMinimapButton:ClearAllPoints()
+	GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
+	GarrisonLandingPageMinimapButton:SetSize(32, 32)
+else
+	GarrisonLandingPageMinimapButton:SetScale(0.0001)
+	GarrisonLandingPageMinimapButton:SetAlpha(0)
+end
 
 -- Instance Difficulty icon
 MiniMapInstanceDifficulty:SetParent(Minimap)
@@ -108,6 +118,7 @@ if StreamingIcon then
 	StreamingIcon:ClearAllPoints()
 	StreamingIcon:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -10)
 	StreamingIcon:SetScale(0.8)
+	StreamingIcon:SetFrameStrata("BACKGROUND")
 end
 
 -- Ticket icon
@@ -177,7 +188,11 @@ local micromenu = {
 		if T.level >= SHOW_TALENT_LEVEL then
 			ShowUIPanel(PlayerTalentFrame)
 		else
-			print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL).."|r")
+			if C.error.white == false then
+				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL), 1, 0.1, 0.1)
+			else
+				print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL).."|r")
+			end
 		end
 	end},
 	{text = ACHIEVEMENT_BUTTON, notCheckable = 1, func = function()
@@ -208,7 +223,7 @@ local micromenu = {
 	end},
 	{text = DUNGEONS_BUTTON, notCheckable = 1, func = function()
 		if T.level >= SHOW_LFD_LEVEL then
-			PVEFrame_ToggleFrame()
+			PVEFrame_ToggleFrame("GroupFinderFrame", nil)
 		else
 			if C.error.white == false then
 				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_LFD_LEVEL), 1, 0.1, 0.1)
@@ -217,8 +232,16 @@ local micromenu = {
 			end
 		end
 	end},
-	{text = ENCOUNTER_JOURNAL, notCheckable = 1, func = function()
-		ToggleEncounterJournal()
+	{text = ADVENTURE_JOURNAL, notCheckable = 1, func = function()
+		if C_AdventureJournal.CanBeShown() then
+			ToggleEncounterJournal()
+		else
+			if C.error.white == false then
+				UIErrorsFrame:AddMessage(FEATURE_NOT_YET_AVAILABLE, 1, 0.1, 0.1)
+			else
+				print("|cffffff00"..FEATURE_NOT_YET_AVAILABLE.."|r")
+			end
+		end
 	end},
 	{text = COLLECTIONS, notCheckable = 1, func = function()
 		if InCombatLockdown() then
@@ -304,12 +327,16 @@ if C.minimap.tracking_icon then
 
 	MiniMapTrackingBackground:Hide()
 	MiniMapTracking:ClearAllPoints()
-	MiniMapTracking:SetPoint("CENTER", trackborder, 2, -2)
+	MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 0, -5)
 	MiniMapTrackingButton:SetHighlightTexture(nil)
 	MiniMapTrackingButtonBorder:Hide()
 	MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	MiniMapTrackingIcon:SetWidth(16)
-	MiniMapTrackingIcon:SetHeight(16)
+	MiniMapTrackingIcon:SetSize(16, 16)
+	MiniMapTrackingIcon.SetPoint = T.dummy
+
+	MiniMapTracking:CreateBackdrop("ClassColor")
+	MiniMapTracking.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
+	MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
 else
 	MiniMapTracking:Hide()
 end

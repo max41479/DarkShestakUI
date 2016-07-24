@@ -128,12 +128,14 @@ local function LoadSkin()
 		"Advanced_LagDropDown",
 		"Advanced_HardwareCursorDropDown",
 		"Advanced_GraphicsAPIDropDown",
+		"Advanced_PhysicsInteractionDropDown",
 		"Advanced_MultisampleAntiAliasingDropDown",
 		"Advanced_MultisampleAlphaTest",
 		"Advanced_PostProcessAntiAliasingDropDown",
 		"Advanced_ResampleQualityDropDown",
 		"AudioOptionsSoundPanelHardwareDropDown",
 		"AudioOptionsSoundPanelSoundChannelsDropDown",
+		"AudioOptionsSoundPanelSoundCacheSizeDropDown",
 		"AudioOptionsVoicePanelInputDeviceDropDown",
 		"AudioOptionsVoicePanelChatModeDropDown",
 		"AudioOptionsVoicePanelOutputDeviceDropDown",
@@ -150,7 +152,10 @@ local function LoadSkin()
 		"RaidGraphics_SunshaftsDropDown",
 		"RaidGraphics_ParticleDensityDropDown",
 		"RaidGraphics_RefractionDropDown",
-		"RaidGraphics_SSAODropDown"
+		"RaidGraphics_SSAODropDown",
+		"RaidGraphics_DepthEffectsDropDown",
+		"RaidGraphics_LightingQualityDropDown",
+		"RaidGraphics_OutlineModeDropDown"
 	}
 
 	for i = 1, getn(dropdown) do
@@ -162,6 +167,9 @@ local function LoadSkin()
 
 	local sliders = {
 		"Graphics_Quality",
+		"Graphics_ViewDistanceSlider",
+		"Graphics_EnvironmentalDetailSlider",
+		"Graphics_GroundClutterSlider",
 		"Advanced_UIScaleSlider",
 		"Advanced_MaxFPSSlider",
 		"Advanced_MaxFPSBKSlider",
@@ -178,7 +186,10 @@ local function LoadSkin()
 		"AudioOptionsVoicePanelMusicFade",
 		"AudioOptionsVoicePanelAmbienceFade",
 		"AudioOptionsSoundPanelDialogVolume",
-		"RaidGraphics_Quality"
+		"RaidGraphics_Quality",
+		"RaidGraphics_ViewDistanceSlider",
+		"RaidGraphics_EnvironmentalDetailSlider",
+		"RaidGraphics_GroundClutterSlider"
 	}
 
 	for i = 1, getn(sliders) do
@@ -191,8 +202,6 @@ local function LoadSkin()
 
 	_G["Graphics_Quality"].SetBackdrop = T.dummy
 	_G["RaidGraphics_Quality"].SetBackdrop = T.dummy
-	_G["Graphics_RightQuality"]:StripTextures()
-	_G["RaidGraphics_RightQuality"]:StripTextures()
 
 	LoopbackVUMeter:CreateBackdrop("Overlay")
 	LoopbackVUMeter:SetFrameLevel(LoopbackVUMeter:GetFrameLevel() + 1)

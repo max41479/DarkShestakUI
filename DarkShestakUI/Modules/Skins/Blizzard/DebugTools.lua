@@ -11,7 +11,21 @@ local function LoadSkin()
 	T.SkinCloseButton(ScriptErrorsFrameClose)
 	T.SkinCloseButton(EventTraceFrameCloseButton)
 	EventTraceFrameScrollBG:SetTexture(nil)
-	_G["EventTraceTooltip"]:HookScript("OnShow", function(self) self:SetTemplate("Transparent") end)
+
+	local scroll = EventTraceFrameScroll
+	scroll:GetThumbTexture():SetTexture(nil)
+	scroll.thumbbg = CreateFrame("Frame", nil, scroll)
+	scroll.thumbbg:SetPoint("TOPLEFT", scroll:GetThumbTexture(), "TOPLEFT", 1, 0)
+	scroll.thumbbg:SetPoint("BOTTOMRIGHT", scroll:GetThumbTexture(), "BOTTOMRIGHT", 3, -2)
+	scroll.thumbbg:SetTemplate("Overlay")
+
+	EventTraceTooltip:HookScript("OnShow", function(self)
+		self:SetTemplate("Transparent")
+	end)
+
+	FrameStackTooltip:HookScript("OnShow", function(self)
+		self:SetTemplate("Transparent")
+	end)
 
 	local texs = {
 		"TopLeft",

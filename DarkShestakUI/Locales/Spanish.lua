@@ -90,11 +90,11 @@ L_MISC_SCROLL = "Pergamino"
 L_RAID_UTIL_DISBAND = "Disolver grupo"
 
 -- Zone name
-L_ZONE_WINTERGRASP = "Conquista del Invierno"
 L_ZONE_TOLBARAD = "Tol Barad"
 L_ZONE_TOLBARADPEN = "Península de Tol Barad"
 L_ZONE_ARATHIBASIN = "Cuenca de Arathi"
 L_ZONE_GILNEAS = "La Batalla por Gilneas"
+L_ZONE_ANCIENTDALARAN = "Cráter de Dalaran"
 
 -- WatchFrame Wowhead link
 L_WATCH_WOWHEAD_LINK = "Link de WoWhead"
@@ -152,6 +152,8 @@ L_ERRORFRAME_L = "Click para ver errores."
 -- Bags
 L_BAG_SHOW_BAGS = "Mostrar Bolsas"
 L_BAG_RIGHT_CLICK_SEARCH = "Click derecho para buscar"
+L_BAG_STACK_MENU = "Amontonar"
+L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
 
 -- Grab mail
 L_MAIL_STOPPED = "Sin espacio, inventario lleno."
@@ -177,6 +179,9 @@ L_PANELS_AFK_LCLICK = "Botón izquierdo para retroceder."
 
 -- Cooldowns
 L_COOLDOWNS = "TR: "
+L_COOLDOWNS_COMBATRESS = "CombatRess" -- Needs review
+L_COOLDOWNS_COMBATRESS_REMAINDER = "Combat resurrect: " -- Needs review
+L_COOLDOWNS_NEXTTIME = "Next time: " -- Needs review
 
 -- Autoinvite
 L_INVITE_ENABLE = "Auto Invitar ON: "
@@ -269,6 +274,7 @@ L_STATS_BANDWIDTH = "Ancho de banda:"
 L_STATS_DOWNLOAD = "Descarga:"
 L_STATS_CLEARED_JUNK = "Limpiada la lista de excepciones de basura."
 L_STATS_CLEAR_EXCEPTIONS = "Limpiada la lista de excepciones."
+L_STATS_CURRENCY_RAID = "Raid Seals" -- Need review
 L_STATS_WORLD_MAP = "Clickeando abres el Mapa del Mundo."
 L_STATS_CURRENT_XP = "Actual/Max EXP"
 L_STATS_MEMORY_USAGE = "Blizzard UI Memory Usage:" -- Needs review
@@ -279,7 +285,6 @@ L_STATS_VIEW_NOTES = "Manten pulsada la tecla Alt para ver rangos, notas y notas
 L_STATS_HR = "hr"
 L_STATS_INF = "inf"
 L_STATS_ALREADY_EXCEPTIONS = "ya esta en la lista de excepciones."
-L_STATS_NOT_JUNK = "no es basura."
 L_STATS_ITEMLINK = "enlace del objeto"
 L_STATS_JUNK_EXCEPTIONS = "Excepciones de basura"
 L_STATS_JUNK_LIST = "Lista de basura"
@@ -323,6 +328,7 @@ L_STATS_WATCH_CURRENCY = "Elementos vistos en la pestana de dinero se reflejaran
 L_STATS_WATCH_FACTIONS = "Mirar facciones desde la herramienta de facciones."
 L_STATS_TOOLTIP_TIME_PLAYED = "Cuando estes a nivel max, la descripcion mostrara detalles del tiempo jugado de la cuenta."
 L_STATS_TOOLTIP_EXPERIENCE = "Cuando no estes a nivel max, la descripcion mostrara detalles de la experiencia."
+L_STATS_SEALS = "Seals this week" -- Needs review
 
 -- Slash commands
 L_SLASHCMD_HELP = {

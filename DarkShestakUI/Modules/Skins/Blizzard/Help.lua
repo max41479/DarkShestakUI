@@ -16,15 +16,9 @@ local function LoadSkin()
 
 	local buttons = {
 		"HelpFrameAccountSecurityOpenTicket",
-		"HelpFrameOpenTicketHelpTopIssues",
-		"HelpFrameOpenTicketHelpOpenTicket",
-		"HelpFrameOpenTicketHelpItemRestoration",
 		"HelpFrameKnowledgebaseSearchButton",
 		"HelpFrameKnowledgebaseNavBarHomeButton",
 		"HelpFrameCharacterStuckStuck",
-		"GMChatOpenLog",
-		"HelpFrameTicketSubmit",
-		"HelpFrameTicketCancel",
 		"HelpFrameGM_ResponseNeedMoreHelp",
 		"HelpFrameGM_ResponseCancel",
 		"HelpFrameSubmitSuggestionSubmit",
@@ -47,18 +41,6 @@ local function LoadSkin()
 	HelpFrameHeader:StripTextures(true)
 	HelpFrameHeader:SetFrameLevel(HelpFrameHeader:GetFrameLevel() + 2)
 	HelpFrameKnowledgebaseErrorFrame:SetFrameLevel(HelpFrameKnowledgebaseErrorFrame:GetFrameLevel() + 2)
-
-	HelpFrameTicketScrollFrame:StripTextures()
-	HelpFrameTicketScrollFrame:CreateBackdrop("Overlay")
-	HelpFrameTicketScrollFrame.backdrop:SetPoint("TOPLEFT", -4, 4)
-	HelpFrameTicketScrollFrame.backdrop:SetPoint("BOTTOMRIGHT", 6, -4)
-
-	for i = 1, HelpFrameTicket:GetNumChildren() do
-		local child = select(i, HelpFrameTicket:GetChildren())
-		if not child:GetName() then
-			child:StripTextures()
-		end
-	end
 
 	HelpFrameReportBugScrollFrame:StripTextures()
 	HelpFrameReportBugScrollFrame:CreateBackdrop("Overlay")
@@ -87,6 +69,8 @@ local function LoadSkin()
 	end
 
 	T.SkinScrollBar(HelpFrameKnowledgebaseScrollFrame2ScrollBar)
+	T.SkinScrollBar(HelpFrameReportBugScrollFrameScrollBar)
+	T.SkinScrollBar(HelpFrameSubmitSuggestionScrollFrameScrollBar)
 
 	-- Sub buttons
 	for i = 1, #buttons do
@@ -100,7 +84,7 @@ local function LoadSkin()
 		end
 
 		if t then
-			t:SetTexture(T.color.r, T.color.g, T.color.b, 0.3)
+			t:SetColorTexture(T.color.r, T.color.g, T.color.b, 0.3)
 			t:SetPoint("TOPLEFT", b, 2, -2)
 			t:SetPoint("BOTTOMRIGHT", b, -2, 2)
 		end
@@ -112,11 +96,10 @@ local function LoadSkin()
 		local t = _G["HelpFrameButton"..i.."Selected"]
 
 		b:SkinButton()
-
 		b.text:SetFont(C.media.normal_font, 13)
 
 		if t then
-			t:SetTexture(T.color.r, T.color.g, T.color.b, 0.3)
+			t:SetColorTexture(T.color.r, T.color.g, T.color.b, 0.3)
 			t:SetPoint("TOPLEFT", b, 2, -2)
 			t:SetPoint("BOTTOMRIGHT", b, -2, 2)
 		end
@@ -162,7 +145,6 @@ local function LoadSkin()
 	HelpFrame:CreateBackdrop("Transparent", "Shadow")
 	T.SkinEditBox(HelpFrameKnowledgebaseSearchBox)
 	T.SkinScrollBar(HelpFrameKnowledgebaseScrollFrameScrollBar)
-	T.SkinScrollBar(HelpFrameTicketScrollFrameScrollBar)
 	T.SkinCloseButton(HelpFrameCloseButton, HelpFrame.backdrop)
 	T.SkinCloseButton(HelpFrameKnowledgebaseErrorFrameCloseButton, HelpFrameKnowledgebaseErrorFrame.backdrop)
 

@@ -11,9 +11,9 @@ if C.automation.accept_invite == true then
 			end
 		end
 		for i = 1, select(2, BNGetNumFriends()) do
-			local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
-			if client == "WoW" and isOnline then
-				local _, toonName, _, realmName = BNGetToonInfo(presenceID)
+			local presenceID, _, _, _, _, toonID, client, isOnline = BNGetFriendInfo(i)
+			if client == BNET_CLIENT_WOW and isOnline then
+				local _, toonName, _, realmName = BNGetGameAccountInfo(toonID or presenceID)
 				if name == toonName or name == toonName.."-"..realmName then
 					return true
 				end
@@ -21,7 +21,7 @@ if C.automation.accept_invite == true then
 		end
 		if IsInGuild() then
 			for i = 1, GetNumGuildMembers() do
-				if Ambiguate(GetGuildRosterInfo(i), "guild") == name then
+				if Ambiguate(GetGuildRosterInfo(i), "none") == name then
 					return true
 				end
 			end
@@ -34,7 +34,7 @@ if C.automation.accept_invite == true then
 		if QueueStatusMinimapButton:IsShown() or GetNumGroupMembers() > 0 then return end
 		if CheckFriend(name) then
 			RaidNotice_AddMessage(RaidWarningFrame, L_INFO_INVITE..name, {r = 0.41, g = 0.8, b = 0.94}, 3)
-			print(format("|cffffff00"..L_INFO_INVITE..name.."."))
+			print(format("|cffffff00"..L_INFO_INVITE..name..".|r"))
 			AcceptGroup()
 			for i = 1, STATICPOPUP_NUMDIALOGS do
 				local frame = _G["StaticPopup"..i]
@@ -61,12 +61,13 @@ local autoinvite = CreateFrame("Frame")
 autoinvite:RegisterEvent("CHAT_MSG_WHISPER")
 autoinvite:RegisterEvent("CHAT_MSG_BN_WHISPER")
 autoinvite:SetScript("OnEvent", function(self, event, arg1, arg2, ...)
-	if ((not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and arg1:lower():match(C.misc.invite_keyword)) and SavedOptionsPerChar.AutoInvite == true then
+	if ((not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and arg1:lower():match(C.misc.invite_keyword)) and SavedOptionsPerChar.AutoInvite == true and not QueueStatusMinimapButton:IsShown() then
 		if event == "CHAT_MSG_WHISPER" then
 			InviteUnit(arg2)
 		elseif event == "CHAT_MSG_BN_WHISPER" then
-			local _, toonName, _, realmName = BNGetToonInfo(select(11, ...))
-			InviteUnit(toonName.."-"..realmName)
+			local bnetIDAccount = select(11, ...)
+			local bnetIDGameAccount = select(6, BNGetFriendInfoByID(bnetIDAccount))
+			BNInviteFriend(bnetIDGameAccount)
 		end
 	end
 end)
@@ -74,14 +75,14 @@ end)
 SlashCmdList.AUTOINVITE = function(msg)
 	if msg == "off" then
 		SavedOptionsPerChar.AutoInvite = false
-		print("|cffffff00"..L_INVITE_DISABLE..".")
+		print("|cffffff00"..L_INVITE_DISABLE..".|r")
 	elseif msg == "" then
 		SavedOptionsPerChar.AutoInvite = true
-		print("|cffffff00"..L_INVITE_ENABLE..C.misc.invite_keyword..".")
+		print("|cffffff00"..L_INVITE_ENABLE..C.misc.invite_keyword..".|r")
 		C.misc.invite_keyword = C.misc.invite_keyword
 	else
 		SavedOptionsPerChar.AutoInvite = true
-		print("|cffffff00"..L_INVITE_ENABLE..msg..".")
+		print("|cffffff00"..L_INVITE_ENABLE..msg..".|r")
 		C.misc.invite_keyword = msg
 	end
 end

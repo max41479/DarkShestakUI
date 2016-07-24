@@ -2,12 +2,14 @@ local T, C, L, _ = unpack(select(2, ...))
 if C.misc.already_known ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	Colorizes recipes/mounts/pets that is already known(AlreadyKnown by Villiv)
+--	Colorizes recipes/mounts/pets/toys that is already known(AlreadyKnown by Villiv)
 ----------------------------------------------------------------------------------------
 local color = {r = 0.1, g = 1, b = 0.1}
 local knowns, lines = {}, {}
-local _, _, _, _, glyph, _, recipe = GetAuctionItemClasses()
-local _, _, pet, _, _, mount = GetAuctionItemSubClasses(9)
+local glyph = AUCTION_CATEGORY_GLYPHS
+local recipe = AUCTION_CATEGORY_RECIPES
+local pet = GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, 2)
+local mount = GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, 5)
 local knowables = {[glyph] = true, [recipe] = true, [pet] = true, [mount] = true}
 
 local pattern = ITEM_PET_KNOWN:gsub("%(", "%%(")
@@ -37,14 +39,17 @@ local function IsKnown(itemLink)
 	if speciesID then return C_PetJournal.GetNumCollectedInfo(speciesID) > 0 and true end
 
 	local itemID = itemLink:match("item:(%d+):")
+	if not itemID then return end
 	if knowns[itemID] then return true end
+
+	if PlayerHasToy(itemID) then return true end
 
 	local _, _, _, _, _, itemType, itemSubType = GetItemInfo(itemID)
 	if not (knowables[itemType] or knowables[itemSubType]) then return end
 
 	tooltip:ClearLines()
 	tooltip:SetHyperlink(itemLink)
-	if not Scan(1, tooltip:NumLines()) then return end
+	if not Scan(2, tooltip:NumLines()) then return end
 
 	if itemSubType ~= pet then knowns[itemID] = true end
 	return true

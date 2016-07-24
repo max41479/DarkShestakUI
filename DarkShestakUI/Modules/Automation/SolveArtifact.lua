@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.automation.solve_artifact ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -26,6 +26,9 @@ local fragment = {
 	["676"] = 11,	-- Pandaren
 	["677"] = 12,	-- Mogu
 	["754"] = 10,	-- Mantid
+	["821"] = 14,   -- Draenor Clans
+	["828"] = 15,   -- Ogre
+	["829"] = 13,   -- Arakkoa
 }
 
 local _CURRENCY = string.gsub(string.gsub(CURRENCY_GAINED_MULTIPLE, "%%s", "(.+)"), "%%d", "(.+)")
@@ -42,6 +45,7 @@ frame:SetScript("OnEvent", function(self, event, message)
 
 		local race, _, stone = GetArchaeologyRaceInfo(race)
 		local artifact, _, rare, _, _, stones = GetSelectedArtifactInfo()
+		if not artifact then return end
 
 		for index = 1, math.min(stones, GetItemCount(stone)) do
 			if not ItemAddedToArtifact(index) then

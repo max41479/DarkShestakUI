@@ -117,7 +117,7 @@ local StartTimer = function(name, sID)
 	icon:SetScript("OnUpdate", IconUpdate)
 	icon:SetScript("OnEnter", OnEnter)
 	icon:SetScript("OnLeave", GameTooltip_Hide)
-	CooldownFrame_SetTimer(icon.Cooldown, GetTime(), T.enemy_spells[sID], 1)
+	CooldownFrame_Set(icon.Cooldown, GetTime(), T.enemy_spells[sID], 1)
 	tinsert(icons, icon)
 	table.sort(icons, sortByExpiration)
 	UpdatePositions()
@@ -138,6 +138,13 @@ local OnEvent = function(self, event, ...)
 		for k, v in pairs(icons) do
 			v.endTime = 0
 		end
+	end
+end
+
+for spell in pairs(T.enemy_spells) do
+	local name = GetSpellInfo(spell)
+	if not name then
+		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
 	end
 end
 

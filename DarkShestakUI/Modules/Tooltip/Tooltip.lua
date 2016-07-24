@@ -5,6 +5,8 @@ if C.tooltip.enable ~= true then return end
 --	Based on aTooltip(by ALZA)
 ----------------------------------------------------------------------------------------
 local StoryTooltip = QuestScrollFrame.StoryTooltip
+StoryTooltip:SetFrameLevel(4)
+
 local tooltips = {
 	GameTooltip,
 	ItemRefTooltip,
@@ -14,7 +16,6 @@ local tooltips = {
 	WorldMapCompareTooltip1,
 	WorldMapCompareTooltip2,
 	FriendsTooltip,
-	ConsolidatedBuffsTooltip,
 	ItemRefShoppingTooltip1,
 	ItemRefShoppingTooltip2,
 	AtlasLootTooltip,
@@ -31,10 +32,13 @@ local backdrop = {
 for _, tt in pairs(tooltips) do
 	if not IsAddOnLoaded("Aurora") then
 		tt:SetBackdrop(nil)
+		if tt.BackdropFrame then
+			tt.BackdropFrame:SetBackdrop(nil)
+		end
 		local bg = CreateFrame("Frame", nil, tt)
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT")
-		bg:SetFrameLevel(tt:GetFrameLevel() -1)
+		bg:SetFrameLevel(tt:GetFrameLevel() - 1)
 		bg:SetTemplate("Transparent")
 
 		tt.GetBackdrop = function() return backdrop end
@@ -111,7 +115,7 @@ function GameTooltip_UnitColor(unit)
 		else
 			r, g, b = 1, 1, 1
 		end
-	elseif UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) and not UnitIsTappedByAllThreatList(unit) or UnitIsDead(unit) then
+	elseif UnitIsTapDenied(unit) or UnitIsDead(unit) then
 		r, g, b = 0.6, 0.6, 0.6
 	else
 		local reaction = T.oUF_colors.reaction[UnitReaction(unit, "player")]
@@ -213,6 +217,7 @@ local OnTooltipSetUnit = function(self)
 	local _, faction = UnitFactionGroup(unit)
 	local _, playerFaction = UnitFactionGroup("player")
 	local relationship = UnitRealmRelationship(unit)
+	local UnitPVPName = UnitPVPName
 
 	if level and level == -1 then
 		if classification == "worldboss" then
@@ -227,15 +232,16 @@ local OnTooltipSetUnit = function(self)
 	elseif classification == "elite" then classification = "+"
 	else classification = "" end
 
-	if realm and realm ~= "" then
-		if relationship == LE_REALM_RELATION_COALESCED then
-			name = name..FOREIGN_SERVER_LABEL
-		elseif relationship == LE_REALM_RELATION_VIRTUAL then
-			name = name..INTERACTIVE_SERVER_LABEL
-		end
+
+	if UnitPVPName(unit) and C.tooltip.title then
+		name = UnitPVPName(unit)
 	end
 
-	if not C.tooltip.title and name then _G["GameTooltipTextLeft1"]:SetText(name) end
+	_G["GameTooltipTextLeft1"]:SetText(name)
+	if realm and realm ~= "" and C.tooltip.realm then
+		self:AddLine(FRIENDS_LIST_REALM.."|cffffffff"..realm.."|r")
+	end
+
 
 	if UnitIsPlayer(unit) then
 		if UnitIsAFK(unit) then

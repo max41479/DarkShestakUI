@@ -1,9 +1,9 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.actionbar.enable ~= true then return end
 
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --	Manage others stuff for ActionBars(by Tukz)
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
@@ -58,29 +58,51 @@ vehicle:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 vehicle:SetTemplate("Default")
 vehicle:StyleButton(true)
 vehicle:RegisterForClicks("AnyUp")
-vehicle:SetScript("OnClick", function(self)
+vehicle:SetFrameLevel(3)
+
+hooksecurefunc("MainMenuBarVehicleLeaveButton_Update", function()
+	if CanExitVehicle() then
+		if UnitOnTaxi("player") then
+			vehicle:SetScript("OnClick", function(self)
+				TaxiRequestEarlyLanding()
+				self:LockHighlight()
+			end)
+		else
+			vehicle:SetScript("OnClick", function(self)
+				VehicleExit()
+			end)
+		end
+		vehicle:Show()
+	else
+		vehicle:Hide()
+	end
+end)
+
+hooksecurefunc("PossessBar_UpdateState", function()
+	for i = 1, NUM_POSSESS_SLOTS do
+		local _, name, enabled = GetPossessInfo(i)
+		if enabled then
+			vehicle:SetScript("OnClick", function()
+				CancelUnitBuff("player", name)
+			end)
+			vehicle:Show()
+		else
+			vehicle:Hide()
+		end
+	end
+end)
+
+-- Set tooltip
+vehicle:SetScript("OnEnter", function(self)
 	if UnitOnTaxi("player") then
-		TaxiRequestEarlyLanding()
-		self:GetNormalTexture():SetVertexColor(1, 0, 0)
-		self:EnableMouse(false)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(TAXI_CANCEL, 1, 1, 1)
+		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, 1, 0.8, 0, true)
+		GameTooltip:Show()
+	elseif IsPossessBarVisible() then
+		GameTooltip_AddNewbieTip(self, CANCEL, 1, 1, 1, nil)
 	else
-		VehicleExit()
+		GameTooltip_AddNewbieTip(self, LEAVE_VEHICLE, 1, 1, 1, nil)
 	end
 end)
-vehicle:SetScript("OnEnter", MainMenuBarVehicleLeaveButton_OnEnter)
-vehicle:SetScript("OnLeave", GameTooltip_Hide)
-vehicle:RegisterEvent("PLAYER_ENTERING_WORLD")
-vehicle:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-vehicle:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-vehicle:RegisterEvent("UNIT_ENTERED_VEHICLE")
-vehicle:RegisterEvent("UNIT_EXITED_VEHICLE")
-vehicle:RegisterEvent("VEHICLE_UPDATE")
-vehicle:SetScript("OnEvent", function(self)
-	if CanExitVehicle() and ActionBarController_GetCurrentActionBarState() == LE_ACTIONBAR_STATE_MAIN then
-		self:Show()
-		self:GetNormalTexture():SetVertexColor(1, 1, 1)
-		self:EnableMouse(true)
-	else
-		self:Hide()
-	end
-end)
+vehicle:SetScript("OnLeave", function() GameTooltip:Hide() end)
