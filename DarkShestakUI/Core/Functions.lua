@@ -578,38 +578,8 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		end
 	else
 		local r, g, b
-		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
-			local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
-			if c then
-				r, g, b = c[1], c[2], c[3]
-				health:SetStatusBarColor(r, g, b)
-			else
-				r, g, b = 0.3, 0.7, 0.3
-				health:SetStatusBarColor(r, g, b)
-			end
-		end
-		if unit == "pet" or unit == "vehicle" then
-			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.oUF_colors.class[class])
-			if C.unitframe.own_color == true then
-				health:SetStatusBarColor(unpack(C.unitframe.uf_color))
-				health.bg:SetVertexColor(0.1, 0.1, 0.1)
-			else
-				if b then
-					health:SetStatusBarColor(r, g, b)
-					if health.bg and health.bg.multiplier then
-						local mu = health.bg.multiplier
-						health.bg:SetVertexColor(r * mu, g * mu, b * mu)
-					end
-				end
-			end
-		end
-		if C.unitframe.bar_color_value == true and not UnitIsTapDenied(unit) then
-			if C.unitframe.own_color == true then
-				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
-			else
-				r, g, b = health:GetStatusBarColor()
-			end
+		if C.unitframe.bar_color_value == true and not (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) then
+			r, g, b = unpack(C.unitframe.uf_color)
 			local newr, newg, newb = oUF.ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
 			health:SetStatusBarColor(newr, newg, newb)
 			if health.bg then
