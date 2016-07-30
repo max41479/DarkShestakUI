@@ -392,7 +392,6 @@ function Plates:OnShow()
 	if tonumber(Level) == T.level and not Elite:IsShown() then
 		self.NewPlate.level:SetText("")
 	else
-<<<<<<< HEAD:DarkShestakUI/Modules/Blizzard/Nameplates.lua
 		frame.hp.level:SetPoint("RIGHT", frame.hp, "LEFT", -2, 0)
 	end
 	frame.hp.level:SetTextColor(frame.hp.oldlevel:GetTextColor())
@@ -403,9 +402,6 @@ function Plates:OnShow()
 	else
 		frame.hp.level:SetText(level..(elite and "+" or ""))
 		frame.hp.level:Show()
-=======
-		self.NewPlate.level:SetText(Level)
->>>>>>> f9cd3e24d6f6fae490262d5536366dd1aa87298e:ShestakUI/Modules/Blizzard/Nameplates.lua
 	end
 
 	if C.nameplate.class_icons == true and self.isClass == true then

@@ -33,6 +33,7 @@ local function Shared(self, unit)
 	-- Backdrop for every units
 	self:CreateBackdrop("Default", "Shadow")
 	self:SetFrameStrata("BACKGROUND")
+	self:SetFrameLevel(3)
 
 	-- Health bar
 	self.Health = CreateFrame("StatusBar", self:GetName().."_Health", self)
@@ -106,7 +107,7 @@ local function Shared(self, unit)
 
 	self.Power:CreateBackdrop("Default", "Shadow")
 	self.Power:SetFrameLevel(self.Health:GetFrameLevel() + 2)
-		
+
 	if unit == "player" then
 		self.Power:SetPoint("TOPLEFT", self.Health, "BOTTOM", -5, 1)
 		self.Power:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", -5, 1)

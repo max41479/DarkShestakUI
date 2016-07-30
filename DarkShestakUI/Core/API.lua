@@ -61,7 +61,7 @@ local function CreateShadow(f)
     if f.shadow or C.skins.shadow ~= true then return end
 
     local shadow = CreateFrame("Frame", nil, f)
-    shadow:SetFrameLevel(1)
+    shadow:SetFrameLevel(f:GetFrameLevel())
     shadow:SetFrameStrata(f:GetFrameStrata())
     shadow:SetPoint("TOPLEFT", -3, 3)
     shadow:SetPoint("BOTTOMLEFT", -3, -3)
