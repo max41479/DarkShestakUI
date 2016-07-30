@@ -135,6 +135,7 @@ local function LoadSkin()
 	AuctionsItemButton:StripTextures()
 	AuctionsItemButton:StyleButton(true)
 	AuctionsItemButton:SetTemplate("Default")
+	AuctionsItemButton.IconBorder:Kill()
 
 	AuctionsItemButton:HookScript("OnEvent", function(self, event, ...)
 		if event == "NEW_AUCTION_UPDATE" and self:GetNormalTexture() then
@@ -225,6 +226,7 @@ local function LoadSkin()
 			icon:StyleButton()
 			icon:CreateBackdrop("Default")
 			icon.backdrop:SetAllPoints()
+			icon.IconBorder:Kill()
 		end
 
 		if button then
@@ -251,6 +253,7 @@ local function LoadSkin()
 		icon:StyleButton()
 		icon:CreateBackdrop("Default")
 		icon.backdrop:SetAllPoints()
+		icon.IconBorder:Kill()
 
 		button:StripTextures()
 		button:StyleButton()
@@ -274,6 +277,7 @@ local function LoadSkin()
 		icon:StyleButton()
 		icon:CreateBackdrop("Default")
 		icon.backdrop:SetAllPoints()
+		icon.IconBorder:Kill()
 
 		button:StripTextures()
 		button:StyleButton()
@@ -419,8 +423,7 @@ local function LoadSkin()
 		"Atr_ShpList_Options_Frame",
 		"AuctionatorResetsFrame",
 		"Atr_ScanningOptionsFrame",
-		"AuctionatorDescriptionFrame",
-		"Atr_LUA_Error"
+		"AuctionatorDescriptionFrame"
 	}
 
 	for i = 1, getn(frames) do
@@ -453,7 +456,6 @@ local function LoadSkin()
 	Atr_Buy_Confirm_Frame:SetTemplate("Default")
 	Atr_CheckActives_Frame:SetTemplate("Transparent")
 	Atr_Error_Frame:SetTemplate("Transparent")
-	Atr_LUA_Error:SetTemplate("Transparent")
 
 	Atr_HeadingsBar:CreateBackdrop("Overlay")
 	Atr_HeadingsBar.backdrop:SetPoint("TOPLEFT", 0, -25)
@@ -513,15 +515,6 @@ local function LoadSkin()
 			Atr_SellControls_Tex:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 		end
 	end)
-
-	T.SkinCloseButton(Atr_LUA_ErrorClose)
-
-	for i = 1, Atr_LUA_Error:GetNumChildren() do
-		local child = select(i, Atr_LUA_Error:GetChildren())
-		if child:GetObjectType() == "Button" and child:GetText() then
-			child:SkinButton()
-		end
-	end
 end
 
 T.SkinFuncs["Blizzard_AuctionUI"] = LoadSkin
