@@ -27,8 +27,6 @@ T.MoverFrames = {
 	ChatBar,
 	oUF_Player_Castbar,
 	oUF_Target_Castbar,
-	oUF_Player_Portrait,
-	oUF_Target_Portrait,
 	ExtraButtonAnchor,
 	P_BUFF_ICON_Anchor,
 	P_PROC_ICON_Anchor,

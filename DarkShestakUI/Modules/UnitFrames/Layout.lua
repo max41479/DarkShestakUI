@@ -703,8 +703,6 @@ local function Shared(self, unit)
 			self.Portrait:SetPoint("TOPLEFT", self, "TOPLEFT", -1, 0)
 			self.Portrait:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -1, 1)
 			self.Portrait:SetAlpha(0.1)
-			self.Portrait.ClearAllPoints = T.dummy
-			self.Portrait.SetPoint = T.dummy
 		end
 
 		if unit == "player" then
