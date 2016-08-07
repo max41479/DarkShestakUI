@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.nameplate.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -1206,7 +1206,7 @@ if Config.classresource_show then
 
 	Resourcebar:SetScript("OnEvent", function(self, event, unit, powerType)
 		if event == "PLAYER_TALENT_UPDATE" then
-			if multicheck(myClass, "WARLOCK", "PALADIN", "MONK", "MAGE", "ROGUE", "DRUID") and not RequireSpec or RequireSpec == GetSpecialization() then -- 啟用
+			if multicheck(myClass, "WARLOCK", "PALADIN", "MONK", "MAGE", "ROGUE", "DRUID") and not RequireSpec or RequireSpec == GetSpecialization() then
 				self:RegisterEvent("UNIT_POWER_FREQUENT")
 				self:RegisterEvent("PLAYER_ENTERING_WORLD")
 				self:RegisterEvent("NAME_PLATE_UNIT_ADDED")
@@ -1256,7 +1256,7 @@ if Config.classresource_show then
 						end
 						self.maxbar = max
 					end
-				else -- 連擊點
+				else
 					if max <= 6 then
 						for i = 1, max do
 							if(i <= cur) then
@@ -1338,9 +1338,9 @@ if Config.classresource_show then
 					self:ClearAllPoints()
 					self:Show()
 					if Config.numberstyle then
-						self:SetPoint("TOP", namePlatePlayer.UnitFrame.name, "TOP", 0, 0) -- 玩家數字
+						self:SetPoint("TOP", namePlatePlayer.UnitFrame.name, "TOP", 0, 0)
 					else
-						self:SetPoint("BOTTOM", namePlatePlayer.UnitFrame.healthBar, "TOP", 0, 3) -- 玩家條
+						self:SetPoint("BOTTOM", namePlatePlayer.UnitFrame.healthBar, "TOP", 0, 3)
 					end
 				end
 			elseif event == "NAME_PLATE_UNIT_REMOVED" and UnitIsUnit(unit, "player") then
@@ -1352,9 +1352,9 @@ if Config.classresource_show then
 				self:SetParent(namePlateTarget)
 				self:ClearAllPoints()
 				if Config.numberstyle then
-					self:SetPoint("TOP", namePlateTarget.UnitFrame.name, "BOTTOM", 0, -2) -- 目標數字
+					self:SetPoint("TOP", namePlateTarget.UnitFrame.name, "BOTTOM", 0, -2)
 				else
-					self:SetPoint("TOP", namePlateTarget.UnitFrame.healthBar, "BOTTOM", 0, -2) -- 目標條
+					self:SetPoint("TOP", namePlateTarget.UnitFrame.healthBar, "BOTTOM", 0, -2)
 				end
 				self:Show()
 			else
@@ -1437,7 +1437,9 @@ local function UpdateHealth(unitFrame)
 	local perc_text = string.format("%d%%", math.floor(perc * 100))
 
 	unitFrame.healthBar:SetValue(perc)
+	if C.nameplate.health_value == true then
 	unitFrame.healthBar.value:SetText(perc_text)
+	end
 
 	if UnitIsPlayer(unit) then
 		if perc <= 0.5 and perc >= 0.2 then
@@ -1605,29 +1607,33 @@ local function UpdateAll(unitFrame)
 
 		if UnitIsUnit("player", unitFrame.displayedUnit) then
 			unitFrame.castBar:UnregisterAllEvents()
-			unitFrame.healthBar.value:Hide()
+			if C.nameplate.health_value == true then
+				unitFrame.healthBar.value:Hide()
+			end
 		else
-			unitFrame.healthBar.value:Show()
+			if C.nameplate.health_value == true then
+				unitFrame.healthBar.value:Show()
+			end
 		end
 	end
 end
 
 local function NamePlate_OnEvent(self, event, ...)
 	local arg1, arg2, arg3, arg4 = ...
-	if ( event == "PLAYER_TARGET_CHANGED" ) then
+	if event == "PLAYER_TARGET_CHANGED" then
 		UpdateName(self)
-	elseif ( event == "PLAYER_ENTERING_WORLD" ) then
+	elseif event == "PLAYER_ENTERING_WORLD" then
 		UpdateAll(self)
-	elseif ( arg1 == self.unit or arg1 == self.displayedUnit ) then
-		if ( event == "UNIT_HEALTH_FREQUENT" ) then
+	elseif arg1 == self.unit or arg1 == self.displayedUnit then
+		if event == "UNIT_HEALTH_FREQUENT" then
 			UpdateHealth(self)
-		elseif ( event == "UNIT_AURA" ) then
+		elseif event == "UNIT_AURA" then
 			UpdateBuffs(self)
-		elseif ( event == "UNIT_THREAT_LIST_UPDATE" ) then
+		elseif event == "UNIT_THREAT_LIST_UPDATE" then
 			UpdateHealthColor(self)
-		elseif ( event == "UNIT_NAME_UPDATE" ) then
+		elseif event == "UNIT_NAME_UPDATE" then
 			UpdateName(self)
-		elseif ( event == "UNIT_ENTERED_VEHICLE" or event == "UNIT_EXITED_VEHICLE" or event == "UNIT_PET" ) then
+		elseif event == "UNIT_ENTERED_VEHICLE" or event == "UNIT_EXITED_VEHICLE" or event == "UNIT_PET" then
 			UpdateAll(self)
 		end
 	end
@@ -1831,13 +1837,13 @@ local function OnNamePlateCreated(namePlate)
 	namePlate.UnitFrame.RaidTargetFrame.RaidTargetIcon:SetAllPoints()
 	namePlate.UnitFrame.RaidTargetFrame.RaidTargetIcon:Hide()
 
-	-- if C.nameplate.track_auras == true then
+	if C.nameplate.track_auras == true then
 		namePlate.UnitFrame.icons = CreateFrame("Frame", nil, namePlate.UnitFrame)
 		namePlate.UnitFrame.icons:SetPoint("BOTTOMRIGHT", namePlate.UnitFrame.healthBar, "TOPRIGHT", 0, C.font.nameplates_font_size + 7)
 		namePlate.UnitFrame.icons:SetWidth(20 + C.nameplate.width)
 		namePlate.UnitFrame.icons:SetHeight(C.nameplate.auras_size)
 		namePlate.UnitFrame.icons:SetFrameLevel(namePlate.UnitFrame:GetFrameLevel() + 2)
-	-- end
+	end
 
 	if C.nameplate.healer_icon == true then
 		namePlate.UnitFrame.HPHeal = namePlate.UnitFrame.healthBar:CreateFontString(nil, "OVERLAY")
@@ -1858,9 +1864,6 @@ local function OnNamePlateAdded(unit)
 	local unitFrame = namePlate.UnitFrame
 	SetUnit(unitFrame, unit)
 	UpdateAll(unitFrame)
-
-	-- Check this
-	NamePlateDriverMixin:SetupClassNameplateBars();
 end
 
 local function OnNamePlateRemoved(unit)
