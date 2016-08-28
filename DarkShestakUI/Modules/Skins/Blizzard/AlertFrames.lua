@@ -185,6 +185,7 @@ local function LoadSkin()
 			frame:SetFrameLevel(3)
 			frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -6)
 			frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -7, 6)
+		end
 
 		-- Background
 		for i = 1, frame:GetNumRegions() do
