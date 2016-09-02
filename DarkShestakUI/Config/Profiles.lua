@@ -150,7 +150,7 @@ end
 ----------------------------------------------------------------------------------------
 if (T.name == "Занштек" or T.name == "Гранн" or T.name == "Тёми" or T.name == "Палтасар" or T.name == "Ллевалалуз"
 or T.name == "Сиамад" or T.name == "Квилинир" or T.name == "Нариэтта" or T.name == "Белонри")
-and T.realm == "Ясеневый лес" then 
+and T.realm == "Ясеневый лес" then
 	C["position"].pulse_cooldown = {"CENTER", UIParent, "CENTER", 0, 200}
 	C["position"].auto_button = {"BOTTOMLEFT", "oUF_Player", "TOPRIGHT", 33, 83}
 	C["position"].extra_button = {"CENTER", UIParent, "CENTER", -74, -12}
