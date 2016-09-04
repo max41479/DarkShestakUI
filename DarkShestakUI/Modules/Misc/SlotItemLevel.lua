@@ -52,7 +52,6 @@ local timewarped = {
 	["656"] = 675, -- Warforged Dungeon drops
 }
 
-local itemLevelCache = {}
 local itemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 local tooltipLines = { --These are the lines we wish to scan
 	"ShestakUI_ItemScanningTooltipTextLeft2",
@@ -68,26 +67,17 @@ local function GetItemLevel(itemLink, quality)
 		return
 	end
 
-	if not itemLevelCache[itemLink] then
-		tooltip:ClearLines()
-		tooltip:SetHyperlink(itemLink)
+	tooltip:ClearLines()
+	tooltip:SetHyperlink(itemLink)
 
-		local text, itemLevel
-		for index = 1, #tooltipLines do
-			text = _G[tooltipLines[index]]:GetText()
+	local text, itemLevel
+	for index = 1, #tooltipLines do
+		text = _G[tooltipLines[index]]:GetText()
 
-			if text then
-				itemLevel = tonumber(string.match(text, itemLevelPattern))
-
-				if itemLevel and quality ~= 6 then
-					itemLevelCache[itemLink] = itemLevel
-					return itemLevel
-				elseif itemLevel then
-					return itemLevel
-				end
-			end
+		if text then
+			itemLevel = tonumber(string.match(text, itemLevelPattern))
+			return itemLevel
 		end
-		itemLevelCache[itemLink] = 0 --Cache items that don't have an item level so we don't loop over them again and again
 	end
 
 	return itemLevelCache[itemLink]
