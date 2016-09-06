@@ -187,6 +187,36 @@ local timewarped = {
 	["656"] = 675, -- Warforged Dungeon drops
 }
 
+local itemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+local tooltipLines = { --These are the lines we wish to scan
+	"ShestakUI_ItemScanningTooltipTextLeft2",
+	"ShestakUI_ItemScanningTooltipTextLeft3",
+	"ShestakUI_ItemScanningTooltipTextLeft4",
+}
+local tooltip = CreateFrame("GameTooltip", "ShestakUI_ItemScanningTooltip", UIParent, "GameTooltipTemplate")
+tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+
+--Scan tooltip for item level information and cache the value (cache except artifact)
+local function GetItemLevel(itemLink)
+	if not itemLink or not GetItemInfo(itemLink) then
+		return
+	end
+
+	tooltip:ClearLines()
+	tooltip:SetHyperlink(itemLink)
+
+	local text, itemLevel
+	for index = 1, #tooltipLines do
+		text = _G[tooltipLines[index]]:GetText()
+
+		if text then
+			itemLevel = tonumber(string.match(text, itemLevelPattern))
+			return itemLevel
+		end
+	end
+
+end
+
 function Stuffing:SlotUpdate(b)
 	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
 	local clink = GetContainerItemLink(b.bag, b.slot)
@@ -229,16 +259,22 @@ function Stuffing:SlotUpdate(b)
 					if numBonusIDs == 1 then
 						local bid1, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):")
 						if legionUpgrades[bid1] == nil then
-							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
+							b.itemlevel = GetItemLevel(clink)
+							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
+							--print(clink)
+							--local printable = gsub(clink, "\124", "\124\124");
+							--ChatFrame1:AddMessage("Itemlink: \"" .. printable .. "\"");
 						else
 							b.itemlevel = legionUpgrades[bid1] + (levelLootedAt - 100) * 10
 						end
 					elseif numBonusIDs == 2 then
 						local bid1, bid2, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):(%d+):")
 						if legionUpgrades[bid1] == nil then
-							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
+							b.itemlevel = GetItemLevel(clink)
+							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
 						elseif legionUpgrades[bid2] == nil then
-							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. clink)
+							b.itemlevel = GetItemLevel(clink)
+							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. clink)
 						else
 							if legionUpgrades[bid1] > legionUpgrades[bid2] then
 								b.itemlevel = legionUpgrades[bid1] + (levelLootedAt - 100) * 10
@@ -247,6 +283,11 @@ function Stuffing:SlotUpdate(b)
 							end
 						end
 					end
+				end
+
+				local artifact = tonumber(strmatch(clink, ".+:(256):"))
+				if artifact then
+					b.itemlevel = GetItemLevel(clink) or b.itemlevel
 				end
 
 				b.frame.text:SetText(b.itemlevel)
