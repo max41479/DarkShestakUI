@@ -162,6 +162,9 @@ local function UnitGear(unit)
 				else
 					local _, _, quality, level, _, _, _, _, slot = GetItemInfo(itemLink)
 
+					if level == nil then
+						level = 0
+					end
 					if (not quality) or (not level) then
 						delay = true
 					else
@@ -189,7 +192,7 @@ local function UnitGear(unit)
 								if numBonusIDs == 1 then
 									local bid1, levelLootedAt = strmatch(itemLink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):")
 									if legionUpgrades[bid1] == nil then
-										level = GetItemLevel(itemLink)
+										level = GetItemLevel(itemLink) or level
 										--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. itemLink)
 										--print(itemLink)
 										--local printable = gsub(itemLink, "\124", "\124\124");
@@ -200,10 +203,10 @@ local function UnitGear(unit)
 								elseif numBonusIDs == 2 then
 									local bid1, bid2, levelLootedAt = strmatch(itemLink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):(%d+):")
 									if legionUpgrades[bid1] == nil then
-										level = GetItemLevel(itemLink)
+										level = GetItemLevel(itemLink) or level
 										--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. itemLink)
 									elseif legionUpgrades[bid2] == nil then
-										level = GetItemLevel(itemLink)
+										level = GetItemLevel(itemLink) or level
 										--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. itemLink)
 									else
 										if legionUpgrades[bid1] > legionUpgrades[bid2] then

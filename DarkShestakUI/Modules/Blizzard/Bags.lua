@@ -259,7 +259,7 @@ function Stuffing:SlotUpdate(b)
 					if numBonusIDs == 1 then
 						local bid1, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):")
 						if legionUpgrades[bid1] == nil then
-							b.itemlevel = GetItemLevel(clink)
+							b.itemlevel = GetItemLevel(clink) or b.itemlevel
 							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
 							--print(clink)
 							--local printable = gsub(clink, "\124", "\124\124");
@@ -270,10 +270,10 @@ function Stuffing:SlotUpdate(b)
 					elseif numBonusIDs == 2 then
 						local bid1, bid2, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):(%d+):")
 						if legionUpgrades[bid1] == nil then
-							b.itemlevel = GetItemLevel(clink)
+							b.itemlevel = GetItemLevel(clink) or b.itemlevel
 							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
 						elseif legionUpgrades[bid2] == nil then
-							b.itemlevel = GetItemLevel(clink)
+							b.itemlevel = GetItemLevel(clink) or b.itemlevel
 							--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. clink)
 						else
 							if legionUpgrades[bid1] > legionUpgrades[bid2] then

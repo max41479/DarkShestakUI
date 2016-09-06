@@ -141,7 +141,7 @@ local function UpdateButtonsText(frame)
 							if numBonusIDs == 1 then
 								local bid1, levelLootedAt = strmatch(itemLink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):")
 								if legionUpgrades[bid1] == nil then
-									level = GetItemLevel(itemLink)
+									level = GetItemLevel(itemLink) or level
 									--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. itemLink)
 									--print(itemLink)
 									--local printable = gsub(itemLink, "\124", "\124\124");
@@ -152,10 +152,10 @@ local function UpdateButtonsText(frame)
 							elseif numBonusIDs == 2 then
 								local bid1, bid2, levelLootedAt = strmatch(itemLink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):(%d+):")
 								if legionUpgrades[bid1] == nil then
-									level = GetItemLevel(itemLink)
+									level = GetItemLevel(itemLink) or level
 									--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. itemLink)
 								elseif legionUpgrades[bid2] == nil then
-									level = GetItemLevel(itemLink)
+									level = GetItemLevel(itemLink) or level
 									--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. itemLink)
 								else
 									if legionUpgrades[bid1] > legionUpgrades[bid2] then
