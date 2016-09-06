@@ -150,6 +150,11 @@ local upgrades = {
 	["507"] = 24, ["530"] = 5, ["531"] = 10, ["535"] = 15, ["536"] = 30, ["537"] = 45
 }
 
+local legionUpgrades = {
+	["664"] = 689, ["767"] = 685, ["768"] = 693, ["1735"] = 705, ["1736"] = 709, ["1738"] = 709,
+	["1739"] = 703, ["1741"] = 713, ["1792"] = 699, ["1793"] = 703, ["1794"] = 695, ["1795"] = 700,
+}
+
 local function BOALevel(level, id)
 	if level > 97 then
 		if id == 133585 or id == 133595 or id == 133596 or id == 133597 or id == 133598 then
@@ -217,6 +222,31 @@ function Stuffing:SlotUpdate(b)
 				local uid = strmatch(clink, ".+:(%d+)")
 				if upgrades[uid] then
 					b.itemlevel = b.itemlevel + upgrades[uid]
+				end
+
+				local numBonusIDs = tonumber(strmatch(clink, ".+:%d+:512:%d*:(%d+):"))
+				if numBonusIDs then
+					if numBonusIDs == 1 then
+						local bid1, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):")
+						if legionUpgrades[bid1] == nil then
+							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
+						else
+							b.itemlevel = legionUpgrades[bid1] + (levelLootedAt - 100) * 10
+						end
+					elseif numBonusIDs == 2 then
+						local bid1, bid2, levelLootedAt = strmatch(clink, ".+:%d+:512:%d*:%d+:(%d+):(%d+):(%d+):")
+						if legionUpgrades[bid1] == nil then
+							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. clink)
+						elseif legionUpgrades[bid2] == nil then
+							print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid2 .. ". Item: " .. clink)
+						else
+							if legionUpgrades[bid1] > legionUpgrades[bid2] then
+								b.itemlevel = legionUpgrades[bid1] + (levelLootedAt - 100) * 10
+							else
+								b.itemlevel = legionUpgrades[bid2] + (levelLootedAt - 100) * 10
+							end
+						end
+					end
 				end
 
 				b.frame.text:SetText(b.itemlevel)
