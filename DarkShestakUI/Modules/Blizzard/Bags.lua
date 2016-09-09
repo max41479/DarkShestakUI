@@ -293,8 +293,7 @@ function Stuffing:SlotUpdate(b)
 					end
 				end
 
-				local artifact = tonumber(strmatch(clink, ".+:(256):"))
-				if artifact then
+				if quality == 6 then
 					b.itemlevel = GetItemLevel(clink) or b.itemlevel
 				end
 
