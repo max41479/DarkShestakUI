@@ -126,48 +126,56 @@ end
 T.SkinFuncs = {}
 T.SkinFuncs["DarkShestakUI"] = {}
 
-function T.SkinScrollBar(frame)
-	if _G[frame:GetName().."BG"] then
-		_G[frame:GetName().."BG"]:SetTexture(nil)
-	end
-	if _G[frame:GetName().."Track"] then
-		_G[frame:GetName().."Track"]:SetTexture(nil)
-	end
-	if _G[frame:GetName().."Top"] then
-		_G[frame:GetName().."Top"]:SetTexture(nil)
-	end
-	if _G[frame:GetName().."Bottom"] then
-		_G[frame:GetName().."Bottom"]:SetTexture(nil)
-	end
-	if _G[frame:GetName().."Middle"] then
-		_G[frame:GetName().."Middle"]:SetTexture(nil)
+function T.SkinScrollBar(frame, parent)
+	if frame:GetName() then
+		if _G[frame:GetName().."BG"] then
+			_G[frame:GetName().."BG"]:SetTexture(nil)
+		end
+		if _G[frame:GetName().."Track"] then
+			_G[frame:GetName().."Track"]:SetTexture(nil)
+		end
+		if _G[frame:GetName().."Top"] then
+			_G[frame:GetName().."Top"]:SetTexture(nil)
+		end
+		if _G[frame:GetName().."Bottom"] then
+			_G[frame:GetName().."Bottom"]:SetTexture(nil)
+		end
+		if _G[frame:GetName().."Middle"] then
+			_G[frame:GetName().."Middle"]:SetTexture(nil)
+		end
+	else
+		if frame.Background then frame.Background:SetTexture(nil) end
+		if frame.trackBG then frame.trackBG:SetTexture(nil) end
+		if frame.Middle then frame.Middle:SetTexture(nil) end
+		if frame.Top then frame.Top:SetTexture(nil) end
+		if frame.Bottom then frame.Bottom:SetTexture(nil) end
+		if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
+		if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
+		if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
 	end
 
-	if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
-		_G[frame:GetName().."ScrollUpButton"]:StripTextures()
-		if not _G[frame:GetName().."ScrollUpButton"].icon then
-			T.SkinNextPrevButton(_G[frame:GetName().."ScrollUpButton"])
-			_G[frame:GetName().."ScrollUpButton"]:SetSize(_G[frame:GetName().."ScrollUpButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollUpButton"]:GetHeight() + 7)
-			scrolldn = false
+	local UpButton = frame.ScrollUpButton or frame.UpButton or _G[(frame:GetName() or parent).."ScrollUpButton"]
+	local DownButton = frame.ScrollDownButton or frame.DownButton or _G[(frame:GetName() or parent).."ScrollDownButton"]
+	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frame:GetName().."ThumbTexture"]
+
+	if UpButton and DownButton then
+		if not UpButton.icon then
+			T.SkinNextPrevButton(UpButton, nil, "Up")
+			UpButton:SetSize(UpButton:GetWidth() + 7, UpButton:GetHeight() + 7)
 		end
 
-		_G[frame:GetName().."ScrollDownButton"]:StripTextures()
-		if not _G[frame:GetName().."ScrollDownButton"].icon then
-			T.SkinNextPrevButton(_G[frame:GetName().."ScrollDownButton"])
-			_G[frame:GetName().."ScrollDownButton"]:SetSize(_G[frame:GetName().."ScrollDownButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollDownButton"]:GetHeight() + 7)
-			scrolldn = true
+		if not DownButton.icon then
+			T.SkinNextPrevButton(DownButton, nil, "Down")
+			DownButton:SetSize(DownButton:GetWidth() + 7, DownButton:GetHeight() + 7)
 		end
 
-		if frame:GetThumbTexture() then
-			frame:GetThumbTexture():SetTexture(nil)
+		if ThumbTexture then
+			ThumbTexture:SetTexture(nil)
 			if not frame.thumbbg then
 				frame.thumbbg = CreateFrame("Frame", nil, frame)
-				frame.thumbbg:SetPoint("TOPLEFT", frame:GetThumbTexture(), "TOPLEFT", 0, -3)
-				frame.thumbbg:SetPoint("BOTTOMRIGHT", frame:GetThumbTexture(), "BOTTOMRIGHT", 0, 3)
+				frame.thumbbg:SetPoint("TOPLEFT", ThumbTexture, "TOPLEFT", 0, -3)
+				frame.thumbbg:SetPoint("BOTTOMRIGHT", ThumbTexture, "BOTTOMRIGHT", 0, 3)
 				frame.thumbbg:SetTemplate("Overlay")
-				if frame.trackbg then
-					frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel())
-				end
 
 				frame:HookScript("OnShow", function()
 					local _, maxValue = frame:GetMinMaxValues()
@@ -237,11 +245,11 @@ function T.SkinTab(tab, bg)
 	end
 end
 
-function T.SkinNextPrevButton(btn, left)
+function T.SkinNextPrevButton(btn, left, scroll)
 	local normal, pushed, disabled
 	local isPrevButton = btn:GetName() and (string.find(btn:GetName(), "Left") or string.find(btn:GetName(), "Prev") or string.find(btn:GetName(), "Decrement") or string.find(btn:GetName(), "Back")) or left
-	local isScrollUpButton = btn:GetName() and string.find(btn:GetName(), "ScrollUp")
-	local isScrollDownButton = btn:GetName() and string.find(btn:GetName(), "ScrollDown")
+	local isScrollUpButton = btn:GetName() and string.find(btn:GetName(), "ScrollUp") or scroll == "Up"
+	local isScrollDownButton = btn:GetName() and string.find(btn:GetName(), "ScrollDown") or scroll == "Down"
 
 	if btn:GetNormalTexture() then
 		normal = btn:GetNormalTexture():GetTexture()
@@ -256,6 +264,12 @@ function T.SkinNextPrevButton(btn, left)
 	end
 
 	btn:StripTextures()
+
+	if scroll == "Up" or scroll == "Down" then
+		normal = nil
+		pushed = nil
+		disabled = nil
+	end
 
 	if not normal then
 		if isPrevButton then
@@ -473,7 +487,7 @@ function T.HandleIcon(icon, parent)
 	parent.backdrop:SetPoint("BOTTOMRIGHT", icon, 2, -2)
 
 	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	icon:SetParent(parent.backdrop)
+	icon:SetParent(parent)
 end
 
 function T.SkinSlider(f)
@@ -856,7 +870,7 @@ T.UpdateManaLevel = function(self, elapsed)
 			self.ManaLevel:SetText()
 			StopFlash(self)
 		end
-	elseif T.class ~= "DRUID" then
+	elseif T.class ~= "DRUID" and T.class ~= "PRIEST" and T.class ~= "SHAMAN" then
 		self.ManaLevel:SetText()
 		StopFlash(self)
 	end

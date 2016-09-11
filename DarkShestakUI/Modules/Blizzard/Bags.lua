@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.bag.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -188,7 +188,7 @@ local timewarped = {
 }
 
 local itemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-local tooltipLines = { --These are the lines we wish to scan
+local tooltipLines = {
 	"ShestakUI_ItemScanningTooltipTextLeft2",
 	"ShestakUI_ItemScanningTooltipTextLeft3",
 	"ShestakUI_ItemScanningTooltipTextLeft4",
@@ -196,7 +196,7 @@ local tooltipLines = { --These are the lines we wish to scan
 local tooltip = CreateFrame("GameTooltip", "ShestakUI_ItemScanningTooltip", UIParent, "GameTooltipTemplate")
 tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 
---Scan tooltip for item level information and cache the value (cache except artifact)
+-- Scan tooltip for item level information
 local function GetItemLevel(itemLink)
 	if not itemLink or not GetItemInfo(itemLink) then
 		return
@@ -216,7 +216,6 @@ local function GetItemLevel(itemLink)
 			end
 		end
 	end
-
 end
 
 function Stuffing:SlotUpdate(b)
@@ -1427,8 +1426,8 @@ function Stuffing:SortBags()
 				else
 					gridSlot = gridSlot - GetContainerNumSlots(bagSlotNumber)
 				end
-	        end
-	    end
+			end
+		end
 	end
 
 	self:SetScript("OnUpdate", Stuffing.SortOnUpdate)
@@ -1580,7 +1579,7 @@ function Stuffing.Menu(self, level)
 	UIDropDownMenu_AddButton(info, level)
 end
 
- -- Kill Blizzard functions
- LootWonAlertFrame_OnClick = T.dummy
- LootUpgradeFrame_OnClick = T.dummy
- StorePurchaseAlertFrame_OnClick = T.dummy
+-- Kill Blizzard functions
+LootWonAlertFrame_OnClick = T.dummy
+LootUpgradeFrame_OnClick = T.dummy
+StorePurchaseAlertFrame_OnClick = T.dummy

@@ -58,7 +58,7 @@ local timewarped = {
 }
 
 local itemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-local tooltipLines = { --These are the lines we wish to scan
+local tooltipLines = {
 	"ShestakUI_ItemScanningTooltipTextLeft2",
 	"ShestakUI_ItemScanningTooltipTextLeft3",
 	"ShestakUI_ItemScanningTooltipTextLeft4",
@@ -66,7 +66,7 @@ local tooltipLines = { --These are the lines we wish to scan
 local tooltip = CreateFrame("GameTooltip", "ShestakUI_ItemScanningTooltip", UIParent, "GameTooltipTemplate")
 tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 
---Scan tooltip for item level information and cache the value (cache except artifact)
+-- Scan tooltip for item level information
 local function GetItemLevel(itemLink)
 	if not itemLink or not GetItemInfo(itemLink) then
 		return
@@ -86,7 +86,6 @@ local function GetItemLevel(itemLink)
 			end
 		end
 	end
-
 end
 
 local function CreateButtonsText(frame)
@@ -145,7 +144,7 @@ local function UpdateButtonsText(frame)
 								if levelLootedAt == "110" then
 									levelLootedAt = levelLootedAt - 1
 								end
-									if legionUpgrades[bid1] == nil then
+								if legionUpgrades[bid1] == nil then
 									level = GetItemLevel(itemLink) or level
 									--print("|cffff0000WARNING: Unkhown item bonus ID: " .. bid1 .. ". Item: " .. itemLink)
 									--print(itemLink)
