@@ -140,7 +140,7 @@ local function UpdateButtonsText(frame)
 						local numBonusIDs = tonumber(strmatch(itemLink, ".+:%d+:512:%d*:(%d+).+"))
 						if numBonusIDs then
 							if GetDetailedItemLevelInfo then
-								local effectiveLevel, previewLevel, origLevel = GetDetailedItemLevelInfo(clink)
+								local effectiveLevel, previewLevel, origLevel = GetDetailedItemLevelInfo(itemLink)
 								level = effectiveLevel or level
 							end
 						end
