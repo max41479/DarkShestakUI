@@ -330,7 +330,7 @@ L_GUI_AURA_DEBUFF_COLOR_TYPE = "Цвета краёв отрицательных
 L_GUI_AURA_CAST_BY = "Отображать имя того, кто применил эффект"
 
 -- Filger
-L_GUI_FILGER = "Filger"
+L_GUI_FILGER = "Таймеры (Filger)"
 L_GUI_FILGER_ENABLE = "Включить Filger"
 L_GUI_FILGER_TEST_MODE = "Тестирование иконок"
 L_GUI_FILGER_MAX_TEST_ICON = "Количество иконок для теста"

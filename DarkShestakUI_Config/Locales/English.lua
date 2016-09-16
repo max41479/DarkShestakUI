@@ -327,7 +327,7 @@ L_GUI_AURA_DEBUFF_COLOR_TYPE = "Color debuff by type"
 L_GUI_AURA_CAST_BY = "Show who cast a buff/debuff in its tooltip"
 
 -- Filger
-L_GUI_FILGER = "Filger"
+L_GUI_FILGER = "Timers (Filger)"
 L_GUI_FILGER_ENABLE = "Enable Filger"
 L_GUI_FILGER_TEST_MODE = "Test icon mode"
 L_GUI_FILGER_MAX_TEST_ICON = "The number of icons to the test"
